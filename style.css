@@ -313,7 +313,7 @@ span {
     height: 100%;
     object-fit: cover;
     object-position: 50% 90%; 
-    transform: translate(8%, -7%) scale(2.6);
+    transform: translate(12%, -10%) scale(2.6);
     transform-origin: center center;
 }
 
