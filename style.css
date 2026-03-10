@@ -312,9 +312,9 @@ span {
     width: 100%;
     height: 100%;
     object-fit: cover;
-    object-position: center 30%; /* Shift the image downward to focus on the face */
-    transform: scale(2.2);
-    transform-origin: center center;
+    object-position: center 80%; 
+    transform: translateY(-10%) scale(2.5);
+    transform-origin: center 60%;
 }
 
 .glow-ring {
