@@ -924,7 +924,7 @@ span {
 @media (max-width: 450px) {
     .hero-content .name { font-size: 3rem; }
     .hero-content .role { font-size: 1.5rem; }
-    .btn { padding: 0.7rem 1.5rem; font-size: 1rem; }
+    .btn { padding: 0.6rem 1.2rem; font-size: 0.9rem; margin-bottom: 0.5rem; }
     
     .footer {
         flex-direction: column-reverse;
