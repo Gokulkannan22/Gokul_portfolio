@@ -1,0 +1,300 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta name="description" content="Portfolio of Gokul B - Data Science Professional">
+    <title>Gokul B | Data Science Professional</title>
+    <!-- Google Fonts -->
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Outfit:wght@300;400;500;600;700;800&display=swap" rel="stylesheet">
+    <!-- Boxicons for Icons -->
+    <link href='https://unpkg.com/boxicons@2.1.4/css/boxicons.min.css' rel='stylesheet'>
+    <!-- Custom CSS -->
+    <link rel="stylesheet" href="style.css">
+</head>
+<body>
+
+    <!-- Canvas for background particles/effects -->
+    <canvas id="bg-canvas"></canvas>
+
+    <!-- Header / Navbar -->
+    <header class="header">
+        <a href="#" class="logo">GB.</a>
+        <div class="menu-icon" id="menu-icon">
+            <i class='bx bx-menu'></i>
+        </div>
+        <nav class="navbar">
+            <a href="#home" class="active">Home</a>
+            <a href="#about">About</a>
+            <a href="#skills">Skills</a>
+            <a href="#projects">Projects</a>
+            <a href="#services">Services</a>
+            <a href="#contact">Contact</a>
+        </nav>
+    </header>
+
+    <!-- Hero Section -->
+    <section id="home" class="hero">
+        <div class="hero-content">
+            <h3 class="greeting">Hi, I'm</h3>
+            <h1 class="name">Gokul B</h1>
+            <h3 class="role">Data Science Professional</h3>
+            <p class="summary">
+                I specialize in data analytics, business intelligence, and applied machine learning.
+                Transforming complex data into predictive models and actionable executive dashboards.
+            </p>
+            <div class="social-links">
+                <a href="https://github.com/Gokulkannan22" target="_blank"><i class='bx bxl-github' ></i></a>
+                <a href="https://www.linkedin.com/in/gokul-b-80a0ba327" target="_blank"><i class='bx bxl-linkedin' ></i></a>
+                <a href="mailto:gokulkannan0078@gmail.com"><i class='bx bx-envelope' ></i></a>
+            </div>
+            <div class="btn-group">
+                <a href="#contact" class="btn btn-primary">Hire Me</a>
+                <a href="#projects" class="btn btn-secondary">View Work</a>
+            </div>
+        </div>
+        <div class="hero-image">
+            <!-- Creating a glowing orb effect instead of a traditional photo for a modern tech vibe -->
+            <div class="visual-orb">
+                <div class="orb-core"></div>
+                <div class="orb-ring"></div>
+                <div class="orb-ring ring-2"></div>
+                <div class="orb-particles"></div>
+            </div>
+        </div>
+    </section>
+
+    <!-- About Section -->
+    <section id="about" class="about">
+        <h2 class="heading">About <span>Me</span></h2>
+        
+        <div class="about-content">
+            <div class="about-text">
+                <h3>Data Science Professional</h3>
+                <p>Hi, I'm Gokul B, a Data Science and Analytics professional from Kerala with a strong focus on transforming data into actionable business insights. I specialize in Python, SQL, Power BI, and machine learning, building end-to-end analytics solutions including interactive dashboards, predictive models, and deployed data applications. My projects include revenue intelligence platforms, CRM analytics dashboards, and AI-powered systems that combine data science with real-world business problems. I’m passionate about using data to support smarter decisions and build impactful data-driven products.</p>
+            </div>
+            
+            <div class="timeline-container">
+                <div class="timeline-box">
+                    <h3 class="timeline-title"><i class='bx bxs-graduation'></i> Education</h3>
+                    <div class="timeline-item">
+                        <div class="timeline-dot"></div>
+                        <div class="timeline-date">Feb 2026 - Present</div>
+                        <h4>MBA in Data Science</h4>
+                        <p>Manipal University Jaipur</p>
+                    </div>
+                    <div class="timeline-item">
+                        <div class="timeline-dot"></div>
+                        <div class="timeline-date">Sep 2024 - Jun 2025</div>
+                        <h4>PG Diploma in Data Science</h4>
+                        <p>Netcom Academy, Kochi</p>
+                    </div>
+                    <div class="timeline-item">
+                        <div class="timeline-dot"></div>
+                        <div class="timeline-date">2021 - 2024</div>
+                        <h4>Bachelor of Commerce (Computer Application)</h4>
+                        <p>University Institute of Technology, Alappuzha | CGPA: 6.3/10.0</p>
+                    </div>
+                </div>
+
+                <div class="timeline-box">
+                    <h3 class="timeline-title"><i class='bx bx-briefcase'></i> Experience</h3>
+                    <div class="timeline-item">
+                        <div class="timeline-dot"></div>
+                        <div class="timeline-date">Aug 2025 - Jan 2026</div>
+                        <h4>Data Science Intern</h4>
+                        <p>Netcom Academy, Kochi (On-Site)</p>
+                        <ul>
+                            <li>Developed comprehensive Power BI dashboards for CRM Business Trend Analysis.</li>
+                            <li>Designed and implemented a CNN-based Waste Classification system.</li>
+                            <li>Applied deep learning techniques, data preprocessing, and Grad-CAM for explainability.</li>
+                        </ul>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Skills Section -->
+    <section id="skills" class="skills">
+        <h2 class="heading">My <span>Skills</span></h2>
+
+        <div class="skills-container">
+            <div class="skills-box">
+                <h3 class="skills-title">Technical Expertise</h3>
+                <div class="skills-content">
+                    
+                    <div class="skill-category">
+                        <h4>Programming & Databases</h4>
+                        <div class="skill-tags">
+                            <span class="tag">Python</span>
+                            <span class="tag">SQL</span>
+                            <span class="tag">MySQL</span>
+                            <span class="tag">PostgreSQL</span>
+                        </div>
+                    </div>
+
+                    <div class="skill-category">
+                        <h4>Data Analytics & BI</h4>
+                        <div class="skill-tags">
+                            <span class="tag">Power BI</span>
+                            <span class="tag">DAX</span>
+                            <span class="tag">Advanced Excel</span>
+                            <span class="tag">Data Modeling</span>
+                            <span class="tag">KPI Design</span>
+                        </div>
+                    </div>
+
+                    <div class="skill-category">
+                        <h4>Machine Learning & CV</h4>
+                        <div class="skill-tags">
+                            <span class="tag">Scikit-Learn</span>
+                            <span class="tag">XGBoost</span>
+                            <span class="tag">SVM</span>
+                            <span class="tag">CNN</span>
+                            <span class="tag">ResNet</span>
+                            <span class="tag">Grad-CAM</span>
+                            <span class="tag">OpenCV</span>
+                        </div>
+                    </div>
+
+                    <div class="skill-category">
+                        <h4>Data Visualization & Tools</h4>
+                        <div class="skill-tags">
+                            <span class="tag">Pandas</span>
+                            <span class="tag">NumPy</span>
+                            <span class="tag">Matplotlib</span>
+                            <span class="tag">Seaborn</span>
+                            <span class="tag">Git & GitHub</span>
+                            <span class="tag">Streamlit</span>
+                            <span class="tag">Jupyter Notebook</span>
+                        </div>
+                    </div>
+
+                </div>
+            </div>
+
+            <div class="skills-box">
+                <h3 class="skills-title">Certifications</h3>
+                <div class="certifications-content">
+                    <div class="cert-card">
+                        <i class='bx bx-certification'></i>
+                        <div class="cert-info">
+                            <h4>Data Analysis with Power BI</h4>
+                            <p>Microsoft (via Coursera) - Jun 2025</p>
+                            <small>ID: 79YKFHGVMVGF</small>
+                        </div>
+                    </div>
+                    <div class="cert-card">
+                        <i class='bx bx-certification'></i>
+                        <div class="cert-info">
+                            <h4>OpenCV Bootcamp</h4>
+                            <p>OpenCV University - May 2025</p>
+                            <small>Practical projects in image processing & CV</small>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Projects Section -->
+    <section id="projects" class="projects">
+        <h2 class="heading">Latest <span>Projects</span></h2>
+
+        <div class="portfolio-container">
+            <!-- Project 1 -->
+            <div class="portfolio-box">
+                <div class="portfolio-layer">
+                    <h4>AI Revenue Intelligence Platform</h4>
+                    <p class="tech-stack">XGBoost | Python | React | AWS</p>
+                    <p>Built a SaaS analytics platform predicting churn and modeling revenue at risk for 20,000 customers. Achieved 83% recall and implemented 6-month forecasting logic.</p>
+                    <a href="https://github.com/Gokulkannan22/AI-Revenue-Intelligence-Platform" target="_blank"><i class='bx bx-link-external'></i></a>
+                </div>
+            </div>
+
+            <!-- Project 2 -->
+            <div class="portfolio-box">
+                <div class="portfolio-layer">
+                    <h4>Waste Classification App</h4>
+                    <p class="tech-stack">TensorFlow | ResNet18 | Grad-CAM | Streamlit</p>
+                    <p>Deep Learning-based classifier identifying 5 types of waste with 92.2% validation accuracy. Integrated visual explainability via Grad-CAM.</p>
+                    <a href="https://github.com/Gokulkannan22/waste_classifier" target="_blank"><i class='bx bx-link-external'></i></a>
+                </div>
+            </div>
+
+            <!-- Project 3 -->
+            <div class="portfolio-box">
+                <div class="portfolio-layer">
+                    <h4>Netcom CRM Business Trend Analysis</h4>
+                    <p class="tech-stack">Power BI | DAX | Power Query | SQL</p>
+                    <p>End-to-end exploratory data analysis and Power BI dashboard uncovering key insights like peak lead times and top-performing sources from real CRM data.</p>
+                    <a href="https://github.com/Gokulkannan22/netcom_crm_analysis" target="_blank"><i class='bx bx-link-external'></i></a>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Services Section -->
+    <section id="services" class="services">
+        <h2 class="heading">Our <span>Services</span></h2>
+
+        <div class="services-container">
+            <div class="service-box">
+                <i class='bx bx-bar-chart-alt-2'></i>
+                <h3>Data Analytics & BI</h3>
+                <p>Designing executive dashboards, modeling data in Power BI, and extracting actionable business insights from raw data.</p>
+            </div>
+
+            <div class="service-box">
+                <i class='bx bx-brain'></i>
+                <h3>Predictive Modeling</h3>
+                <p>Building machine learning models (XGBoost, SVM, Scikit-Learn) to predict outcomes like customer churn and revenue forecasting.</p>
+            </div>
+
+            <div class="service-box">
+                <i class='bx bxs-camera'></i>
+                <h3>Deep Learning & CV</h3>
+                <p>Developing robust CNNs using ResNet and OpenCV for tasks like image classification and automated visual inspection.</p>
+            </div>
+        </div>
+    </section>
+
+    <!-- Contact Section -->
+    <section id="contact" class="contact">
+        <h2 class="heading">Contact <span>Me</span></h2>
+        
+        <form action="#">
+            <div class="input-box">
+                <input type="text" placeholder="Full Name" required>
+                <input type="email" placeholder="Email Address" required>
+            </div>
+            <div class="input-box">
+                <input type="number" placeholder="Mobile Number">
+                <input type="text" placeholder="Email Subject">
+            </div>
+            <textarea name="" id="" cols="30" rows="10" placeholder="Your Message" required></textarea>
+            <input type="submit" value="Send Message" class="btn btn-primary">
+        </form>
+    </section>
+
+    <!-- Footer -->
+    <footer class="footer">
+        <div class="footer-text">
+            <p>Copyright &copy; 2026 by Gokul B | All Rights Reserved.</p>
+            <p class="footer-contact">
+                <i class='bx bx-envelope'></i> gokulkannan0078@gmail.com | 
+                <i class='bx bx-phone'></i> +91-9526135299
+            </p>
+        </div>
+        <div class="footer-iconTop">
+            <a href="#home"><i class='bx bx-up-arrow-alt'></i></a>
+        </div>
+    </footer>
+
+    <!-- Custom JS -->
+    <script src="script.js"></script>
+</body>
+</html>
