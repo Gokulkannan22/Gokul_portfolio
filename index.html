@@ -267,12 +267,15 @@
     <section id="contact" class="contact">
         <h2 class="heading">Contact <span>Me</span></h2>
         
-        <form action="#">
+        <!-- Hidden iframe to prevent page redirect after submit -->
+        <iframe name="hidden_iframe" id="hidden_iframe" style="display:none;" onload="if(submitted) {window.location='';}"></iframe>
+
+        <form action="https://docs.google.com/forms/u/0/d/e/1FAIpQLSezyBqzCwKM6n-q9kg971Rf-KOkwRyCI9VGVngDaB1N-heeGA/formResponse" method="POST" target="hidden_iframe" onsubmit="submitted=true; alert('Message sent successfully!');">
             <div class="input-box">
-                <input type="text" placeholder="Full Name" required>
-                <input type="email" placeholder="Email Address" required>
+                <input type="text" name="entry.809597132" placeholder="Full Name" required>
+                <input type="email" name="entry.712495324" placeholder="Email Address" required>
             </div>
-            <textarea name="" id="" cols="30" rows="10" placeholder="Your Message" required></textarea>
+            <textarea name="entry.1634503589" cols="30" rows="10" placeholder="Your Message" required></textarea>
             <input type="submit" value="Send Message" class="btn btn-primary">
         </form>
     </section>
