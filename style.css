@@ -292,6 +292,7 @@ span {
     height: 300px;
     border-radius: 50%;
     object-fit: cover;
+    object-position: center 80%; /* Shifts the image up to show the face and less sky */
     border: 3px solid transparent;
     background: linear-gradient(var(--bg-color), var(--bg-color)) padding-box, 
                 var(--gradient) border-box;
