@@ -267,68 +267,60 @@ span {
     box-shadow: 0 0 20px rgba(0, 224, 255, 0.3);
 }
 
-/* Hero Visual Orb */
+/* Hero Profile Photo */
 .hero-image {
     flex: 1;
     display: flex;
     justify-content: center;
     align-items: center;
     position: relative;
-    min-height: 400px;
 }
 
-.visual-orb {
+.profile-container {
     position: relative;
     width: 350px;
     height: 350px;
     display: flex;
     justify-content: center;
     align-items: center;
-}
-
-.orb-core {
-    width: 150px;
-    height: 150px;
-    background: var(--gradient);
     border-radius: 50%;
-    box-shadow: 0 0 50px var(--accent-color), 0 0 100px var(--main-color);
-    animation: pulse 4s ease-in-out infinite alternate;
+    z-index: 1;
 }
 
-.orb-ring {
+.profile-img {
+    width: 300px;
+    height: 300px;
+    border-radius: 50%;
+    object-fit: cover;
+    border: 3px solid transparent;
+    background: linear-gradient(var(--bg-color), var(--bg-color)) padding-box, 
+                var(--gradient) border-box;
+    box-shadow: 0 0 30px rgba(125, 42, 232, 0.4), 0 0 60px rgba(0, 224, 255, 0.4);
+    z-index: 2;
+    transition: 0.5s ease;
+}
+
+.profile-container:hover .profile-img {
+    box-shadow: 0 0 50px rgba(125, 42, 232, 0.6), 0 0 100px rgba(0, 224, 255, 0.6);
+    transform: scale(1.02);
+}
+
+.glow-ring {
     position: absolute;
-    width: 250px;
-    height: 250px;
-    border: 2px solid rgba(0, 224, 255, 0.3);
+    width: 340px;
+    height: 340px;
+    border: 2px dashed rgba(0, 224, 255, 0.5);
     border-radius: 50%;
-    animation: rotate 10s linear infinite;
-    border-top: 2px solid var(--main-color);
-    border-bottom: 2px solid var(--accent-color);
-}
-
-.ring-2 {
-    width: 320px;
-    height: 320px;
-    animation: rotateRevere 15s linear infinite;
-    border: 1px dashed rgba(125, 42, 232, 0.4);
-    border-left: 2px solid var(--accent-color);
-    border-right: 2px solid var(--main-color);
+    animation: rotate 15s linear infinite;
+    z-index: 1;
+    border-top: 2px solid var(--accent-color);
+    border-bottom: 2px solid var(--main-color);
 }
 
 /* Animations */
-@keyframes pulse {
-    0% { transform: scale(0.9); box-shadow: 0 0 40px var(--accent-color), 0 0 80px var(--main-color); }
-    100% { transform: scale(1.1); box-shadow: 0 0 60px var(--main-color), 0 0 120px var(--accent-color); }
-}
-
 @keyframes rotate {
     0% { transform: rotate(0deg); }
     100% { transform: rotate(360deg); }
-}
-
-@keyframes rotateRevere {
-    0% { transform: rotate(360deg); }
-    100% { transform: rotate(0deg); }
 }
 
 /* ===== ABOUT SECTION ===== */
@@ -964,15 +956,21 @@ span {
         justify-content: center;
     }
     
-    .visual-orb {
-        width: 250px;
-        height: 250px;
+    .profile-container {
+        width: 280px;
+        height: 280px;
     }
     
-    .orb-ring { width: 180px; height: 180px; }
-    .ring-2 { width: 230px; height: 230px; }
-    .orb-core { width: 100px; height: 100px; }
-
+    .profile-img { 
+        width: 240px; 
+        height: 240px; 
+    }
+    
+    .glow-ring {
+        width: 260px;
+        height: 260px;
+    }
+    
     .contact form .input-box input {
         width: 100%;
     }
