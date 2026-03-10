@@ -839,6 +839,63 @@ span {
     transform: translateY(-5px);
 }
 
+/* ===== SUCCESS POPUP ===== */
+.popup-overlay {
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    background: rgba(0, 0, 0, 0.8);
+    backdrop-filter: blur(5px);
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    z-index: 2000;
+    opacity: 0;
+    visibility: hidden;
+    transition: 0.3s ease;
+}
+
+.popup-overlay.active {
+    opacity: 1;
+    visibility: visible;
+}
+
+.popup-box {
+    background: var(--bg-glass);
+    padding: 3rem;
+    border-radius: 20px;
+    border: 1px solid var(--border-glass);
+    box-shadow: 0 0 30px rgba(0, 224, 255, 0.2);
+    text-align: center;
+    max-width: 400px;
+    width: 90%;
+    transform: scale(0.8);
+    transition: 0.3s ease;
+}
+
+.popup-overlay.active .popup-box {
+    transform: scale(1);
+}
+
+.popup-box i {
+    font-size: 5rem;
+    color: var(--main-color);
+    margin-bottom: 1rem;
+}
+
+.popup-box h3 {
+    font-size: 2rem;
+    margin-bottom: 1rem;
+}
+
+.popup-box p {
+    font-size: 1.1rem;
+    color: var(--text-muted);
+    margin-bottom: 2rem;
+}
+
 /* Reveal Animation Classes */
 .reveal {
     opacity: 0;

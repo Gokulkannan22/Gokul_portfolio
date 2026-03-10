@@ -1,6 +1,17 @@
 // Global variable for Google Form submission
 let submitted = false;
 
+// Popup Functions
+function showPopup() {
+    document.getElementById('success-popup').classList.add('active');
+    document.getElementById('contact-form').reset();
+    submitted = false; // reset state
+}
+
+function closePopup() {
+    document.getElementById('success-popup').classList.remove('active');
+}
+
 // Toggle menu icon and navbar
 let menuIcon = document.querySelector('#menu-icon');
 let navbar = document.querySelector('.navbar');
