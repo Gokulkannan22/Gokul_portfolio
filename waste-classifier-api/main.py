@@ -92,7 +92,7 @@ async def predict(file: UploadFile = File(...)):
             confidence, preds = torch.max(probabilities, 0)
             
             pred_class = class_names[preds.item()]
-            conf_score = round(confidence.item() * 100, 2)
+            conf_score = float(confidence.item())
             
         return JSONResponse(content={
             "prediction": pred_class,

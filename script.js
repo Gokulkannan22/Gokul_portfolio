@@ -188,9 +188,8 @@ document.addEventListener("DOMContentLoaded", function () {
     const loadingOverlay = document.getElementById('ai-loading');
     const resetBtn = document.getElementById('reset-ai-btn');
 
-    // Replace this URL with the actual deployed FastAPI URL once deployed on Render/Railway
-    // Currently set to localhost for local testing
-    const API_URL = "http://localhost:8000/predict";
+    // Replace 'YOUR_DEPLOYED_API_URL' with your actual Render/Railway URL
+    const API_URL = "https://YOUR_DEPLOYED_API_URL/predict";
 
     if (!uploadArea) return; // Exit if not on the page
 
@@ -273,7 +272,7 @@ document.addEventListener("DOMContentLoaded", function () {
 
             // Update UI with prediction
             predClass.textContent = data.prediction;
-            predConf.textContent = data.confidence + "%";
+            predConf.textContent = (data.confidence * 100).toFixed(2) + "%";
 
         } catch (error) {
             console.error("Error during prediction API call:", error);
@@ -281,12 +280,10 @@ document.addEventListener("DOMContentLoaded", function () {
             predictionResult.style.display = 'flex';
 
             // Show error state
-            predClass.textContent = "Error connecting to model";
+            predClass.textContent = "AI service temporarily unavailable. Please try again later.";
             predClass.style.color = "red";
-            predConf.textContent = "--";
-
-            alert("Ensure your FastAPI backend is running! It failed to connect to " + API_URL);
+            predClass.style.fontSize = "1.2rem";
+            predConf.textContent = "";
         }
     }
 });
-
