@@ -188,8 +188,8 @@ document.addEventListener("DOMContentLoaded", function () {
     const loadingOverlay = document.getElementById('ai-loading');
     const resetBtn = document.getElementById('reset-ai-btn');
 
-    // The live FastAPI endpoint deployed on Render
-    const API_URL = "https://waste-classifier-api-nwsy.onrender.com/predict";
+    // The live FastAPI endpoint deployed on Hugging Face Spaces
+    const API_URL = "https://gokulb21-waste-classifier-ai.hf.space/predict";
 
     if (!uploadArea) return; // Exit if not on the page
 
