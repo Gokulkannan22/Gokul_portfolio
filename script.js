@@ -189,7 +189,7 @@ document.addEventListener("DOMContentLoaded", function () {
     const resetBtn = document.getElementById('reset-ai-btn');
 
     // The live FastAPI endpoint deployed on Render
-    const API_URL = "https://waste-classifier-api.onrender.com/predict";
+    const API_URL = "https://waste-classifier-api-nwsy.onrender.com/predict";
 
     if (!uploadArea) return; // Exit if not on the page
 
@@ -250,10 +250,17 @@ document.addEventListener("DOMContentLoaded", function () {
         reader.readAsDataURL(file);
     }
 
-    async function predictWaste(file) {
+    async function predictWaste(file, retryCount = 5) {
         const formData = new FormData();
         // The FastAPI backend expects the key 'file'
         formData.append("file", file);
+
+        // Update loading text to indicate possible cold start if retrying
+        if (retryCount < 5) {
+            document.querySelector('#ai-loading p').textContent = "Server waking up (can take up to a minute)...";
+        } else {
+            document.querySelector('#ai-loading p').textContent = "Analyzing waste...";
+        }
 
         try {
             const response = await fetch(API_URL, {
@@ -282,14 +289,22 @@ document.addEventListener("DOMContentLoaded", function () {
 
         } catch (error) {
             console.error("Error during prediction API call:", error);
-            loadingOverlay.style.display = 'none';
-            predictionResult.style.display = 'flex';
 
-            // Show error state
-            predClass.textContent = "AI service temporarily unavailable. Please try again later.";
-            predClass.style.color = "red";
-            predClass.style.fontSize = "1.2rem";
-            predConf.textContent = "";
+            if (retryCount > 0) {
+                console.log(`Retrying in 10 seconds due to cold start... (${retryCount} attempts left)`);
+                setTimeout(() => {
+                    predictWaste(file, retryCount - 1);
+                }, 10000);
+            } else {
+                loadingOverlay.style.display = 'none';
+                predictionResult.style.display = 'flex';
+
+                // Show error state
+                predClass.textContent = "AI service temporarily unavailable. Please try again later.";
+                predClass.style.color = "red";
+                predClass.style.fontSize = "1.2rem";
+                predConf.textContent = "";
+            }
         }
     }
 });
