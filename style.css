@@ -1389,10 +1389,46 @@ span {
     margin-top: 0.5rem;
 }
 
+.bot-profile {
+    display: flex;
+    align-items: center;
+    gap: 0.8rem;
+}
+
+.bot-avatar-header {
+    width: 35px;
+    height: 35px;
+    border-radius: 50%;
+    border: 2px solid var(--main-color);
+    background: #fff;
+}
+
 .bot-msg {
-    background: rgba(125, 42, 232, 0.2);
+    background: transparent;
+    /* Remove background from the main container */
+    border: none;
     align-self: flex-start;
+    display: flex;
+    align-items: flex-end;
+    gap: 0.8rem;
+    max-width: 90%;
+    padding: 0;
+}
+
+.bot-avatar-msg {
+    width: 25px;
+    height: 25px;
+    border-radius: 50%;
+    border: 1px solid var(--accent-color);
+    background: #fff;
+    flex-shrink: 0;
+}
+
+.bot-msg .msg-content {
+    background: rgba(125, 42, 232, 0.2);
     border: 1px solid rgba(125, 42, 232, 0.3);
+    padding: 0.8rem 1rem;
+    border-radius: 15px;
     border-bottom-left-radius: 2px;
 }
 

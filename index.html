@@ -411,22 +411,30 @@
     <!-- AI Chatbot Widget -->
     <div class="chatbot-container" id="chatbot-container">
         <div class="chatbot-header" id="chatbot-header">
-            <h4>Ask about my AI & Data Science Projects</h4>
+            <div class="bot-profile">
+                <img src="https://api.dicebear.com/7.x/bottts/svg?seed=GokulBot&backgroundColor=7d2ae8" alt="Bot Avatar"
+                    class="bot-avatar-header">
+                <h4>AI Assistant</h4>
+            </div>
             <i class='bx bx-x' id="close-chatbot"></i>
         </div>
         <div class="chatbot-messages" id="chatbot-messages">
             <div class="chat-msg bot-msg">
-                <p>Hi! I'm Gokul's AI assistant. You can ask me about his data science projects, machine learning
-                    models, or technologies he has worked with.</p>
+                <img src="https://api.dicebear.com/7.x/bottts/svg?seed=GokulBot&backgroundColor=7d2ae8" alt="Bot"
+                    class="bot-avatar-msg">
+                <div class="msg-content">
+                    <p>Hi! I'm Gokul's AI assistant. You can ask me about his data science projects, machine learning
+                        models, or technologies he has worked with.</p>
+                </div>
             </div>
             <div class="chat-suggestions" id="chat-suggestions">
+                <span class="suggestion-pill" onclick="sendSuggestedMessage('Why should I hire Gokul?')">Why should I
+                    hire Gokul?</span>
                 <span class="suggestion-pill" onclick="sendSuggestedMessage('What projects have you built?')">What
                     projects have you built?</span>
                 <span class="suggestion-pill"
                     onclick="sendSuggestedMessage('Tell me about the Waste Classification AI')">Tell me about the Waste
                     Classification AI</span>
-                <span class="suggestion-pill" onclick="sendSuggestedMessage('Why should I hire Gokul?')">Why should I
-                    hire Gokul?</span>
             </div>
         </div>
         <div class="chatbot-input">

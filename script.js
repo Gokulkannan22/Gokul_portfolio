@@ -357,12 +357,50 @@ document.addEventListener("DOMContentLoaded", function () {
         handleUserMessage();
     };
 
+    const allPrompts = [
+        "What projects have you built?",
+        "Tell me about the Waste Classification AI",
+        "What is the AI Revenue Intelligence Platform?",
+        "Explain the CRM Business Trend Analysis",
+        "What machine learning algorithms do you use?",
+        "What BI tools are you proficient in?",
+        "What computer vision frameworks do you know?",
+        "How do your projects solve real business problems?",
+        "Summarize your technical skills"
+    ];
+
+    let isFirstSuggestionDisplay = true;
+
     function appendSuggestions() {
-        const suggestionsHTML = `
-            <span class="suggestion-pill" onclick="sendSuggestedMessage('What projects have you built?')">What projects have you built?</span>
-            <span class="suggestion-pill" onclick="sendSuggestedMessage('Tell me about the Waste Classification AI')">Tell me about the Waste Classification AI</span>
-            <span class="suggestion-pill" onclick="sendSuggestedMessage('Why should I hire Gokul?')">Why should I hire Gokul?</span>
-        `;
+        let selectedPrompts = [];
+
+        let availablePrompts = [...allPrompts];
+
+        if (isFirstSuggestionDisplay) {
+            selectedPrompts.push("Why should I hire Gokul?");
+            isFirstSuggestionDisplay = false;
+        }
+
+        // Randomly pick remaining prompts to make 3 total
+        while (selectedPrompts.length < 3) {
+            const randomIndex = Math.floor(Math.random() * availablePrompts.length);
+            const prompt = availablePrompts.splice(randomIndex, 1)[0];
+            if (!selectedPrompts.includes(prompt)) {
+                selectedPrompts.push(prompt);
+            }
+        }
+
+        // Shuffle the final array so the hire question isn't always aggressively first
+        for (let i = selectedPrompts.length - 1; i > 0; i--) {
+            const j = Math.floor(Math.random() * (i + 1));
+            [selectedPrompts[i], selectedPrompts[j]] = [selectedPrompts[j], selectedPrompts[i]];
+        }
+
+        let suggestionsHTML = "";
+        selectedPrompts.forEach(prompt => {
+            suggestionsHTML += `<span class="suggestion-pill" onclick="sendSuggestedMessage('${prompt.replace(/'/g, "\\'")}')">${prompt}</span>\n`;
+        });
+
         const div = document.createElement("div");
         div.className = "chat-suggestions";
         div.innerHTML = suggestionsHTML;
@@ -393,7 +431,16 @@ document.addEventListener("DOMContentLoaded", function () {
     function appendMessage(text, className) {
         const msgDiv = document.createElement("div");
         msgDiv.classList.add("chat-msg", className);
-        msgDiv.innerHTML = text; // Allow HTML rendering for bullet points/line breaks
+
+        if (className === "bot-msg") {
+            msgDiv.innerHTML = `
+                <img src="https://api.dicebear.com/7.x/bottts/svg?seed=GokulBot&backgroundColor=7d2ae8" alt="Bot" class="bot-avatar-msg">
+                <div class="msg-content">${text}</div>
+            `;
+        } else {
+            msgDiv.innerHTML = text; // User message, no avatar
+        }
+
         chatbotMessages.appendChild(msgDiv);
 
         // Auto-scroll to bottom
