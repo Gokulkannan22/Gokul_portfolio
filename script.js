@@ -346,6 +346,19 @@ document.addEventListener("DOMContentLoaded", function () {
         }
     };
 
+    // Global function for suggested prompt clicks
+    window.sendSuggestedMessage = function (text) {
+        chatInput.value = text;
+
+        // Remove the suggestion pills so they don't clog up the chat history
+        const suggestionsDiv = document.getElementById('chat-suggestions');
+        if (suggestionsDiv) {
+            suggestionsDiv.remove();
+        }
+
+        handleUserMessage();
+    };
+
     function handleUserMessage() {
         const message = chatInput.value.trim();
         if (!message) return;
