@@ -308,3 +308,130 @@ document.addEventListener("DOMContentLoaded", function () {
         }
     }
 });
+// ----------------------------------------------------
+// AI Chatbot Widget Logic
+// ----------------------------------------------------
+document.addEventListener("DOMContentLoaded", function () {
+    const chatbotToggler = document.getElementById('chatbot-toggler');
+    const chatbotContainer = document.getElementById('chatbot-container');
+    const closeChatbot = document.getElementById('close-chatbot');
+    const sendChatBtn = document.getElementById('send-chat-btn');
+    const chatInput = document.getElementById('chat-input');
+    const chatbotMessages = document.getElementById('chatbot-messages');
+
+    if (!chatbotToggler) return;
+
+    // Toggle Chatbot Visibility
+    chatbotToggler.addEventListener('click', () => {
+        chatbotContainer.classList.toggle('active');
+        if (chatbotContainer.classList.contains('active')) {
+            setTimeout(() => {
+                chatInput.focus();
+            }, 300);
+        }
+    });
+
+    closeChatbot.addEventListener('click', () => {
+        chatbotContainer.classList.remove('active');
+    });
+
+    // Handle Sending Message
+    sendChatBtn.addEventListener('click', handleUserMessage);
+
+    // Global function for "Enter" keypress in HTML
+    window.handleChatKeyPress = function (e) {
+        if (e.key === 'Enter') {
+            e.preventDefault();
+            handleUserMessage();
+        }
+    };
+
+    function handleUserMessage() {
+        const message = chatInput.value.trim();
+        if (!message) return;
+
+        // Display user message
+        appendMessage(message, "user-msg");
+        chatInput.value = "";
+
+        // Generate Bot Response based on Keywords
+        setTimeout(() => {
+            const botResponse = getBotResponse(message.toLowerCase());
+            appendMessage(botResponse, "bot-msg");
+        }, 500); // Small delay to simulate "thinking"
+    }
+
+    function appendMessage(text, className) {
+        const msgDiv = document.createElement("div");
+        msgDiv.classList.add("chat-msg", className);
+        msgDiv.innerHTML = text; // Allow HTML rendering for bullet points/line breaks
+        chatbotMessages.appendChild(msgDiv);
+
+        // Auto-scroll to bottom
+        chatbotMessages.scrollTop = chatbotMessages.scrollHeight;
+    }
+
+    // Keyword matching logic
+    function getBotResponse(input) {
+        // Project 1: Revenue Intelligence
+        if (input.includes("revenue") || input.includes("platform") || input.includes("saas") || input.includes("forecast")) {
+            return `<b>AI Revenue Intelligence Platform</b>:<br>
+                <ul>
+                    <li>It's a machine learning based revenue prediction system</li>
+                    <li>Built using Python, Scikit-learn, and XGBoost models</li>
+                    <li>Provides scenario simulation for business decisions</li>
+                    <li>Includes a fully interactive Streamlit dashboard</li>
+                </ul>`;
+        }
+
+        // Project 2: Waste Classification
+        if (input.includes("waste") || input.includes("classif") || input.includes("cnn") || input.includes("resnet") || input.includes("image")) {
+            return `<b>Waste Classification AI</b>:<br>
+                <ul>
+                    <li>Computer vision model for waste classification</li>
+                    <li>Built using CNN, PyTorch, and ResNet18</li>
+                    <li>Supports 5 categories: Plastic, Paper, Organic, Metal, and E-waste</li>
+                    <li>Deployed via FastAPI and Hugging Face</li>
+                </ul>`;
+        }
+
+        // Project 3: CRM Trend Analysis
+        if (input.includes("crm") || input.includes("trend") || input.includes("netcom") || (input.includes("power") && input.includes("bi"))) {
+            return `<b>Netcom CRM Business Trend Analysis</b>:<br>
+                <ul>
+                    <li>Business intelligence project analyzing huge CRM datasets</li>
+                    <li>Built using Power BI, DAX, and Python</li>
+                    <li>Identifies key customer trends, revenue insights, and lead performance</li>
+                </ul>`;
+        }
+
+        // General Projects overview
+        if (input.includes("project") || input.includes("build") || input.includes("built") || input.includes("portfolio")) {
+            return "I have built several data science projects! My top three are:<ul><li><b>AI Revenue Intelligence Platform</b> (Machine Learning)</li><li><b>Waste Classification AI</b> (Computer Vision)</li><li><b>Netcom CRM Analysis</b> (Power BI).</li></ul>Which one would you like to know more about?";
+        }
+
+        // Skills & Technologies
+        if (input.includes("tech") || input.includes("skill") || input.includes("use") || input.includes("tools") || input.includes("language") || input.includes("database")) {
+            return "My technical expertise encompasses:<ul><li><b>Programming:</b> Python, SQL</li><li><b>Machine Learning:</b> Scikit-Learn, XGBoost, CNNs, ResNet</li><li><b>BI & Viz:</b> Power BI, DAX, Streamlit, Pandas</li></ul>Is there a specific machine learning framework you are curious about?";
+        }
+
+        // Machine Learning specifics
+        if (input.includes("machine learning") || input.includes("model") || input.includes("ml") || input.includes("deep learning")) {
+            return "I have worked with classification models (SVM, XGBoost), deep learning frameworks (PyTorch, TensorFlow) for Computer Vision using ResNet, and applied Grad-CAM for model explainability! I specialize in both Predictive Analytics and Deep Convolutional Neural Networks.";
+        }
+
+        // Why hire Gokul / Impact / Problem solving
+        if (input.includes("hire") || input.includes("problem") || input.includes("solve") || input.includes("impact") || input.includes("value")) {
+            return "You should hire me because I don't just write algorithms—I solve real business problems! For example, my models can predict customer churn and forecast revenue risks, directly impacting profitability. My focus is always on translating complex data into actionable, executive-level insights.";
+        }
+
+        // Greetings
+        if (input.includes("hello") || input.includes("hi") || input.includes("hey") || input === "hi" || input === "hello") {
+            return "Hello! I form the AI extension of Gokul B's portfolio. You can ask me about his predictive models, computer vision applications, or his Power BI analytics projects! What would you like to explore?";
+        }
+
+        // Default Fallback
+        return "I am Gokul's AI assistant focused on his Data Science portfolio! Please ask me about his specific projects (like the AI Revenue Platform or Waste Classifier), the technologies he uses (like Python, Power BI, or CNNs), or why he is a great fit for your team!";
+    }
+});
+

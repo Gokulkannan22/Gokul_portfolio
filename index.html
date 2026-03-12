@@ -408,6 +408,28 @@
         </div>
     </footer>
 
+    <!-- AI Chatbot Widget -->
+    <div class="chatbot-container" id="chatbot-container">
+        <div class="chatbot-header" id="chatbot-header">
+            <h4>Ask about my AI & Data Science Projects</h4>
+            <i class='bx bx-x' id="close-chatbot"></i>
+        </div>
+        <div class="chatbot-messages" id="chatbot-messages">
+            <div class="chat-msg bot-msg">
+                <p>Hi! I'm Gokul's AI assistant. You can ask me about his data science projects, machine learning
+                    models, or technologies he has worked with.</p>
+            </div>
+        </div>
+        <div class="chatbot-input">
+            <input type="text" id="chat-input" placeholder="Type your question..."
+                onkeypress="handleChatKeyPress(event)">
+            <button id="send-chat-btn"><i class='bx bx-send'></i></button>
+        </div>
+    </div>
+    <div class="chatbot-toggler" id="chatbot-toggler">
+        <i class='bx bx-message-dots'></i>
+    </div>
+
     <!-- Custom JS -->
     <script src="script.js?v=3"></script>
 </body>
