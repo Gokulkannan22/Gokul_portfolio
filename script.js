@@ -188,8 +188,8 @@ document.addEventListener("DOMContentLoaded", function () {
     const loadingOverlay = document.getElementById('ai-loading');
     const resetBtn = document.getElementById('reset-ai-btn');
 
-    // Replace 'YOUR_DEPLOYED_API_URL' with your actual Render/Railway URL
-    const API_URL = "https://YOUR_DEPLOYED_API_URL/predict";
+    // The live FastAPI endpoint deployed on Render
+    const API_URL = "https://waste-classifier-api.onrender.com/predict";
 
     if (!uploadArea) return; // Exit if not on the page
 
