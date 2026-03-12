@@ -351,17 +351,32 @@ document.addEventListener("DOMContentLoaded", function () {
         chatInput.value = text;
 
         // Remove the suggestion pills so they don't clog up the chat history
-        const suggestionsDiv = document.getElementById('chat-suggestions');
-        if (suggestionsDiv) {
-            suggestionsDiv.remove();
-        }
+        const suggestionsDivs = document.querySelectorAll('.chat-suggestions');
+        suggestionsDivs.forEach(div => div.remove());
 
         handleUserMessage();
     };
 
+    function appendSuggestions() {
+        const suggestionsHTML = `
+            <span class="suggestion-pill" onclick="sendSuggestedMessage('What projects have you built?')">What projects have you built?</span>
+            <span class="suggestion-pill" onclick="sendSuggestedMessage('Tell me about the Waste Classification AI')">Tell me about the Waste Classification AI</span>
+            <span class="suggestion-pill" onclick="sendSuggestedMessage('Why should I hire Gokul?')">Why should I hire Gokul?</span>
+        `;
+        const div = document.createElement("div");
+        div.className = "chat-suggestions";
+        div.innerHTML = suggestionsHTML;
+        chatbotMessages.appendChild(div);
+        chatbotMessages.scrollTop = chatbotMessages.scrollHeight;
+    }
+
     function handleUserMessage() {
         const message = chatInput.value.trim();
         if (!message) return;
+
+        // Remove any existing suggestions if the user typed a custom message
+        const suggestionsDivs = document.querySelectorAll('.chat-suggestions');
+        suggestionsDivs.forEach(div => div.remove());
 
         // Display user message
         appendMessage(message, "user-msg");
@@ -371,6 +386,7 @@ document.addEventListener("DOMContentLoaded", function () {
         setTimeout(() => {
             const botResponse = getBotResponse(message.toLowerCase());
             appendMessage(botResponse, "bot-msg");
+            appendSuggestions(); // repeatedly show options
         }, 500); // Small delay to simulate "thinking"
     }
 
