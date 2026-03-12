@@ -27,7 +27,7 @@
 }
 
 body {
-    background: linear-gradient(rgba(8, 8, 8, 0.88), rgba(8, 8, 8, 0.88)), url('bg.png') no-repeat center center fixed;
+    background: linear-gradient(rgba(8, 8, 8, 0.88), rgba(8, 8, 8, 0.88)), url('bg_coder.png') no-repeat center center fixed;
     background-size: cover;
     color: var(--text-color);
     overflow-x: hidden;
