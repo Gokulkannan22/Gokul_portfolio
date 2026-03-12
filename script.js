@@ -252,7 +252,8 @@ document.addEventListener("DOMContentLoaded", function () {
 
     async function predictWaste(file) {
         const formData = new FormData();
-        formData.append("file", file);
+        // The deployed Django API expects the key 'image' instead of 'file'
+        formData.append("image", file);
 
         try {
             const response = await fetch(API_URL, {
@@ -270,9 +271,17 @@ document.addEventListener("DOMContentLoaded", function () {
             loadingOverlay.style.display = 'none';
             predictionResult.style.display = 'flex';
 
-            // Update UI with prediction
-            predClass.textContent = data.prediction;
-            predConf.textContent = (data.confidence * 100).toFixed(2) + "%";
+            // Map the Django API response to the UI
+            // If the Django API is updated to return `prediction` and `confidence`, use those.
+            // Otherwise, fall back to what it currently returns (`type` / `material`).
+            const predictionText = data.prediction || data.type || data.material || "Unknown";
+            predClass.textContent = predictionText;
+
+            if (data.confidence !== undefined) {
+                predConf.textContent = (data.confidence * 100).toFixed(2) + "%";
+            } else {
+                predConf.textContent = "--"; // Django SDK currently lacks this
+            }
 
         } catch (error) {
             console.error("Error during prediction API call:", error);
