@@ -753,6 +753,74 @@ span {
     color: #eee;
 }
 
+/* ===== AI EXPERIENCE LAB SECTION ===== */
+.ai-lab {
+    background: var(--bg-color);
+}
+
+.lab-container {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    gap: 4rem;
+    background: var(--bg-glass);
+    padding: 3rem;
+    border-radius: 20px;
+    border: 1px solid var(--border-glass);
+    box-shadow: 0 0 20px rgba(0, 0, 0, 0.3);
+}
+
+.lab-info {
+    flex: 1;
+}
+
+.lab-info h3 {
+    font-size: 2.2rem;
+    margin-bottom: 1rem;
+    color: var(--text-color);
+}
+
+.lab-info p {
+    font-size: 1.1rem;
+    line-height: 1.6;
+    color: var(--text-muted);
+    margin-bottom: 1.5rem;
+}
+
+.tech-stack-badges {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 0.8rem;
+    margin-bottom: 1.5rem;
+}
+
+.lab-demo {
+    flex: 1.2;
+    width: 100%;
+}
+
+.iframe-container {
+    position: relative;
+    width: 100%;
+    height: 550px;
+    border-radius: 15px;
+    overflow: hidden;
+    border: 2px solid var(--border-glass);
+    box-shadow: 0 0 20px rgba(0, 224, 255, 0.2);
+    transition: 0.4s ease;
+}
+
+.iframe-container:hover {
+    box-shadow: 0 0 30px rgba(125, 42, 232, 0.3);
+    border-color: var(--main-color);
+}
+
+.iframe-container iframe {
+    width: 100%;
+    height: 100%;
+    border: none;
+}
+
 /* ===== CONTACT SECTION ===== */
 .contact {
     display: flex;
@@ -1019,6 +1087,15 @@ span {
     .glow-ring {
         width: 230px;
         height: 230px;
+    }
+
+    .lab-container {
+        flex-direction: column;
+        padding: 2rem;
+    }
+
+    .iframe-container {
+        height: 450px;
     }
 
     .contact form .input-box input {
