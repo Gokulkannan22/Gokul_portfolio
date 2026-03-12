@@ -27,7 +27,8 @@
 }
 
 body {
-    background-color: var(--bg-color);
+    background: linear-gradient(rgba(8, 8, 8, 0.88), rgba(8, 8, 8, 0.88)), url('bg.png') no-repeat center center fixed;
+    background-size: cover;
     color: var(--text-color);
     overflow-x: hidden;
     position: relative;
@@ -35,6 +36,8 @@ body {
 
 /* Background Canvas */
 #bg-canvas {
+    display: none;
+    /* Changed to static image */
     position: fixed;
     top: 0;
     left: 0;
