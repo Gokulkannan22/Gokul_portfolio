@@ -33,7 +33,7 @@ window.onscroll = () => {
         let height = sec.offsetHeight;
         let id = sec.getAttribute('id');
 
-        if(top >= offset && top < offset + height) {
+        if (top >= offset && top < offset + height) {
             navLinks.forEach(links => {
                 links.classList.remove('active');
                 document.querySelector('header nav a[href*=' + id + ']').classList.add('active');
@@ -101,7 +101,7 @@ function init() {
     particlesArray = [];
     let numberOfParticles = (canvas.height * canvas.width) / 20000; // density
     // For smaller screens, reduce number
-    if(window.innerWidth < 768) {
+    if (window.innerWidth < 768) {
         numberOfParticles = (canvas.height * canvas.width) / 30000;
     }
 
@@ -142,10 +142,10 @@ animate();
 // ----------------------------------------------------
 // Scroll Reveal Animations
 // ----------------------------------------------------
-document.addEventListener("DOMContentLoaded", function() {
+document.addEventListener("DOMContentLoaded", function () {
     // Add .reveal class to elements we want to animate on scroll
     const elementsToReveal = document.querySelectorAll('.heading, .about-text, .timeline-box, .skills-box, .portfolio-box, .service-box, .contact form');
-    
+
     elementsToReveal.forEach(el => {
         el.classList.add('reveal');
     });
@@ -153,7 +153,7 @@ document.addEventListener("DOMContentLoaded", function() {
     // Setup Intersection Observer
     const revealElements = document.querySelectorAll('.reveal');
 
-    const revealCallback = function(entries, observer) {
+    const revealCallback = function (entries, observer) {
         entries.forEach(entry => {
             if (entry.isIntersecting) {
                 entry.target.classList.add('active');
@@ -173,5 +173,120 @@ document.addEventListener("DOMContentLoaded", function() {
     revealElements.forEach(el => {
         revealObserver.observe(el);
     });
+});
+
+// ----------------------------------------------------
+// AI Experience Lab - Image Upload & API Logic
+// ----------------------------------------------------
+document.addEventListener("DOMContentLoaded", function () {
+    const uploadArea = document.getElementById('upload-area');
+    const fileInput = document.getElementById('waste-image-input');
+    const predictionResult = document.getElementById('prediction-result');
+    const imagePreview = document.getElementById('image-preview');
+    const predClass = document.querySelector('#pred-class span');
+    const predConf = document.querySelector('#pred-conf span');
+    const loadingOverlay = document.getElementById('ai-loading');
+    const resetBtn = document.getElementById('reset-ai-btn');
+
+    // Replace this URL with the actual deployed FastAPI URL once deployed on Render/Railway
+    // Currently set to localhost for local testing
+    const API_URL = "http://localhost:8000/predict";
+
+    if (!uploadArea) return; // Exit if not on the page
+
+    // Click to upload
+    uploadArea.addEventListener('click', () => fileInput.click());
+
+    // Drag and drop events
+    uploadArea.addEventListener('dragover', (e) => {
+        e.preventDefault();
+        uploadArea.classList.add('dragover');
+    });
+
+    uploadArea.addEventListener('dragleave', () => {
+        uploadArea.classList.remove('dragover');
+    });
+
+    uploadArea.addEventListener('drop', (e) => {
+        e.preventDefault();
+        uploadArea.classList.remove('dragover');
+        if (e.dataTransfer.files.length) {
+            handleFileUpload(e.dataTransfer.files[0]);
+        }
+    });
+
+    // File input change event
+    fileInput.addEventListener('change', (e) => {
+        if (e.target.files.length) {
+            handleFileUpload(e.target.files[0]);
+        }
+    });
+
+    // Reset button
+    resetBtn.addEventListener('click', () => {
+        predictionResult.style.display = 'none';
+        uploadArea.style.display = 'block';
+        fileInput.value = '';
+    });
+
+    function handleFileUpload(file) {
+        // Validate file type
+        const validTypes = ['image/jpeg', 'image/png', 'image/jpg'];
+        if (!validTypes.includes(file.type)) {
+            alert('Please upload a valid image file (JPG or PNG).');
+            return;
+        }
+
+        // Show preview
+        const reader = new FileReader();
+        reader.onload = (e) => {
+            imagePreview.src = e.target.result;
+            uploadArea.style.display = 'none';
+            predictionResult.style.display = 'none';
+            loadingOverlay.style.display = 'flex';
+
+            // Call API
+            predictWaste(file);
+        };
+        reader.readAsDataURL(file);
+    }
+
+    async function predictWaste(file) {
+        const formData = new FormData();
+        formData.append("file", file);
+
+        try {
+            const response = await fetch(API_URL, {
+                method: "POST",
+                body: formData,
+            });
+
+            if (!response.ok) {
+                throw new Error("Network response was not ok");
+            }
+
+            const data = await response.json();
+
+            // Hide loading, show results
+            loadingOverlay.style.display = 'none';
+            predictionResult.style.display = 'flex';
+
+            // Update UI with prediction
+            predClass.textContent = data.prediction;
+            predConf.textContent = data.confidence + "%";
+
+        } catch (error) {
+            console.error("Error during prediction API call:", error);
+            loadingOverlay.style.display = 'none';
+            predictionResult.style.display = 'flex';
+
+            // Show error state
+            predClass.textContent = "Error connecting to model";
+            predClass.style.color = "red";
+            predConf.textContent = "--";
+
+            alert("Ensure your FastAPI backend is running! It failed to connect to " + API_URL);
+        }
+    }
 });
 

@@ -322,10 +322,39 @@
             </div>
 
             <div class="lab-demo">
-                <div class="iframe-container">
-                    <!-- Note: Update the src URL below with your exact Streamlit deployment link if different -->
-                    <iframe src="https://gokulkannan22-waste-classifier.streamlit.app/?embed=true" frameborder="0"
-                        allow="camera; microphone; display-capture"></iframe>
+                <div class="ai-upload-container" id="upload-container">
+                    <input type="file" id="waste-image-input" accept="image/png, image/jpeg, image/jpg" hidden>
+                    <div class="upload-area" id="upload-area">
+                        <i class='bx bx-cloud-upload'></i>
+                        <p>Drag & Drop an image here or <span>Browse</span></p>
+                        <small>Supported: JPG, PNG</small>
+                    </div>
+
+                    <!-- Preview and Results area, initially hidden -->
+                    <div class="prediction-result" id="prediction-result" style="display: none;">
+                        <img id="image-preview" src="" alt="Waste Preview">
+                        <div class="result-details">
+                            <h4 id="pred-class">Prediction: <span>...</span></h4>
+                            <p id="pred-conf">Confidence: <span>...</span></p>
+                        </div>
+                        <button class="btn btn-primary" id="reset-ai-btn">Try Another</button>
+                    </div>
+
+                    <!-- Loading overlay -->
+                    <div class="ai-loading" id="ai-loading" style="display: none;">
+                        <div class="spinner"></div>
+                        <p>Analyzing Waste...</p>
+                    </div>
+                </div>
+                <div class="supported-categories">
+                    <p>Supported Categories:</p>
+                    <ul>
+                        <li><i class='bx bx-check'></i> Plastic</li>
+                        <li><i class='bx bx-check'></i> Paper</li>
+                        <li><i class='bx bx-check'></i> Organic</li>
+                        <li><i class='bx bx-check'></i> Metal</li>
+                        <li><i class='bx bx-check'></i> E-waste</li>
+                    </ul>
                 </div>
             </div>
         </div>
