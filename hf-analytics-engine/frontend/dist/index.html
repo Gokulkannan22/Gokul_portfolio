@@ -5,6 +5,15 @@
     <link rel="icon" type="image/svg+xml" href="./favicon.svg" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
     <title>frontend</title>
+    <script>
+      window.global = window;
+      window.addEventListener('error', function(event) {
+          document.body.innerHTML += '<div style="color:red; background:white; font-family:sans-serif; padding:20px; z-index:9999; position:absolute; top:0; left:0; width:100%; word-wrap: break-word;"><h3>Error Captured:</h3><pre>' + (event.error ? event.error.stack : event.message) + '</pre></div>';
+      });
+      window.addEventListener('unhandledrejection', function(event) {
+          document.body.innerHTML += '<div style="color:red; background:white; font-family:sans-serif; padding:20px; z-index:9999; position:absolute; top:200px; left:0; width:100%; word-wrap: break-word;"><h3>Promise Rejected:</h3><pre>' + (event.reason ? event.reason.stack : event.reason) + '</pre></div>';
+      });
+    </script>
     <script type="module" crossorigin src="./assets/index-C4_YjWjO.js"></script>
     <link rel="stylesheet" crossorigin href="./assets/index-Xq4QFIcO.css">
   </head>
