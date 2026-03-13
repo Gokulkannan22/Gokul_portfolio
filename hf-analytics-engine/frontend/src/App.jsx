@@ -1,7 +1,9 @@
 import React, { useState, useEffect } from 'react';
-import Plot from 'react-plotly.js';
+import PlotComponent from 'react-plotly.js';
 import axios from 'axios';
 import { LineChart, BarChart3, PieChart, Activity, Grip, BrainCircuit } from 'lucide-react';
+
+const Plot = PlotComponent.default || PlotComponent;
 
 const API_BASE_URL = import.meta.env.VITE_API_URL || '';
 
