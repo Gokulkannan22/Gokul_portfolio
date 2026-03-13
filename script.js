@@ -325,6 +325,7 @@ document.addEventListener("DOMContentLoaded", function () {
     chatbotToggler.addEventListener('click', () => {
         chatbotContainer.classList.toggle('active');
         if (chatbotContainer.classList.contains('active')) {
+            triggerLivelyAction('waving'); // Wave hello!
             setTimeout(() => {
                 chatInput.focus();
             }, 300);
@@ -514,5 +515,38 @@ document.addEventListener("DOMContentLoaded", function () {
         // Default Fallback
         return "I am Gokul's AI assistant focused on his Data Science portfolio! Please ask me about his specific projects (like the AI Revenue Platform or Waste Classifier), the technologies he uses (like Python, Power BI, or CNNs), or why he is a great fit for your team!";
     }
+
+    // Lively Bot Actions
+    function triggerLivelyAction(action) {
+        const floatingRobot = document.querySelector('.floating-robot');
+        if (!floatingRobot) return;
+
+        // Remove classes to reset animation
+        floatingRobot.classList.remove('jumping', 'waving');
+        
+        // Force reflow
+        void floatingRobot.offsetWidth;
+
+        if (action) {
+            floatingRobot.classList.add(action);
+        } else {
+            // Pick a random action
+            const actions = ['jumping', 'waving'];
+            const randomAction = actions[Math.floor(Math.random() * actions.length)];
+            floatingRobot.classList.add(randomAction);
+        }
+
+        // Remove class after animation finishes (approx 1s)
+        setTimeout(() => {
+            floatingRobot.classList.remove('jumping', 'waving');
+        }, 1500);
+    }
+
+    // Set interval for random "lively" idle behaviors
+    setInterval(() => {
+        if (chatbotContainer.classList.contains('active')) {
+            triggerLivelyAction();
+        }
+    }, 12000); // Every 12 seconds
 });
 

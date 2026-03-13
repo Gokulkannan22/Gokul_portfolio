@@ -1445,7 +1445,15 @@ span {
 }
 
 .chatbot-container.active .floating-robot.thinking {
-    animation: thinkingFloat 1s ease-in-out infinite, thinkingGlow 1s infinite alternate;
+    animation: thinkingFloat 1s ease-in-out infinite, thinkingGlow 1s infinite alternate, jumping 0.5s ease-in-out infinite;
+}
+
+.floating-robot.jumping {
+    animation: jumping 0.6s cubic-bezier(0.175, 0.885, 0.32, 1.275) !important;
+}
+
+.floating-robot.waving {
+    animation: waving 1s ease-in-out !important;
 }
 
 .robot-img {
@@ -1491,6 +1499,17 @@ span {
         box-shadow: 0 0 40px rgba(0, 224, 255, 0.9), inset 0 0 25px rgba(0, 224, 255, 0.6);
         border-color: var(--main-color);
     }
+}
+
+@keyframes jumping {
+    0%, 100% { transform: translateY(0); }
+    50% { transform: translateY(-30px) scale(1.05); }
+}
+
+@keyframes waving {
+    0%, 100% { transform: rotate(0deg); }
+    25% { transform: rotate(15deg); }
+    75% { transform: rotate(-15deg); }
 }
 
 .bot-avatar-msg {
