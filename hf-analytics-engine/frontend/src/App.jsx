@@ -138,9 +138,9 @@ function App() {
       <div className="w-full md:w-72 glass-panel p-6 flex flex-col gap-6 md:min-h-screen border-b md:border-b-0 md:border-r border-white/10 m-0 md:m-4 rounded-none md:rounded-2xl">
         <div>
           <h1 className="text-2xl font-bold bg-clip-text text-transparent bg-gradient-to-r from-[#00e0ff] to-[#7d2ae8]">
-            Analytics Engine
+            AI Revenue Intelligence
           </h1>
-          <p className="text-sm text-gray-400 mt-2">Interactive AI Revenue Dashboard</p>
+          <p className="text-sm text-gray-400 mt-2">Platform Visualization Lab</p>
         </div>
         
         <div className="flex flex-col gap-2">
