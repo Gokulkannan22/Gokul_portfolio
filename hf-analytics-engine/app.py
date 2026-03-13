@@ -26,6 +26,7 @@ try:
     # Pre-process for quick endpoints
     monthly_revenue['month'] = pd.to_datetime(monthly_revenue['month'])
     monthly_revenue.sort_values('month', inplace=True)
+    monthly_revenue['monthly_revenue'] = monthly_revenue['total_revenue'].diff().fillna(monthly_revenue['total_revenue'])
     
     customer_mrr = subscriptions.groupby('customer_id')['monthly_price'].sum().reset_index()
     customer_mrr.rename(columns={'monthly_price': 'MRR'}, inplace=True)
@@ -52,7 +53,7 @@ def get_revenue_trend():
     
     return {
         "x": monthly_rev['DateStr'].tolist(),
-        "y": monthly_rev['total_revenue'].round(2).tolist(),
+        "y": monthly_rev['monthly_revenue'].round(2).tolist(),
         "insight": insight
     }
 
