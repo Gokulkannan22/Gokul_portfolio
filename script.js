@@ -450,13 +450,14 @@ document.addEventListener("DOMContentLoaded", function () {
     // Keyword matching logic
     function getBotResponse(input) {
         // Project 1: Revenue Intelligence
-        if (input.includes("revenue") || input.includes("platform") || input.includes("saas") || input.includes("forecast")) {
+        if (input.includes("revenue") || input.includes("platform") || input.includes("saas") || input.includes("forecast") || input.includes("analytic")) {
             return `<b>AI Revenue Intelligence Platform</b>:<br>
                 <ul>
-                    <li>It's a machine learning based revenue prediction system</li>
-                    <li>Built using Python, Scikit-learn, and XGBoost models</li>
-                    <li>Provides scenario simulation for business decisions</li>
-                    <li>Includes a fully interactive Streamlit dashboard</li>
+                    <li>Machine learning based revenue prediction system</li>
+                    <li>Connected to a live FastAPI & React Dashboard</li>
+                    <li>Analyzes a real 20,000+ row B2B SaaS dataset</li>
+                    <li>Calculates live MRR, Churn Trends, and ARPU Growth</li>
+                    <li>Professional Power BI DAX implementation</li>
                 </ul>`;
         }
 
@@ -487,8 +488,8 @@ document.addEventListener("DOMContentLoaded", function () {
         }
 
         // Skills & Technologies
-        if (input.includes("tech") || input.includes("skill") || input.includes("use") || input.includes("tools") || input.includes("language") || input.includes("database")) {
-            return "My technical expertise encompasses:<ul><li><b>Programming:</b> Python, SQL</li><li><b>Machine Learning:</b> Scikit-Learn, XGBoost, CNNs, ResNet</li><li><b>BI & Viz:</b> Power BI, DAX, Streamlit, Pandas</li></ul>Is there a specific machine learning framework you are curious about?";
+        if (input.includes("tech") || input.includes("skill") || input.includes("use") || input.includes("tools") || input.includes("language") || input.includes("database") || input.includes("react") || input.includes("fastapi")) {
+            return "My technical expertise encompasses:<ul><li><b>Programming:</b> Python, SQL, JavaScript</li><li><b>Machine Learning:</b> Scikit-Learn, XGBoost, CNNs, ResNet</li><li><b>Web & Deployment:</b> React, FastAPI, Vite, Docker, Hugging Face</li><li><b>BI & Viz:</b> Power BI, DAX, Plotly.js, Pandas</li></ul>Is there a specific framework you are curious about?";
         }
 
         // Machine Learning specifics
@@ -503,7 +504,7 @@ document.addEventListener("DOMContentLoaded", function () {
 
         // Greetings
         if (input.includes("hello") || input.includes("hi") || input.includes("hey") || input === "hi" || input === "hello") {
-            return "Hello! I form the AI extension of Gokul B's portfolio. You can ask me about his predictive models, computer vision applications, or his Power BI analytics projects! What would you like to explore?";
+            return "Hello! I form the AI extension of Gokul B's portfolio. You can ask me about his work as a Data Analyst & Business Analyst, specifically his new Full-Stack React & FastAPI Revenue Dashboard! What would you like to explore?";
         }
 
         // Default Fallback
