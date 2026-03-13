@@ -438,7 +438,7 @@ document.addEventListener("DOMContentLoaded", function () {
 
         if (className === "bot-msg") {
             msgDiv.innerHTML = `
-                <img src="bot-avatar.png" alt="Bot" class="bot-avatar-msg">
+                <img src="bot-avatar.jpg" alt="Bot" class="bot-avatar-msg">
                 <div class="msg-content">${text}</div>
             `;
         } else {
