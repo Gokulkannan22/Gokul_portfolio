@@ -110,14 +110,7 @@ def get_correlation_heatmap():
         "insight": insight
     }
 
-# Serve static frontend if it exists
-static_dir_root = os.path.join(os.path.dirname(__file__), "dist")
-static_dir_nested = os.path.join(os.path.dirname(__file__), "frontend", "dist")
-
-if os.path.isdir(static_dir_root):
-    app.mount("/", StaticFiles(directory=static_dir_root, html=True), name="static")
-elif os.path.isdir(static_dir_nested):
-    app.mount("/", StaticFiles(directory=static_dir_nested, html=True), name="static")
+app.mount("/", StaticFiles(directory="dist", html=True), name="static")
 
 if __name__ == "__main__":
     import uvicorn
