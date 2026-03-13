@@ -9,9 +9,9 @@ const API_BASE_URL = import.meta.env.VITE_API_URL || '';
 
 const VISUALIZATIONS = [
   { id: 'revenue-trend', name: 'Revenue Trend', icon: <LineChart size={20} /> },
-  { id: 'revenue-distribution', name: 'Revenue Distribution', icon: <Activity size={20} /> },
-  { id: 'top-customers', name: 'Top Customers', icon: <BarChart3 size={20} /> },
-  { id: 'customer-segmentation', name: 'Customer Segmentation', icon: <PieChart size={20} /> },
+  { id: 'active-customers', name: 'Active Customers', icon: <PieChart size={20} /> },
+  { id: 'churn-trend', name: 'Churn Trend', icon: <Activity size={20} /> },
+  { id: 'arpu-trend', name: 'Revenue per Customer (ARPU)', icon: <BarChart3 size={20} /> },
   { id: 'correlation-heatmap', name: 'Correlation Heatmap', icon: <Grip size={20} /> },
 ];
 
@@ -68,48 +68,43 @@ function App() {
             style={{ width: '100%', height: '100%' }}
           />
         );
-      case 'revenue-distribution':
+      case 'active-customers':
         return (
           <Plot
             data={[{
-              x: data.x,
-              type: 'histogram',
-              marker: { color: '#7d2ae8', opacity: 0.8 },
-              xbins: { size: 1000 }
+              x: data.x, y: data.y,
+              type: 'scatter', mode: 'lines+markers',
+              line: { color: '#7d2ae8', width: 3 },
+              marker: { color: '#00e0ff', size: 8 }
             }]}
-            layout={{ ...darkLayout, title: 'Revenue Distribution' }}
+            layout={{ ...darkLayout, title: 'Active Customers Trend' }}
             useResizeHandler={true}
             style={{ width: '100%', height: '100%' }}
           />
         );
-      case 'top-customers':
+      case 'churn-trend':
         return (
           <Plot
             data={[{
               x: data.x, y: data.y,
               type: 'bar',
-              marker: { color: '#00e0ff' }
+              marker: { color: '#ff4f4f' }
             }]}
-            layout={{ ...darkLayout, title: 'Top 10 Customers by Revenue' }}
+            layout={{ ...darkLayout, title: 'Monthly Churn Trend' }}
             useResizeHandler={true}
             style={{ width: '100%', height: '100%' }}
           />
         );
-      case 'customer-segmentation':
+      case 'arpu-trend':
         return (
           <Plot
             data={[{
-              x: data.x, y: data.y, text: data.text,
-              mode: 'markers', type: 'scatter',
-              marker: { 
-                size: 12, 
-                color: data.y, 
-                colorscale: 'Viridis',
-                showscale: true,
-                opacity: 0.7 
-              }
+              x: data.x, y: data.y,
+              type: 'scatter', mode: 'lines+markers',
+              line: { color: '#00fa9a', width: 3 },
+              marker: { color: '#7d2ae8', size: 8 }
             }]}
-            layout={{ ...darkLayout, title: 'Purchase Frequency vs LTV', xaxis: { title: 'Frequency', ...darkLayout.xaxis }, yaxis: { title: 'Lifetime Value ($)', ...darkLayout.yaxis } }}
+            layout={{ ...darkLayout, title: 'Average Revenue Per User (ARPU)' }}
             useResizeHandler={true}
             style={{ width: '100%', height: '100%' }}
           />
