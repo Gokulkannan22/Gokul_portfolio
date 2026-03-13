@@ -1316,7 +1316,7 @@ span {
     box-shadow: 0 0 30px rgba(0, 0, 0, 0.5);
     display: none;
     flex-direction: column;
-    overflow: hidden;
+    overflow: visible; /* Changed from hidden to show floating robot */
     z-index: 1000;
     opacity: 0;
     transform: translateY(20px);
@@ -1336,6 +1336,7 @@ span {
     justify-content: space-between;
     align-items: center;
     border-bottom: 1px solid var(--border-glass);
+    border-radius: 20px 20px 0 0; /* Ensures rounded corners are kept since container overflow is visible */
 }
 
 .chatbot-header h4 {
@@ -1522,6 +1523,7 @@ span {
     background: rgba(0, 0, 0, 0.4);
     border-top: 1px solid var(--border-glass);
     gap: 0.5rem;
+    border-radius: 0 0 20px 20px; /* Ensures bottom rounded corners are kept */
 }
 
 .chatbot-input input {
