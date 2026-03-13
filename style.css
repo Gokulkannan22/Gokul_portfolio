@@ -1444,6 +1444,10 @@ span {
     animation: floatRobot 3s ease-in-out infinite, glowPulse 2s ease-in-out infinite;
 }
 
+.chatbot-container.active .floating-robot.thinking {
+    animation: thinkingFloat 1s ease-in-out infinite, thinkingGlow 1s infinite alternate;
+}
+
 .robot-img {
     width: 80%;
     height: 80%;
@@ -1466,6 +1470,26 @@ span {
     }
     50% {
         box-shadow: 0 0 25px rgba(0, 224, 255, 0.8), inset 0 0 15px rgba(0, 224, 255, 0.5);
+    }
+}
+
+@keyframes thinkingFloat {
+    0%, 100% {
+        transform: translateY(-8px) scale(1);
+    }
+    50% {
+        transform: translateY(0px) scale(1);
+    }
+}
+
+@keyframes thinkingGlow {
+    0% {
+        box-shadow: 0 0 20px rgba(125, 42, 232, 0.6), inset 0 0 15px rgba(125, 42, 232, 0.3);
+        border-color: var(--accent-color);
+    }
+    100% {
+        box-shadow: 0 0 40px rgba(0, 224, 255, 0.9), inset 0 0 25px rgba(0, 224, 255, 0.6);
+        border-color: var(--main-color);
     }
 }
 

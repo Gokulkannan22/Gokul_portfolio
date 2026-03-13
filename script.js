@@ -421,11 +421,15 @@ document.addEventListener("DOMContentLoaded", function () {
         chatInput.value = "";
 
         // Generate Bot Response based on Keywords
+        const floatingRobot = document.querySelector('.floating-robot');
+        if (floatingRobot) floatingRobot.classList.add('thinking');
+
         setTimeout(() => {
             const botResponse = getBotResponse(message.toLowerCase());
             appendMessage(botResponse, "bot-msg");
             appendSuggestions(); // repeatedly show options
-        }, 500); // Small delay to simulate "thinking"
+            if (floatingRobot) floatingRobot.classList.remove('thinking');
+        }, 1200); // Simulate "thinking" delay
     }
 
     function appendMessage(text, className) {
@@ -434,7 +438,7 @@ document.addEventListener("DOMContentLoaded", function () {
 
         if (className === "bot-msg") {
             msgDiv.innerHTML = `
-                <img src="https://api.dicebear.com/7.x/bottts/svg?seed=GokulBot&backgroundColor=7d2ae8" alt="Bot" class="bot-avatar-msg">
+                <img src="https://api.dicebear.com/9.x/bottts-neutral/svg?seed=Astra&backgroundColor=0f172a&eyes=bulging,dizzy,frame1,frame2,glow,happy,robocop,roundFrame01,roundFrame02,sensor,shade01" alt="Bot" class="bot-avatar-msg">
                 <div class="msg-content">${text}</div>
             `;
         } else {
