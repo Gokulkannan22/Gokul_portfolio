@@ -24,7 +24,8 @@ function App() {
       setLoading(true);
       setError('');
       try {
-        const response = await axios.get(`${API_BASE_URL}/${activeVis}`);
+        const url = API_BASE_URL ? `${API_BASE_URL}/${activeVis}` : activeVis;
+        const response = await axios.get(url);
         setData(response.data);
       } catch (err) {
         console.error(err);
