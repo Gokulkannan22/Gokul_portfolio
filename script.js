@@ -438,7 +438,7 @@ document.addEventListener("DOMContentLoaded", function () {
 
         if (className === "bot-msg") {
             msgDiv.innerHTML = `
-                <img src="https://api.dicebear.com/9.x/bottts-neutral/svg?seed=Astra&backgroundColor=0f172a&eyes=bulging,dizzy,frame1,frame2,glow,happy,robocop,roundFrame01,roundFrame02,sensor,shade01" alt="Bot" class="bot-avatar-msg">
+                <img src="bot-avatar.png" alt="Bot" class="bot-avatar-msg">
                 <div class="msg-content">${text}</div>
             `;
         } else {
