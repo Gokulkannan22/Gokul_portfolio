@@ -3,7 +3,7 @@ import Plot from 'react-plotly.js';
 import axios from 'axios';
 import { LineChart, BarChart3, PieChart, Activity, Grip, BrainCircuit } from 'lucide-react';
 
-const API_BASE_URL = import.meta.env.VITE_API_URL || 'http://localhost:7860';
+const API_BASE_URL = import.meta.env.VITE_API_URL || '';
 
 const VISUALIZATIONS = [
   { id: 'revenue-trend', name: 'Revenue Trend', icon: <LineChart size={20} /> },
