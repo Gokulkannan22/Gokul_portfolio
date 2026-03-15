@@ -1,0 +1,8 @@
+torch
+torchvision
+gradio
+pillow
+opencv-python-headless
+numpy
+torchcam
+pyaudioop
