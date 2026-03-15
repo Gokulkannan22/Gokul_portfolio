@@ -380,7 +380,7 @@ document.addEventListener("DOMContentLoaded", function () {
             
             document.querySelector('#car-loading p').textContent = "Analyzing damage & generating Grad-CAM...";
             
-            const result = await app.predict("/predict", [
+            const result = await app.predict("/analyze_image", [
                 file,
             ]);
             
