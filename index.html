@@ -309,54 +309,21 @@
 
         <div class="lab-container">
             <div class="lab-info">
-                <h3>Waste Classification AI</h3>
-                <p>Upload an image of waste and see how the AI model classifies it. This model classifies images into
-                    Plastic, Paper, Organic, Metal, or E-waste using Deep Convolutional Neural Networks.</p>
+                <h3>Car Damage Detection AI</h3>
+                <p>Upload an image of a damaged car to see how the AI model classifies it and explains its reasoning using Grad-CAM. This PyTorch model categorizes damage into 6 types including front and rear breakage/crushed zones.</p>
                 <div class="tech-stack-badges">
                     <span class="tag">Python</span>
-                    <span class="tag">CNN</span>
+                    <span class="tag">ResNet18</span>
                     <span class="tag">Deep Learning</span>
-                    <span class="tag">Streamlit</span>
+                    <span class="tag">Grad-CAM</span>
+                    <span class="tag">HuggingFace Spaces</span>
                 </div>
-                <a href="https://github.com/Gokulkannan22/waste_classifier" target="_blank" class="btn btn-secondary"
+                <a href="https://github.com/gokulkannan22/car-damage-detect" target="_blank" class="btn btn-secondary"
                     style="margin-top: 2rem;">View GitHub Repository</a>
             </div>
 
-            <div class="lab-demo">
-                <div class="ai-upload-container" id="upload-container">
-                    <input type="file" id="waste-image-input" accept="image/png, image/jpeg, image/jpg" hidden>
-                    <div class="upload-area" id="upload-area">
-                        <i class='bx bx-cloud-upload'></i>
-                        <p>Drag & Drop an image here or <span>Browse</span></p>
-                        <small>Supported: JPG, PNG</small>
-                    </div>
-
-                    <!-- Preview and Results area, initially hidden -->
-                    <div class="prediction-result" id="prediction-result" style="display: none;">
-                        <img id="image-preview" src="" alt="Waste Preview">
-                        <div class="result-details">
-                            <h4 id="pred-class">Prediction: <span>...</span></h4>
-                            <p id="pred-conf">Confidence: <span>...</span></p>
-                        </div>
-                        <button class="btn btn-primary" id="reset-ai-btn">Try Another</button>
-                    </div>
-
-                    <!-- Loading overlay -->
-                    <div class="ai-loading" id="ai-loading" style="display: none;">
-                        <div class="spinner"></div>
-                        <p>Analyzing waste...</p>
-                    </div>
-                </div>
-                <div class="supported-categories">
-                    <p>Supported Categories:</p>
-                    <ul>
-                        <li><i class='bx bx-check'></i> Plastic</li>
-                        <li><i class='bx bx-check'></i> Paper</li>
-                        <li><i class='bx bx-check'></i> Organic</li>
-                        <li><i class='bx bx-check'></i> Metal</li>
-                        <li><i class='bx bx-check'></i> E-waste</li>
-                    </ul>
-                </div>
+            <div class="lab-demo" style="width: 100%; height: 600px; border-radius: 20px; overflow: hidden; border: 1px solid var(--border-glass); box-shadow: 0 0 20px rgba(0,0,0,0.3);">
+                <iframe src="https://gokulb21-car-damage-detection.hf.space" width="100%" height="100%" frameborder="0" style="background: transparent;" loading="lazy" title="Car Damage Detection AI"></iframe>
             </div>
         </div>
 
