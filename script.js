@@ -380,8 +380,11 @@ document.addEventListener("DOMContentLoaded", function () {
             
             document.querySelector('#car-loading p').textContent = "Analyzing damage & generating Grad-CAM...";
             
+            // Gradio client expects a Blob or Buffer
+            const blob = new Blob([file], { type: file.type });
+            
             const result = await app.predict("/analyze_image", [
-                file,
+                blob, // image input
             ]);
             
             // Expected Result Data Structure from my Gradio app.py:
