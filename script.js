@@ -308,6 +308,127 @@ document.addEventListener("DOMContentLoaded", function () {
         }
     }
 });
+
+// ----------------------------------------------------
+// AI Experience Lab - Car Damage Detection (HuggingFace Gradio API)
+// ----------------------------------------------------
+document.addEventListener("DOMContentLoaded", function () {
+    const carUploadArea = document.getElementById('car-upload-area');
+    const carFileInput = document.getElementById('car-image-input');
+    const carPredictionResult = document.getElementById('car-prediction-result');
+    const carImagePreview = document.getElementById('car-image-preview');
+    const carPredClass = document.querySelector('#car-pred-class span');
+    const carLoadingOverlay = document.getElementById('car-loading');
+    const carResetBtn = document.getElementById('reset-car-btn');
+
+    if (!carUploadArea) return;
+
+    carUploadArea.addEventListener('click', () => carFileInput.click());
+
+    carUploadArea.addEventListener('dragover', (e) => {
+        e.preventDefault();
+        carUploadArea.classList.add('dragover');
+    });
+
+    carUploadArea.addEventListener('dragleave', () => {
+        carUploadArea.classList.remove('dragover');
+    });
+
+    carUploadArea.addEventListener('drop', (e) => {
+        e.preventDefault();
+        carUploadArea.classList.remove('dragover');
+        if (e.dataTransfer.files.length) {
+            handleCarFileUpload(e.dataTransfer.files[0]);
+        }
+    });
+
+    carFileInput.addEventListener('change', (e) => {
+        if (e.target.files.length) {
+            handleCarFileUpload(e.target.files[0]);
+        }
+    });
+
+    carResetBtn.addEventListener('click', () => {
+        carPredictionResult.style.display = 'none';
+        carUploadArea.style.display = 'block';
+        carFileInput.value = '';
+    });
+
+    function handleCarFileUpload(file) {
+        const validTypes = ['image/jpeg', 'image/png', 'image/jpg'];
+        if (!validTypes.includes(file.type)) {
+            alert('Please upload a valid image file (JPG or PNG).');
+            return;
+        }
+
+        carUploadArea.style.display = 'none';
+        carPredictionResult.style.display = 'none';
+        carLoadingOverlay.style.display = 'flex';
+        
+        predictCarDamage(file);
+    }
+
+    async function predictCarDamage(file) {
+        try {
+            document.querySelector('#car-loading p').textContent = "Connecting to HuggingFace Spaces...";
+            
+            // Dynamically import the official Gradio Client natively in browser
+            const module = await import("https://cdn.jsdelivr.net/npm/@gradio/client/dist/index.min.js");
+            const { client } = module;
+            
+            const app = await client("https://gokulb21-car-damage-detection.hf.space");
+            
+            document.querySelector('#car-loading p').textContent = "Analyzing damage & generating Grad-CAM...";
+            
+            const result = await app.predict("/predict", [
+                file,
+            ]);
+            
+            // Expected Result Data Structure from my Gradio app.py:
+            // result.data[0]: Heatmap Image Object { url: "..." }
+            // result.data[1]: "PredictedLabel (Confidence%)" -> "F_Crushed (92.00%)"
+            
+            const heatmapObj = result.data[0];
+            const predictionText = result.data[1] || "Unknown";
+            
+            // Parse out the confidence
+            const match = predictionText.match(/(.+) \(([\d.]+)%\)/);
+            let label = predictionText;
+            let conf = "";
+            let confidenceHTML = "";
+            
+            if (match) {
+                label = match[1];
+                conf = match[2] + "%";
+                confidenceHTML = `<br><span style="font-size: 1.1rem; color: var(--text-muted); font-weight: normal;">Confidence: <span style="color: var(--accent-color); font-weight: 600;">${conf}</span></span>`;
+            }
+            
+            if (heatmapObj && heatmapObj.url) {
+                carImagePreview.src = heatmapObj.url;
+            } else if (typeof heatmapObj === "string") {
+                carImagePreview.src = heatmapObj; 
+            }
+            
+            carImagePreview.style.maxHeight = "250px";
+            carImagePreview.style.borderRadius = "10px";
+            
+            carPredClass.innerHTML = `<span style="color: var(--main-color); font-weight: 800; font-size: 1.8rem;">${label}</span>${confidenceHTML}`;
+            
+            carLoadingOverlay.style.display = 'none';
+            carPredictionResult.style.display = 'flex';
+            
+        } catch (error) {
+            console.error("Error during Gradio API inference:", error);
+            
+            carLoadingOverlay.style.display = 'none';
+            carPredictionResult.style.display = 'flex';
+            carPredClass.innerHTML = "AI service temporarily unavailable. Please try again later.";
+            carPredClass.style.color = "red";
+            carPredClass.style.fontSize = "1.2rem";
+        }
+    }
+});
+
 // ----------------------------------------------------
 // AI Chatbot Widget Logic
 // ----------------------------------------------------
