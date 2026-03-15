@@ -176,6 +176,139 @@ document.addEventListener("DOMContentLoaded", function () {
 });
 
 // ----------------------------------------------------
+// AI Experience Lab - Image Upload & API Logic
+// ----------------------------------------------------
+document.addEventListener("DOMContentLoaded", function () {
+    const uploadArea = document.getElementById('upload-area');
+    const fileInput = document.getElementById('waste-image-input');
+    const predictionResult = document.getElementById('prediction-result');
+    const imagePreview = document.getElementById('image-preview');
+    const predClass = document.querySelector('#pred-class span');
+    const predConf = document.querySelector('#pred-conf span');
+    const loadingOverlay = document.getElementById('ai-loading');
+    const resetBtn = document.getElementById('reset-ai-btn');
+
+    // The live FastAPI endpoint deployed on Hugging Face Spaces
+    const API_URL = "https://gokulb21-waste-classifier-ai.hf.space/predict";
+
+    if (!uploadArea) return; // Exit if not on the page
+
+    // Click to upload
+    uploadArea.addEventListener('click', () => fileInput.click());
+
+    // Drag and drop events
+    uploadArea.addEventListener('dragover', (e) => {
+        e.preventDefault();
+        uploadArea.classList.add('dragover');
+    });
+
+    uploadArea.addEventListener('dragleave', () => {
+        uploadArea.classList.remove('dragover');
+    });
+
+    uploadArea.addEventListener('drop', (e) => {
+        e.preventDefault();
+        uploadArea.classList.remove('dragover');
+        if (e.dataTransfer.files.length) {
+            handleFileUpload(e.dataTransfer.files[0]);
+        }
+    });
+
+    // File input change event
+    fileInput.addEventListener('change', (e) => {
+        if (e.target.files.length) {
+            handleFileUpload(e.target.files[0]);
+        }
+    });
+
+    // Reset button
+    resetBtn.addEventListener('click', () => {
+        predictionResult.style.display = 'none';
+        uploadArea.style.display = 'block';
+        fileInput.value = '';
+    });
+
+    function handleFileUpload(file) {
+        // Validate file type
+        const validTypes = ['image/jpeg', 'image/png', 'image/jpg'];
+        if (!validTypes.includes(file.type)) {
+            alert('Please upload a valid image file (JPG or PNG).');
+            return;
+        }
+
+        // Show preview
+        const reader = new FileReader();
+        reader.onload = (e) => {
+            imagePreview.src = e.target.result;
+            uploadArea.style.display = 'none';
+            predictionResult.style.display = 'none';
+            loadingOverlay.style.display = 'flex';
+
+            // Call API
+            predictWaste(file);
+        };
+        reader.readAsDataURL(file);
+    }
+
+    async function predictWaste(file, retryCount = 5) {
+        const formData = new FormData();
+        // The FastAPI backend expects the key 'file'
+        formData.append("file", file);
+
+        // Update loading text to indicate possible cold start if retrying
+        if (retryCount < 5) {
+            document.querySelector('#ai-loading p').textContent = "Server waking up (can take up to a minute)...";
+        } else {
+            document.querySelector('#ai-loading p').textContent = "Analyzing waste...";
+        }
+
+        try {
+            const response = await fetch(API_URL, {
+                method: "POST",
+                body: formData,
+            });
+
+            if (!response.ok) {
+                throw new Error("Network response was not ok");
+            }
+
+            const data = await response.json();
+
+            // Hide loading, show results
+            loadingOverlay.style.display = 'none';
+            predictionResult.style.display = 'flex';
+
+            // Map the FastAPI response to the UI
+            predClass.textContent = data.prediction || "Unknown";
+
+            if (data.confidence !== undefined) {
+                predConf.textContent = (data.confidence * 100).toFixed(2) + "%";
+            } else {
+                predConf.textContent = "--";
+            }
+
+        } catch (error) {
+            console.error("Error during prediction API call:", error);
+
+            if (retryCount > 0) {
+                console.log(`Retrying in 10 seconds due to cold start... (${retryCount} attempts left)`);
+                setTimeout(() => {
+                    predictWaste(file, retryCount - 1);
+                }, 10000);
+            } else {
+                loadingOverlay.style.display = 'none';
+                predictionResult.style.display = 'flex';
+
+                // Show error state
+                predClass.textContent = "AI service temporarily unavailable. Please try again later.";
+                predClass.style.color = "red";
+                predClass.style.fontSize = "1.2rem";
+                predConf.textContent = "";
+            }
+        }
+    }
+});
+// ----------------------------------------------------
 // AI Chatbot Widget Logic
 // ----------------------------------------------------
 document.addEventListener("DOMContentLoaded", function () {
