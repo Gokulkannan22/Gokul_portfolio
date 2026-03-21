@@ -717,6 +717,6 @@ document.addEventListener("DOMContentLoaded", function() {
             }
         }
 
-        setTimeout(type, newTextDelay + 250);
+        setTimeout(type, 250);
     }
 });
