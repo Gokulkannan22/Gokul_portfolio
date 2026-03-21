@@ -685,7 +685,7 @@ document.addEventListener("DOMContentLoaded", function() {
         const textArray = ["Data Analyst", "Business Analyst"];
         const typingDelay = 100;
         const erasingDelay = 50;
-        const newTextDelay = 2000;
+        const newTextDelay = 1000;
         let textArrayIndex = 0;
         let charIndex = 0;
 
@@ -713,7 +713,7 @@ document.addEventListener("DOMContentLoaded", function() {
                 cursorSpan.classList.remove("typing");
                 textArrayIndex++;
                 if(textArrayIndex >= textArray.length) textArrayIndex = 0;
-                setTimeout(type, typingDelay + 1100);
+                setTimeout(type, typingDelay + 400);
             }
         }
 
