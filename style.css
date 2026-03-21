@@ -183,6 +183,30 @@ span {
     color: var(--text-muted);
 }
 
+.hero-content .role .typed-text {
+    color: var(--main-color);
+}
+
+.hero-content .role .cursor {
+    display: inline-block;
+    width: 3px;
+    background-color: var(--main-color);
+    margin-left: 0.1rem;
+    animation: blink 1s infinite;
+}
+
+.hero-content .role .cursor.typing {
+    animation: none;
+}
+
+@keyframes blink {
+    0%  { background-color: var(--main-color); }
+    49% { background-color: var(--main-color); }
+    50% { background-color: transparent; }
+    99% { background-color: transparent; }
+    100%  { background-color: var(--main-color); }
+}
+
 .hero-content .summary {
     font-size: 1.1rem;
     line-height: 1.6;
