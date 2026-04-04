@@ -61,6 +61,25 @@ canvas.height = window.innerHeight;
 
 let particlesArray;
 
+// Get mouse position
+let mouse = {
+    x: null,
+    y: null,
+    radius: 120
+};
+
+// Listen for mouse movement
+window.addEventListener('mousemove', function(event) {
+    mouse.x = event.x;
+    mouse.y = event.y;
+});
+
+// Clear mouse position when it leaves the window
+window.addEventListener('mouseout', function() {
+    mouse.x = undefined;
+    mouse.y = undefined;
+});
+
 // Particle Object
 class Particle {
     constructor(x, y, directionX, directionY, size, color) {
@@ -88,7 +107,28 @@ class Particle {
             this.directionY = -this.directionY;
         }
 
-        // Move particle
+        // Check collision detection - mouse position / particle position
+        let dx = mouse.x - this.x;
+        let dy = mouse.y - this.y;
+        let distance = Math.sqrt(dx * dx + dy * dy);
+        
+        // Gentle repulsion
+        if (distance < mouse.radius + this.size){
+            if (mouse.x < this.x && this.x < canvas.width - this.size * 3) {
+                this.x += 3;
+            }
+            if (mouse.x > this.x && this.x > this.size * 3) {
+                this.x -= 3;
+            }
+            if (mouse.y < this.y && this.y < canvas.height - this.size * 3) {
+                this.y += 3;
+            }
+            if (mouse.y > this.y && this.y > this.size * 3) {
+                this.y -= 3;
+            }
+        }
+
+        // Move particle naturally if not pushed heavily
         this.x += this.directionX;
         this.y += this.directionY;
 
@@ -99,22 +139,51 @@ class Particle {
 // Create particle array
 function init() {
     particlesArray = [];
-    let numberOfParticles = (canvas.height * canvas.width) / 20000; // density
-    // For smaller screens, reduce number
+    let numberOfParticles = Math.floor((canvas.height * canvas.width) / 12000); 
+    // Reduce density on small screens
     if (window.innerWidth < 768) {
-        numberOfParticles = (canvas.height * canvas.width) / 30000;
+        numberOfParticles = Math.floor((canvas.height * canvas.width) / 18000);
     }
 
     for (let i = 0; i < numberOfParticles; i++) {
-        let size = (Math.random() * 2) + 0.5;
+        let size = (Math.random() * 2) + 1;
         let x = (Math.random() * ((innerWidth - size * 2) - (size * 2)) + size * 2);
         let y = (Math.random() * ((innerHeight - size * 2) - (size * 2)) + size * 2);
-        let directionX = (Math.random() * 0.4) - 0.2;
-        let directionY = (Math.random() * 0.4) - 0.2;
+        let directionX = (Math.random() * 1) - 0.5;
+        let directionY = (Math.random() * 1) - 0.5;
         // Particle color based on theme
-        let color = Math.random() > 0.5 ? 'rgba(0, 224, 255, 0.3)' : 'rgba(125, 42, 232, 0.3)';
+        let color = Math.random() > 0.5 ? 'rgba(0, 224, 255, 0.8)' : 'rgba(125, 42, 232, 0.8)';
 
         particlesArray.push(new Particle(x, y, directionX, directionY, size, color));
+    }
+}
+
+// Connect particles
+function connect() {
+    let opacityValue = 1;
+    for (let a = 0; a < particlesArray.length; a++) {
+        for (let b = a; b < particlesArray.length; b++) {
+            let distance = (( particlesArray[a].x - particlesArray[b].x) * (particlesArray[a].x - particlesArray[b].x))
+            + ((particlesArray[a].y - particlesArray[b].y) * (particlesArray[a].y - particlesArray[b].y));
+            
+            // Connect if close enough
+            if (distance < (canvas.width/9) * (canvas.height/9)) {
+                opacityValue = 1 - (distance/18000);
+                
+                // Color connection line based on vertical position for dynamic look
+                if(particlesArray[a].y < canvas.height/2) {
+                    ctx.strokeStyle = 'rgba(0, 224, 255,' + opacityValue + ')';
+                } else {
+                    ctx.strokeStyle = 'rgba(125, 42, 232,' + opacityValue + ')';
+                }
+                
+                ctx.lineWidth = 1.2;
+                ctx.beginPath();
+                ctx.moveTo(particlesArray[a].x, particlesArray[a].y);
+                ctx.lineTo(particlesArray[b].x, particlesArray[b].y);
+                ctx.stroke();
+            }
+        }
     }
 }
 
@@ -126,6 +195,7 @@ function animate() {
     for (let i = 0; i < particlesArray.length; i++) {
         particlesArray[i].update();
     }
+    connect();
 }
 
 // Resize canvas
