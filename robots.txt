@@ -1,4 +1,4 @@
 User-agent: *
 Allow: /
 
-Sitemap: https://gokulkannan22.github.io/Gokul_portfolio/sitemap.xml
+Sitemap: https://www.gokulanalytics.online/sitemap.xml
