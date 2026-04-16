@@ -51,8 +51,26 @@ window.onscroll = () => {
 };
 
 // ----------------------------------------------------
-// Spline 3D Viewer handles its own background animation
+// Spline 3D Viewer & Watermark Removal
 // ----------------------------------------------------
+// Spline dynamically loads its watermark into a shadow DOM.
+// We poll occasionally to ensure it gets deleted once rendered.
+setInterval(() => {
+    const splineViewer = document.getElementById("bg-canvas");
+    if (splineViewer && splineViewer.shadowRoot) {
+        // Find logo explicitly by id
+        const logo = splineViewer.shadowRoot.querySelector('#logo');
+        if (logo) logo.remove();
+        
+        // Target any lingering spline links inside the shadow DOM
+        const links = splineViewer.shadowRoot.querySelectorAll('a');
+        links.forEach(link => {
+            if (link.href && link.href.includes("spline.design")) {
+                link.remove();
+            }
+        });
+    }
+}, 1000);
 
 // ----------------------------------------------------
 // Scroll Reveal Animations
