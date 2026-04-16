@@ -33,16 +33,21 @@ body {
     position: relative;
 }
 
-/* Background Canvas */
+/* Background Canvas / Spline */
 #bg-canvas {
     display: block;
-    position: fixed;
+    position: absolute; /* Keeps it naturally flowing inside the hero section */
     top: 0;
     left: 0;
     width: 100%;
     height: 100%;
     z-index: -1;
-    pointer-events: none;
+    pointer-events: none; /* Allows clicking buttons through it */
+}
+
+/* Hide the 'Built with Spline' watermark */
+spline-viewer::part(logo) {
+    display: none !important;
 }
 
 /* Typography Defaults */
@@ -150,6 +155,7 @@ span {
     justify-content: space-between;
     align-items: center;
     gap: 4rem;
+    position: relative; /* Spline background stays trapped in this section */
 }
 
 .hero-content {
