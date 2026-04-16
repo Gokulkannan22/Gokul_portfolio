@@ -43,21 +43,12 @@ body {
     height: 100%;
     z-index: -1;
     pointer-events: none; /* Allows clicking buttons through it */
+    transform: scale(1.08) translate(3%, 3%); /* Triggers overflow cropping */
 }
 
 /* Hide the 'Built with Spline' watermark natively if shadow-root hack fails */
 spline-viewer::part(logo) {
     display: none !important;
-}
-
-.spline-mask {
-    position: absolute;
-    bottom: 0;
-    right: 0;
-    width: 250px;
-    height: 60px;
-    background: var(--bg-color);
-    z-index: 10;
 }
 
 /* Typography Defaults */
@@ -166,6 +157,7 @@ span {
     align-items: center;
     gap: 4rem;
     position: relative; /* Spline background stays trapped in this section */
+    overflow: hidden; /* Crops out the zoomed out Spline watermark */
 }
 
 .hero-content {
