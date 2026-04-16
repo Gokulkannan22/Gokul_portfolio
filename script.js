@@ -95,7 +95,10 @@ class Particle {
         ctx.beginPath();
         ctx.arc(this.x, this.y, this.size, 0, Math.PI * 2, false);
         ctx.fillStyle = this.color;
+        ctx.shadowBlur = 15;
+        ctx.shadowColor = this.color;
         ctx.fill();
+        ctx.shadowBlur = 0; // reset
     }
     // Check particle position, check mouse position, move the particle, draw the particle
     update() {
@@ -115,20 +118,20 @@ class Particle {
         // Gentle repulsion
         if (distance < mouse.radius + this.size){
             if (mouse.x < this.x && this.x < canvas.width - this.size * 3) {
-                this.x += 3;
+                this.x += 1;
             }
             if (mouse.x > this.x && this.x > this.size * 3) {
-                this.x -= 3;
+                this.x -= 1;
             }
             if (mouse.y < this.y && this.y < canvas.height - this.size * 3) {
-                this.y += 3;
+                this.y += 1;
             }
             if (mouse.y > this.y && this.y > this.size * 3) {
-                this.y -= 3;
+                this.y -= 1;
             }
         }
 
-        // Move particle naturally if not pushed heavily
+        // Move particle slowly
         this.x += this.directionX;
         this.y += this.directionY;
 
@@ -139,51 +142,22 @@ class Particle {
 // Create particle array
 function init() {
     particlesArray = [];
-    let numberOfParticles = Math.floor((canvas.height * canvas.width) / 12000); 
+    let numberOfParticles = 50; 
     // Reduce density on small screens
     if (window.innerWidth < 768) {
-        numberOfParticles = Math.floor((canvas.height * canvas.width) / 18000);
+        numberOfParticles = 30;
     }
 
     for (let i = 0; i < numberOfParticles; i++) {
-        let size = (Math.random() * 2) + 1;
+        let size = (Math.random() * 3) + 2;
         let x = (Math.random() * ((innerWidth - size * 2) - (size * 2)) + size * 2);
         let y = (Math.random() * ((innerHeight - size * 2) - (size * 2)) + size * 2);
-        let directionX = (Math.random() * 1) - 0.5;
-        let directionY = (Math.random() * 1) - 0.5;
-        // Particle color based on theme
-        let color = Math.random() > 0.5 ? 'rgba(0, 224, 255, 0.8)' : 'rgba(125, 42, 232, 0.8)';
+        let directionX = (Math.random() * 0.4) - 0.2;
+        let directionY = (Math.random() * 0.4) - 0.2;
+        // Particle color (brighter)
+        let color = Math.random() > 0.5 ? 'rgba(0, 224, 255, 0.9)' : 'rgba(125, 42, 232, 0.9)';
 
         particlesArray.push(new Particle(x, y, directionX, directionY, size, color));
-    }
-}
-
-// Connect particles
-function connect() {
-    let opacityValue = 1;
-    for (let a = 0; a < particlesArray.length; a++) {
-        for (let b = a; b < particlesArray.length; b++) {
-            let distance = (( particlesArray[a].x - particlesArray[b].x) * (particlesArray[a].x - particlesArray[b].x))
-            + ((particlesArray[a].y - particlesArray[b].y) * (particlesArray[a].y - particlesArray[b].y));
-            
-            // Connect if close enough
-            if (distance < (canvas.width/9) * (canvas.height/9)) {
-                opacityValue = 1 - (distance/18000);
-                
-                // Color connection line based on vertical position for dynamic look
-                if(particlesArray[a].y < canvas.height/2) {
-                    ctx.strokeStyle = 'rgba(0, 224, 255,' + opacityValue + ')';
-                } else {
-                    ctx.strokeStyle = 'rgba(125, 42, 232,' + opacityValue + ')';
-                }
-                
-                ctx.lineWidth = 1.2;
-                ctx.beginPath();
-                ctx.moveTo(particlesArray[a].x, particlesArray[a].y);
-                ctx.lineTo(particlesArray[b].x, particlesArray[b].y);
-                ctx.stroke();
-            }
-        }
     }
 }
 
@@ -195,7 +169,6 @@ function animate() {
     for (let i = 0; i < particlesArray.length; i++) {
         particlesArray[i].update();
     }
-    connect();
 }
 
 // Resize canvas
