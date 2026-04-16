@@ -82,13 +82,14 @@ window.addEventListener('mouseout', function() {
 
 // Particle Object
 class Particle {
-    constructor(x, y, directionX, directionY, size, color) {
+    constructor(x, y, directionX, directionY, size, color1, color2) {
         this.x = x;
         this.y = y;
         this.directionX = directionX;
         this.directionY = directionY;
         this.size = size;
-        this.color = color;
+        this.color1 = color1;
+        this.color2 = color2;
     }
     
     // Move particle and handle drawing with hover effects
@@ -124,13 +125,24 @@ class Particle {
             }
         }
 
+        // Create premium double shaded gradient
+        let gradient = ctx.createLinearGradient(
+            this.x - currentSize, 
+            this.y - currentSize, 
+            this.x + currentSize, 
+            this.y + currentSize
+        );
+        gradient.addColorStop(0, this.color1);
+        gradient.addColorStop(1, this.color2);
+
         // Draw the dot
         ctx.beginPath();
         ctx.arc(this.x, this.y, currentSize, 0, Math.PI * 2, false);
         ctx.globalAlpha = opacity;
-        ctx.fillStyle = this.color;
+        ctx.fillStyle = gradient;
         ctx.shadowBlur = blur;
-        ctx.shadowColor = this.color;
+        // The glow emits from the core cyan base
+        ctx.shadowColor = this.color1;
         ctx.fill();
         
         // Reset properties so it doesn't affect other elements
@@ -150,17 +162,18 @@ function init() {
     }
 
     for (let i = 0; i < numberOfParticles; i++) {
-        let size = (Math.random() * 2) + 1.5;
+        let size = (Math.random() * 2.5) + 1.5;
         let x = Math.random() * canvas.width;
         let y = Math.random() * canvas.height;
         // Smooth, extremely slow drifting
         let directionX = (Math.random() * 0.6) - 0.3;
         let directionY = (Math.random() * 0.6) - 0.3;
         
-        // Brand themes: Cyan and Purple
-        let color = Math.random() > 0.5 ? '#00e0ff' : '#7d2ae8';
+        // Premium double shade connecting the user's primary theme: Cyan to Purple
+        let color1 = '#00e0ff';
+        let color2 = '#7d2ae8';
 
-        particlesArray.push(new Particle(x, y, directionX, directionY, size, color));
+        particlesArray.push(new Particle(x, y, directionX, directionY, size, color1, color2));
     }
 }
 
