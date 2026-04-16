@@ -637,26 +637,52 @@ document.addEventListener("DOMContentLoaded", function () {
 
     // Keyword matching logic
     function getBotResponse(input) {
+        // Freelance & Hiring
+        if (input.includes("freelance") || input.includes("fiverr") || input.includes("upwork") || input.includes("hire") || input.includes("contract")) {
+            return `<b>Available for Freelance!</b><br>
+                Gokul is currently accepting freelance analytics and AI projects. You can hire him directly through his:
+                <ul>
+                    <li><a href="https://www.upwork.com/freelancers/~015c907012fb1824d9" target="_blank" style="color:#00e0ff;">Upwork Profile</a></li>
+                    <li><a href="https://www.fiverr.com/gokulkannan0078" target="_blank" style="color:#00e0ff;">Fiverr Profile</a></li>
+                </ul>
+                Or simply email him at <b>gokulkannan0078@gmail.com</b>!`;
+        }
+
+        // Services Overview
+        if (input.includes("service") || input.includes("can you do") || input.includes("help") || input.includes("dashboard")) {
+            return `<b>What Gokul Can Do For You:</b><br>
+                <ul>
+                    <li><b>Clean & Prepare Data:</b> Structuring messy data for reporting.</li>
+                    <li><b>Build Power BI Dashboards:</b> Interactive executive KPI tracking.</li>
+                    <li><b>Analyze & Give Insights:</b> Finding trends and business advice.</li>
+                    <li><b>Create AI Solutions:</b> Advanced ML models for prediction/forecasting.</li>
+                </ul>`;
+        }
+
+        // Experience & Internships
+        if (input.includes("experience") || input.includes("intern") || input.includes("work history") || input.includes("job")) {
+            return `<b>Recent Experience:</b><br>
+                Gokul recently served as a Data Science Intern where he built an end-to-end CRM Analytics dashboard using Power BI. He analyzed over 19K+ live leads, tracked sales funnel drop-offs, and engineered data via Python (Pandas) to directly improve ROI!`;
+        }
+
         // Project 1: Revenue Intelligence
-        if (input.includes("revenue") || input.includes("platform") || input.includes("saas") || input.includes("forecast") || input.includes("analytic")) {
+        if (input.includes("revenue") || input.includes("platform") || input.includes("saas") || input.includes("forecast")) {
             return `<b>AI Revenue Intelligence Platform</b>:<br>
                 <ul>
                     <li>Machine learning based revenue prediction system</li>
                     <li>Connected to a live FastAPI & React Dashboard</li>
                     <li>Analyzes a real 20,000+ row B2B SaaS dataset</li>
                     <li>Calculates live MRR, Churn Trends, and ARPU Growth</li>
-                    <li>Professional Power BI DAX implementation</li>
                 </ul>`;
         }
 
         // Project 2: Waste Classification
-        if (input.includes("waste") || input.includes("classif") || input.includes("cnn") || input.includes("resnet") || input.includes("image")) {
+        if (input.includes("waste") || input.includes("classif") || input.includes("cnn") || input.includes("image")) {
             return `<b>Waste Classification AI</b>:<br>
                 <ul>
                     <li>Computer vision model for waste classification</li>
                     <li>Built using CNN, PyTorch, and ResNet18</li>
                     <li>Supports 5 categories: Plastic, Paper, Organic, Metal, and E-waste</li>
-                    <li>Deployed via FastAPI and Hugging Face</li>
                 </ul>`;
         }
 
@@ -664,39 +690,34 @@ document.addEventListener("DOMContentLoaded", function () {
         if (input.includes("crm") || input.includes("trend") || input.includes("netcom") || (input.includes("power") && input.includes("bi"))) {
             return `<b>Netcom CRM Business Trend Analysis</b>:<br>
                 <ul>
-                    <li>Business intelligence project analyzing huge CRM datasets</li>
+                    <li>Business intelligence analyzing massive CRM datasets</li>
                     <li>Built using Power BI, DAX, and Python</li>
-                    <li>Identifies key customer trends, revenue insights, and lead performance</li>
+                    <li>Identifies key customer trends and lead performance</li>
                 </ul>`;
         }
 
         // General Projects overview
-        if (input.includes("project") || input.includes("build") || input.includes("built") || input.includes("portfolio")) {
-            return "I have built several data science projects! My top three are:<ul><li><b>AI Revenue Intelligence Platform</b> (Machine Learning)</li><li><b>Waste Classification AI</b> (Computer Vision)</li><li><b>Netcom CRM Analysis</b> (Power BI).</li></ul>Which one would you like to know more about?";
+        if (input.includes("project") || input.includes("build") || input.includes("portfolio")) {
+            return "I have built several data science projects! My top three are:<ul><li><b>AI Revenue Platform</b> (ML)</li><li><b>Waste Classification AI</b> (Computer Vision)</li><li><b>Netcom CRM Analysis</b> (Power BI)</li></ul>Which one would you like to know more about?";
         }
 
         // Skills & Technologies
-        if (input.includes("tech") || input.includes("skill") || input.includes("use") || input.includes("tools") || input.includes("language") || input.includes("database") || input.includes("react") || input.includes("fastapi")) {
-            return "My technical expertise encompasses:<ul><li><b>Programming:</b> Python, SQL, JavaScript</li><li><b>Machine Learning:</b> Scikit-Learn, XGBoost, CNNs, ResNet</li><li><b>Web & Deployment:</b> React, FastAPI, Vite, Docker, Hugging Face</li><li><b>BI & Viz:</b> Power BI, DAX, Plotly.js, Pandas</li></ul>Is there a specific framework you are curious about?";
+        if (input.includes("tech") || input.includes("skill") || input.includes("use") || input.includes("tools") || input.includes("python") || input.includes("sql")) {
+            return "Gokul's expertise encompasses:<ul><li><b>Programming:</b> Python, SQL, JavaScript</li><li><b>Machine Learning:</b> Scikit-Learn, XGBoost, CNNs</li><li><b>Web & Deployment:</b> React, FastAPI, Docker</li><li><b>BI & Viz:</b> Power BI, Pandas</li></ul>";
         }
 
-        // Machine Learning specifics
-        if (input.includes("machine learning") || input.includes("model") || input.includes("ml") || input.includes("deep learning")) {
-            return "I have worked with classification models (SVM, XGBoost), deep learning frameworks (PyTorch, TensorFlow) for Computer Vision using ResNet, and applied Grad-CAM for model explainability! I specialize in both Predictive Analytics and Deep Convolutional Neural Networks.";
-        }
-
-        // Why hire Gokul / Impact / Problem solving
-        if (input.includes("hire") || input.includes("problem") || input.includes("solve") || input.includes("impact") || input.includes("value")) {
-            return "You should hire me because I don't just write algorithms—I solve real business problems! For example, my models can predict customer churn and forecast revenue risks, directly impacting profitability. My focus is always on translating complex data into actionable, executive-level insights.";
+        // Website features
+        if (input.includes("website") || input.includes("background") || input.includes("seo") || input.includes("domain")) {
+            return "Gokul built this entire highly-SEO optimized portfolio at <b>www.gokulanalytics.online</b>! He recently programmed this premium interactive background particle effect using raw HTML Canvas & Javascript! Pretty cool, right?";
         }
 
         // Greetings
         if (input.includes("hello") || input.includes("hi") || input.includes("hey") || input === "hi" || input === "hello") {
-            return "Hello! I form the AI extension of Gokul B's portfolio. You can ask me about his work as a Data Analyst & Business Analyst, specifically his new Full-Stack React & FastAPI Revenue Dashboard! What would you like to explore?";
+            return "Hello! I am Gokul's AI assistant on <b>gokulanalytics.online</b>. You can ask me about his Freelance services (Fiverr/Upwork), his Data Analytics projects (PowerBI/ML), or his CRM internship experience! How can I help you today?";
         }
 
         // Default Fallback
-        return "I am Gokul's AI assistant focused on his Data Science portfolio! Please ask me about his specific projects (like the AI Revenue Platform or Waste Classifier), the technologies he uses (like Python, Power BI, or CNNs), or why he is a great fit for your team!";
+        return "I am Gokul's AI assistant focused on his Data Science portfolio! Please ask me about his <b>Freelance Services</b>, his <b>Data Projects</b> (like the AI Revenue Platform or Power BI CRM), or his <b>Internship Experience</b>!";
     }
 
     // Lively Bot Actions
