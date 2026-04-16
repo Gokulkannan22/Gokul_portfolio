@@ -90,18 +90,12 @@ class Particle {
         this.size = size;
         this.color = color;
     }
-    // Method to draw individual particle
-    draw() {
-        ctx.beginPath();
-        ctx.arc(this.x, this.y, this.size, 0, Math.PI * 2, false);
-        ctx.fillStyle = this.color;
-        ctx.shadowBlur = 15;
-        ctx.shadowColor = this.color;
-        ctx.fill();
-        ctx.shadowBlur = 0; // reset
-    }
     // Check particle position, check mouse position, move the particle, draw the particle
     update() {
+        // Keep moving particles invisibly so they aren't static
+        this.x += this.directionX;
+        this.y += this.directionY;
+
         // Check if particle is still within canvas
         if (this.x > canvas.width || this.x < 0) {
             this.directionX = -this.directionX;
@@ -110,52 +104,53 @@ class Particle {
             this.directionY = -this.directionY;
         }
 
-        // Check collision detection - mouse position / particle position
-        let dx = mouse.x - this.x;
-        let dy = mouse.y - this.y;
-        let distance = Math.sqrt(dx * dx + dy * dy);
-        
-        // Gentle repulsion
-        if (distance < mouse.radius + this.size){
-            if (mouse.x < this.x && this.x < canvas.width - this.size * 3) {
-                this.x += 1;
-            }
-            if (mouse.x > this.x && this.x > this.size * 3) {
-                this.x -= 1;
-            }
-            if (mouse.y < this.y && this.y < canvas.height - this.size * 3) {
-                this.y += 1;
-            }
-            if (mouse.y > this.y && this.y > this.size * 3) {
-                this.y -= 1;
+        // Only draw if we have a mouse position
+        if (mouse.x != undefined) {
+            let dx = mouse.x - this.x;
+            let dy = mouse.y - this.y;
+            let distance = Math.sqrt(dx * dx + dy * dy);
+            let maxDistance = 250; // Radius of visibility around cursor
+            
+            if (distance < maxDistance) {
+                let visibility = 1 - (distance / maxDistance);
+                
+                ctx.beginPath();
+                // Dots slightly increase in size as mouse gets closer
+                ctx.arc(this.x, this.y, this.size + (visibility * 1.5), 0, Math.PI * 2, false);
+                
+                ctx.globalAlpha = visibility;
+                ctx.fillStyle = this.color;
+                ctx.shadowBlur = 15 * visibility;
+                ctx.shadowColor = this.color;
+                ctx.fill();
+                
+                ctx.globalAlpha = 1.0;
+                ctx.shadowBlur = 0; // reset
             }
         }
-
-        // Move particle slowly
-        this.x += this.directionX;
-        this.y += this.directionY;
-
-        this.draw();
     }
 }
 
 // Create particle array
 function init() {
     particlesArray = [];
-    let numberOfParticles = 50; 
-    // Reduce density on small screens
+    let numberOfParticles = Math.floor((canvas.height * canvas.width) / 5000); 
+    // Density scaling
     if (window.innerWidth < 768) {
-        numberOfParticles = 30;
+        numberOfParticles = Math.floor((canvas.height * canvas.width) / 8000);
     }
+    
+    // Cap maximum particles for performance
+    if(numberOfParticles > 250) numberOfParticles = 250;
 
     for (let i = 0; i < numberOfParticles; i++) {
-        let size = (Math.random() * 3) + 2;
+        let size = (Math.random() * 2) + 1.5;
         let x = (Math.random() * ((innerWidth - size * 2) - (size * 2)) + size * 2);
         let y = (Math.random() * ((innerHeight - size * 2) - (size * 2)) + size * 2);
         let directionX = (Math.random() * 0.4) - 0.2;
         let directionY = (Math.random() * 0.4) - 0.2;
-        // Particle color (brighter)
-        let color = Math.random() > 0.5 ? 'rgba(0, 224, 255, 0.9)' : 'rgba(125, 42, 232, 0.9)';
+        // Bright cyan or purple theme
+        let color = Math.random() > 0.5 ? '#00e0ff' : '#7d2ae8';
 
         particlesArray.push(new Particle(x, y, directionX, directionY, size, color));
     }
