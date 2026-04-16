@@ -1185,6 +1185,10 @@ span {
 
 /* ===== RESPONSIVE ===== */
 @media (max-width: 991px) {
+    html {
+        font-size: 85%; /* Scales down all fonts and cards slightly for tablets */
+    }
+
     .header {
         padding: 1.5rem 5%;
     }
@@ -1203,6 +1207,10 @@ span {
 }
 
 @media (max-width: 768px) {
+    html {
+        font-size: 75%; /* Scales down fonts, paddings, and cards globally for mobile readability */
+    }
+
     #menu-icon {
         display: block;
     }
@@ -1273,15 +1281,27 @@ span {
     }
 
     .iframe-container {
-        height: 450px;
+        height: 400px;
     }
 
     .contact form .input-box input {
         width: 100%;
     }
+
+    /* Reduce card padding explicitly for mobile */
+    .service-box {
+        padding: 2rem;
+    }
+    .portfolio-box .portfolio-layer {
+        padding: 2.5rem;
+    }
 }
 
 @media (max-width: 450px) {
+    html {
+        font-size: 65%; /* Ultra compact scaling for small phones preventing horizontal scroll */
+    }
+
     .hero-content .name {
         font-size: 3rem;
     }
@@ -1292,7 +1312,7 @@ span {
 
     .btn {
         padding: 0.6rem 1.2rem;
-        font-size: 0.9rem;
+        font-size: 1rem;
         margin-bottom: 0.5rem;
     }
 
