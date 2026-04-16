@@ -127,7 +127,8 @@
     <!-- Hero Section -->
     <section id="home" class="hero">
         <!-- Interactive 3D Robot Background (Restricted to Hero) -->
-        <spline-viewer id="bg-canvas" url="https://prod.spline.design/PRhpoFyZspQmuU2H/scene.splinecode"></spline-viewer>
+    <spline-viewer id="bg-canvas" url="https://prod.spline.design/PRhpoFyZspQmuU2H/scene.splinecode"></spline-viewer>
+    <div class="spline-mask" aria-hidden="true"></div>
 
         <div class="hero-content">
             <h3 class="greeting">Hi, I'm</h3>
@@ -152,7 +153,7 @@
                 <a href="#projects" class="btn btn-secondary">View Work</a>
             </div>
         </div>
-        <div class="hero-image">
+        <div class="hero-image" data-tilt data-tilt-scale="1.05" data-tilt-glare="true" data-tilt-max-glare="0.3">
             <div class="profile-container">
                 <div class="profile-wrapper">
                     <img src="profile.jpg" alt="Profile of Gokul B" class="profile-img">
@@ -322,7 +323,7 @@
 
         <div class="portfolio-container">
             <!-- Project 1 -->
-            <div class="portfolio-box">
+            <div class="portfolio-box" data-tilt data-tilt-scale="1.05" data-tilt-glare="true" data-tilt-max-glare="0.5">
                 <div class="portfolio-layer">
                     <h4>AI Revenue Intelligence Platform</h4>
                     <p class="tech-stack">XGBoost | Python | React | AWS</p>
@@ -334,7 +335,7 @@
             </div>
 
             <!-- Project 2 -->
-            <div class="portfolio-box">
+            <div class="portfolio-box" data-tilt data-tilt-scale="1.05" data-tilt-glare="true" data-tilt-max-glare="0.5">
                 <div class="portfolio-layer">
                     <h4>Waste Classification App</h4>
                     <p class="tech-stack">TensorFlow | ResNet18 | Grad-CAM | Streamlit</p>
@@ -346,7 +347,7 @@
             </div>
 
             <!-- Project 3 -->
-            <div class="portfolio-box">
+            <div class="portfolio-box" data-tilt data-tilt-scale="1.05" data-tilt-glare="true" data-tilt-max-glare="0.5">
                 <div class="portfolio-layer">
                     <h4>Netcom CRM Lead Conversion Optimization & BI Dashboard</h4>
                     <p class="tech-stack">Power BI | Python | Pandas | DAX</p>
@@ -363,25 +364,25 @@
         <h2 class="heading">What I Can Do For <span>You</span></h2>
 
         <div class="services-container">
-            <div class="service-box">
+            <div class="service-box" data-tilt data-tilt-scale="1.05" data-tilt-glare="true" data-tilt-max-glare="0.5">
                 <i class='bx bx-data'></i>
                 <h3>Clean & Prepare Data</h3>
                 <p>I organize and clean messy data from various sources so it’s ready for accurate analysis and reporting.</p>
             </div>
 
-            <div class="service-box">
+            <div class="service-box" data-tilt data-tilt-scale="1.05" data-tilt-glare="true" data-tilt-max-glare="0.5">
                 <i class='bx bxs-pie-chart-alt-2'></i>
                 <h3>Build Power BI Dashboards</h3>
                 <p>I design interactive, easy-to-read executive dashboards that track your KPIs and business performance.</p>
             </div>
 
-            <div class="service-box">
+            <div class="service-box" data-tilt data-tilt-scale="1.05" data-tilt-glare="true" data-tilt-max-glare="0.5">
                 <i class='bx bx-line-chart'></i>
                 <h3>Analyze Data & Give Insights</h3>
                 <p>I dive deep into your numbers to uncover trends, identify issues, and provide actionable business advice.</p>
             </div>
 
-            <div class="service-box">
+            <div class="service-box" data-tilt data-tilt-scale="1.05" data-tilt-glare="true" data-tilt-max-glare="0.5">
                 <i class='bx bx-brain'></i>
                 <h3>Create AI-Based Solutions</h3>
                 <p>For complex problems, I build advanced machine learning models for forecasting, churn prediction, or image classification.</p>
@@ -624,7 +625,8 @@
         <i class='bx bx-message-dots'></i>
     </div>
 
-    <!-- Custom JS -->
+    <!-- Custom JS & 3D Tilt Library -->
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/vanilla-tilt/1.8.1/vanilla-tilt.min.js"></script>
     <script src="script.js?v=3"></script>
 </body>
 
