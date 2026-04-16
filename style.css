@@ -326,6 +326,17 @@ span {
     align-items: center;
     border-radius: 50%;
     z-index: 1;
+    transform-style: preserve-3d;
+}
+
+/* Force Vanilla Tilt glare to dynamically match the circular profile container */
+.profile-container .js-tilt-glare {
+    border-radius: 50%;
+    overflow: hidden;
+}
+
+.profile-container > * {
+    transform: translateZ(50px);
 }
 
 .profile-wrapper {
