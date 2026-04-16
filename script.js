@@ -53,11 +53,10 @@ window.onscroll = () => {
 // ----------------------------------------------------
 // Background Canvas Particles Effect
 // ----------------------------------------------------
-const canvas = document.getElementById("bg-canvas");
-const ctx = canvas.getContext("2d");
-
-canvas.width = window.innerWidth;
-canvas.height = window.innerHeight;
+// const canvas = document.getElementById("bg-canvas");
+// const ctx = canvas.getContext("2d");
+// canvas.width = window.innerWidth;
+// canvas.height = window.innerHeight;
 
 let particlesArray;
 
@@ -180,10 +179,10 @@ function init() {
 // Animation loop
 function animate() {
     requestAnimationFrame(animate);
-    ctx.clearRect(0, 0, innerWidth, innerHeight);
+    // ctx.clearRect(0, 0, innerWidth, innerHeight);
 
     for (let i = 0; i < particlesArray.length; i++) {
-        particlesArray[i].update();
+        // particlesArray[i].update();
     }
 }
 
