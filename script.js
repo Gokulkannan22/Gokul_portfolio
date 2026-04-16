@@ -90,66 +90,74 @@ class Particle {
         this.size = size;
         this.color = color;
     }
-    // Check particle position, check mouse position, move the particle, draw the particle
+    
+    // Move particle and handle drawing with hover effects
     update() {
-        // Keep moving particles invisibly so they aren't static
         this.x += this.directionX;
         this.y += this.directionY;
 
-        // Check if particle is still within canvas
-        if (this.x > canvas.width || this.x < 0) {
-            this.directionX = -this.directionX;
-        }
-        if (this.y > canvas.height || this.y < 0) {
-            this.directionY = -this.directionY;
-        }
+        // Bounce off edges perfectly to maintain structure
+        if (this.x > canvas.width || this.x < 0) this.directionX = -this.directionX;
+        if (this.y > canvas.height || this.y < 0) this.directionY = -this.directionY;
 
-        // Only draw if we have a mouse position
+        let opacity = 0.15; // Structured base visibility
+        let blur = 0;       // Base glow
+        let currentSize = this.size;
+
+        // Mouse interaction
         if (mouse.x != undefined) {
             let dx = mouse.x - this.x;
             let dy = mouse.y - this.y;
             let distance = Math.sqrt(dx * dx + dy * dy);
-            let maxDistance = 250; // Radius of visibility around cursor
+            let maxDistance = 250; // Detection radius
             
             if (distance < maxDistance) {
-                let visibility = 1 - (distance / maxDistance);
+                let factor = 1 - (distance / maxDistance);
                 
-                ctx.beginPath();
-                // Dots slightly increase in size as mouse gets closer
-                ctx.arc(this.x, this.y, this.size + (visibility * 1.5), 0, Math.PI * 2, false);
+                opacity = 0.15 + (factor * 0.85); // Fade up to full opacity
+                blur = factor * 20;             // Beautiful glowing halo
+                currentSize = this.size + (factor * 2); // Slightly enlarge
                 
-                ctx.globalAlpha = visibility;
-                ctx.fillStyle = this.color;
-                ctx.shadowBlur = 15 * visibility;
-                ctx.shadowColor = this.color;
-                ctx.fill();
-                
-                ctx.globalAlpha = 1.0;
-                ctx.shadowBlur = 0; // reset
+                // Subtle antigravity repulsion
+                this.x -= dx * 0.015 * factor;
+                this.y -= dy * 0.015 * factor;
             }
         }
+
+        // Draw the dot
+        ctx.beginPath();
+        ctx.arc(this.x, this.y, currentSize, 0, Math.PI * 2, false);
+        ctx.globalAlpha = opacity;
+        ctx.fillStyle = this.color;
+        ctx.shadowBlur = blur;
+        ctx.shadowColor = this.color;
+        ctx.fill();
+        
+        // Reset properties so it doesn't affect other elements
+        ctx.globalAlpha = 1.0;
+        ctx.shadowBlur = 0; 
     }
 }
 
 // Create particle array
 function init() {
     particlesArray = [];
-    let numberOfParticles = Math.floor((canvas.height * canvas.width) / 5000); 
-    // Density scaling
-    if (window.innerWidth < 768) {
-        numberOfParticles = Math.floor((canvas.height * canvas.width) / 8000);
-    }
     
-    // Cap maximum particles for performance
-    if(numberOfParticles > 250) numberOfParticles = 250;
+    // Balanced number of particles for a professional, un-cluttered look
+    let numberOfParticles = 80;
+    if (window.innerWidth < 768) {
+        numberOfParticles = 40;
+    }
 
     for (let i = 0; i < numberOfParticles; i++) {
         let size = (Math.random() * 2) + 1.5;
-        let x = (Math.random() * ((innerWidth - size * 2) - (size * 2)) + size * 2);
-        let y = (Math.random() * ((innerHeight - size * 2) - (size * 2)) + size * 2);
-        let directionX = (Math.random() * 0.4) - 0.2;
-        let directionY = (Math.random() * 0.4) - 0.2;
-        // Bright cyan or purple theme
+        let x = Math.random() * canvas.width;
+        let y = Math.random() * canvas.height;
+        // Smooth, extremely slow drifting
+        let directionX = (Math.random() * 0.6) - 0.3;
+        let directionY = (Math.random() * 0.6) - 0.3;
+        
+        // Brand themes: Cyan and Purple
         let color = Math.random() > 0.5 ? '#00e0ff' : '#7d2ae8';
 
         particlesArray.push(new Particle(x, y, directionX, directionY, size, color));
