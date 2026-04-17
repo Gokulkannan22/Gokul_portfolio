@@ -1067,6 +1067,46 @@ document.addEventListener("DOMContentLoaded", function() {
 });
 
 // ----------------------------------------------------
+// ContainerScroll Animation — Skills Section
+// Mirrors framer-motion useScroll: rotateX 20→0, scale 1.05→1,
+// title translates upward as card flattens
+// ----------------------------------------------------
+(function initContainerScroll() {
+    const card      = document.getElementById('cs-card');
+    const header    = document.getElementById('cs-header');
+    const container = document.getElementById('skills-scroll-container');
+    if (!card || !header || !container) return;
+
+    const isMobile = () => window.innerWidth <= 768;
+
+    function lerp(a, b, t) { return a + (b - a) * t; }
+    function clamp(v, min, max) { return Math.min(Math.max(v, min), max); }
+
+    function onScroll() {
+        const rect     = container.getBoundingClientRect();
+        const viewH    = window.innerHeight;
+
+        // progress: 0 when container top hits viewport bottom, 1 when container bottom hits viewport top
+        const progress = clamp(1 - (rect.bottom / (viewH + rect.height)), 0, 1);
+
+        // rotateX: 20deg → 0deg
+        const rotateX  = lerp(20, 0, progress);
+        // scale: 1.05 → 1  (mobile: 0.7 → 0.9)
+        const scaleFrom = isMobile() ? 0.82 : 1.05;
+        const scaleTo   = isMobile() ? 0.96 : 1;
+        const scale     = lerp(scaleFrom, scaleTo, progress);
+        // title translate: 0 → -60px
+        const translateY = lerp(0, -60, progress);
+
+        card.style.transform   = `rotateX(${rotateX}deg) scale(${scale})`;
+        header.style.transform = `translateY(${translateY}px)`;
+    }
+
+    window.addEventListener('scroll', onScroll, { passive: true });
+    onScroll(); // initial paint
+})();
+
+// ----------------------------------------------------
 // Animated MacOS Dock Implementation
 // ----------------------------------------------------
 document.addEventListener("DOMContentLoaded", () => {

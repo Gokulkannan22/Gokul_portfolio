@@ -260,98 +260,115 @@
         </div>
     </section>
 
-    <!-- Skills Section -->
-    <section id="skills" class="skills">
-        <h2 class="heading">My <span>Skills</span></h2>
+    <!-- Skills Section with ContainerScroll Animation -->
+    <section id="skills" class="skills skills-scroll-root">
 
-        <div class="skills-container">
-            <div class="skills-box">
-                <h3 class="skills-title">Technical Expertise</h3>
-                <div class="skills-content">
+        <!-- Sticky scroll trigger zone -->
+        <div class="cs-container" id="skills-scroll-container">
 
-                    <div class="skill-category">
-                        <h4>Programming & Databases</h4>
-                        <div class="skill-tags">
-                            <span class="tag">Python</span>
-                            <span class="tag">SQL</span>
-                            <span class="tag">MySQL</span>
-                            <span class="tag">PostgreSQL</span>
-                        </div>
-                    </div>
-
-                    <div class="skill-category">
-                        <h4>Data Analytics & BI</h4>
-                        <div class="skill-tags">
-                            <span class="tag">Power BI</span>
-                            <span class="tag">DAX</span>
-                            <span class="tag">Advanced Excel</span>
-                            <span class="tag">Data Modeling</span>
-                            <span class="tag">KPI Design</span>
-                        </div>
-                    </div>
-
-                    <div class="skill-category">
-                        <h4>Machine Learning & CV</h4>
-                        <div class="skill-tags">
-                            <span class="tag">Scikit-Learn</span>
-                            <span class="tag">XGBoost</span>
-                            <span class="tag">SVM</span>
-                            <span class="tag">CNN</span>
-                            <span class="tag">ResNet</span>
-                            <span class="tag">Grad-CAM</span>
-                            <span class="tag">OpenCV</span>
-                        </div>
-                    </div>
-
-                    <div class="skill-category">
-                        <h4>Data Visualization & Tools</h4>
-                        <div class="skill-tags">
-                            <span class="tag">Pandas</span>
-                            <span class="tag">NumPy</span>
-                            <span class="tag">Matplotlib</span>
-                            <span class="tag">Seaborn</span>
-                            <span class="tag">Git & GitHub</span>
-                            <span class="tag">Streamlit</span>
-                            <span class="tag">Jupyter Notebook</span>
-                        </div>
-                    </div>
-
-                </div>
+            <!-- Title that translates upward as you scroll -->
+            <div class="cs-header" id="cs-header">
+                <h2 class="heading">My <span>Skills</span></h2>
+                <p class="cs-subtitle">Technologies I work with every day</p>
             </div>
 
-            <div class="skills-box">
-                <h3 class="skills-title">Certifications</h3>
-                <div class="certifications-content">
-                    <a href="https://coursera.org/share/cbe0f4eaf11ce9e481ea68f0290acce7" target="_blank"
-                        class="cert-card-link">
-                        <div class="cert-card">
-                            <i class='bx bxl-google'></i>
-                            <div class="cert-info">
-                                <h4>Foundations: Data, Data, Everywhere</h4>
-                                <p>Google (via Coursera) - Mar 2026</p>
-                                <small>ID: 5UAFQEW6V42H</small>
+            <!-- 3D Perspective Card -->
+            <div class="cs-card-wrap" id="cs-card-wrap">
+                <div class="cs-card" id="cs-card">
+                    <div class="cs-card-inner">
+
+                        <div class="skills-container">
+                            <div class="skills-box">
+                                <h3 class="skills-title">Technical Expertise</h3>
+                                <div class="skills-content">
+
+                                    <div class="skill-category">
+                                        <h4>Programming &amp; Databases</h4>
+                                        <div class="skill-tags">
+                                            <span class="tag">Python</span>
+                                            <span class="tag">SQL</span>
+                                            <span class="tag">MySQL</span>
+                                            <span class="tag">PostgreSQL</span>
+                                        </div>
+                                    </div>
+
+                                    <div class="skill-category">
+                                        <h4>Data Analytics &amp; BI</h4>
+                                        <div class="skill-tags">
+                                            <span class="tag">Power BI</span>
+                                            <span class="tag">DAX</span>
+                                            <span class="tag">Advanced Excel</span>
+                                            <span class="tag">Data Modeling</span>
+                                            <span class="tag">KPI Design</span>
+                                        </div>
+                                    </div>
+
+                                    <div class="skill-category">
+                                        <h4>Machine Learning &amp; CV</h4>
+                                        <div class="skill-tags">
+                                            <span class="tag">Scikit-Learn</span>
+                                            <span class="tag">XGBoost</span>
+                                            <span class="tag">SVM</span>
+                                            <span class="tag">CNN</span>
+                                            <span class="tag">ResNet</span>
+                                            <span class="tag">Grad-CAM</span>
+                                            <span class="tag">OpenCV</span>
+                                        </div>
+                                    </div>
+
+                                    <div class="skill-category">
+                                        <h4>Data Visualization &amp; Tools</h4>
+                                        <div class="skill-tags">
+                                            <span class="tag">Pandas</span>
+                                            <span class="tag">NumPy</span>
+                                            <span class="tag">Matplotlib</span>
+                                            <span class="tag">Seaborn</span>
+                                            <span class="tag">Git &amp; GitHub</span>
+                                            <span class="tag">Streamlit</span>
+                                            <span class="tag">Jupyter Notebook</span>
+                                        </div>
+                                    </div>
+
+                                </div>
+                            </div>
+
+                            <div class="skills-box">
+                                <h3 class="skills-title">Certifications</h3>
+                                <div class="certifications-content">
+                                    <a href="https://coursera.org/share/cbe0f4eaf11ce9e481ea68f0290acce7" target="_blank" class="cert-card-link">
+                                        <div class="cert-card">
+                                            <i class='bx bxl-google'></i>
+                                            <div class="cert-info">
+                                                <h4>Foundations: Data, Data, Everywhere</h4>
+                                                <p>Google (via Coursera) - Mar 2026</p>
+                                                <small>ID: 5UAFQEW6V42H</small>
+                                            </div>
+                                        </div>
+                                    </a>
+                                    <div class="cert-card">
+                                        <i class='bx bx-certification'></i>
+                                        <div class="cert-info">
+                                            <h4>Data Analysis with Power BI</h4>
+                                            <p>Microsoft (via Coursera) - Jun 2025</p>
+                                            <small>ID: 79YKFHGVMVGF</small>
+                                        </div>
+                                    </div>
+                                    <div class="cert-card">
+                                        <i class='bx bx-certification'></i>
+                                        <div class="cert-info">
+                                            <h4>OpenCV Bootcamp</h4>
+                                            <p>OpenCV University - May 2025</p>
+                                            <small>Practical projects in image processing &amp; CV</small>
+                                        </div>
+                                    </div>
+                                </div>
                             </div>
                         </div>
-                    </a>
-                    <div class="cert-card">
-                        <i class='bx bx-certification'></i>
-                        <div class="cert-info">
-                            <h4>Data Analysis with Power BI</h4>
-                            <p>Microsoft (via Coursera) - Jun 2025</p>
-                            <small>ID: 79YKFHGVMVGF</small>
-                        </div>
-                    </div>
-                    <div class="cert-card">
-                        <i class='bx bx-certification'></i>
-                        <div class="cert-info">
-                            <h4>OpenCV Bootcamp</h4>
-                            <p>OpenCV University - May 2025</p>
-                            <small>Practical projects in image processing & CV</small>
-                        </div>
+
                     </div>
                 </div>
-            </div>
-        </div>
+            </div><!-- end cs-card-wrap -->
+        </div><!-- end cs-container -->
     </section>
 
     <!-- Projects Section -->
