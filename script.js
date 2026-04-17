@@ -1114,7 +1114,7 @@ document.addEventListener('DOMContentLoaded', () => {
     const ctx = canvas.getContext('2d');
 
     let width, height, imageData, data;
-    const SCALE = 2; // Performance vs Quality tradeoff
+    const SCALE = 10; // High performance (computes 100x fewer pixels per frame)
 
     const resizeCanvas = () => {
         // Match the surrounding section's size
@@ -1202,7 +1202,7 @@ document.addEventListener('DOMContentLoaded', () => {
         
         // Scale it up
         if (SCALE > 1) {
-            ctx.imageSmoothingEnabled = false;
+            ctx.imageSmoothingEnabled = true;
             ctx.drawImage(canvas, 0, 0, width, height, 0, 0, canvas.width, canvas.height);
         }
 
