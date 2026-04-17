@@ -12,25 +12,6 @@ function closePopup() {
     document.getElementById('success-popup').classList.remove('active');
 }
 
-// ----------------------------------------------------
-// Premium 3D Preloader
-// ----------------------------------------------------
-// Listens strictly for the Spline WebGL "load-complete" event
-// which fires only when the 3D geometry is fully cached and rendered.
-document.addEventListener("DOMContentLoaded", () => {
-    const SplineViewer = document.getElementById("bg-canvas");
-    const preloader = document.getElementById("global-preloader");
-    
-    if (SplineViewer && preloader) {
-        SplineViewer.addEventListener("load-complete", () => {
-            preloader.style.opacity = '0';
-            setTimeout(() => {
-                preloader.remove();
-            }, 800);
-        });
-    }
-});
-
 // Toggle menu icon and navbar
 let menuIcon = document.querySelector('#menu-icon');
 let navbar = document.querySelector('.navbar');
