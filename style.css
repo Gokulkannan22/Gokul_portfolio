@@ -1739,9 +1739,9 @@ span {
     left: 0;
     width: 100%;
     height: 100%;
-    z-index: 1; /* Keep behind content */
+    z-index: -1; /* Strictly behind all content */
     pointer-events: none;
-    opacity: 0.8; /* Slightly semi-transparent for text readability */
+    opacity: 0.6; /* Slightly lighter so background color looks fluid */
 }
 
 .orbital-wrapper {
