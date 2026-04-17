@@ -204,66 +204,36 @@ window.onscroll = () => {
 // Scroll Reveal Animations
 // ----------------------------------------------------
 document.addEventListener("DOMContentLoaded", function () {
-    // Initialize Lenis for smooth scrolling
-    const lenis = new Lenis({
-        duration: 1.2,
-        easing: (t) => Math.min(1, 1.001 - Math.pow(2, -10 * t)),
-        direction: 'vertical',
-        gestureDirection: 'vertical',
-        smooth: true,
-        smoothTouch: false,
-        touchMultiplier: 2
+    // Add .reveal class to elements we want to animate on scroll
+    const elementsToReveal = document.querySelectorAll('.heading, .about-text, .timeline-box, .skills-box, .portfolio-box, .service-box, .contact form');
+
+    elementsToReveal.forEach(el => {
+        el.classList.add('reveal');
     });
 
-    // Sync Lenis with GSAP ScrollTrigger
-    lenis.on('scroll', ScrollTrigger.update);
+    // Setup Intersection Observer
+    const revealElements = document.querySelectorAll('.reveal');
 
-    gsap.ticker.add((time) => {
-        lenis.raf(time * 1000);
+    const revealCallback = function (entries, observer) {
+        entries.forEach(entry => {
+            if (entry.isIntersecting) {
+                entry.target.classList.add('active');
+                // Optional: stop observing once revealed
+                // observer.unobserve(entry.target); 
+            }
+        });
+    };
+
+    const revealOptions = {
+        threshold: 0.15,
+        rootMargin: "0px 0px -50px 0px"
+    };
+
+    const revealObserver = new IntersectionObserver(revealCallback, revealOptions);
+
+    revealElements.forEach(el => {
+        revealObserver.observe(el);
     });
-    gsap.ticker.lagSmoothing(0);
-
-    gsap.registerPlugin(ScrollTrigger);
-
-    // 1. Animate sections (fade + slide in)
-    gsap.utils.toArray('section').forEach(section => {
-        const textElements = section.querySelectorAll('.heading, .about-text, .contact form');
-        
-        if (textElements.length > 0) {
-            gsap.from(textElements, {
-                scrollTrigger: {
-                    trigger: section,
-                    start: "top 85%",
-                    toggleActions: "play none none none"
-                },
-                y: 50,
-                opacity: 0,
-                duration: 1,
-                stagger: 0.2,
-                ease: "power3.out"
-            });
-        }
-
-        // 2. Stagger animate cards and list items inside sections
-        const cards = section.querySelectorAll('.timeline-box, .skills-box, .portfolio-box, .service-box');
-        
-        if (cards.length > 0) {
-            gsap.from(cards, {
-                scrollTrigger: {
-                    trigger: section,
-                    start: "top 80%",
-                    toggleActions: "play none none none"
-                },
-                y: 50,
-                opacity: 0,
-                duration: 0.8,
-                stagger: 0.15,
-                ease: "power2.out"
-            });
-        }
-    });
-
-    // Make sure elements are visible by default in CSS, GSAP will handle the 'from' animation automatically
 });
 
 // ----------------------------------------------------
