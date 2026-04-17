@@ -545,9 +545,9 @@ span {
 
 .cs-container {
     width: 100%;
-    max-width: 1200px;
+    max-width: 1400px;
     margin: 0 auto;
-    padding: 2rem 5%;
+    padding: 1rem 3%;
 }
 
 .cs-header {
@@ -580,7 +580,7 @@ span {
         0 9px 20px #0000004a,
         0 37px 37px #00000042,
         0 84px 50px #00000026;
-    padding: 1rem;
+    padding: 0.5rem;
     will-change: transform;
     transition: transform 0.05s linear;
     transform-origin: top center;
@@ -591,22 +591,22 @@ span {
     height: 100%;
     overflow: hidden;
     border-radius: 20px;
-    padding: 2rem;
+    padding: 1.5rem 2rem;
 }
 
 /* ===== SKILLS SECTION ===== */
 .skills-container {
-    display: flex;
-    flex-wrap: wrap;
-    gap: 3rem;
+    display: grid;
+    grid-template-columns: 1.4fr 1fr;
+    gap: 2rem;
 }
 
 .skills-box {
     flex: 1;
-    min-width: 300px;
+    min-width: unset;
     background: var(--bg-glass);
-    padding: 2.5rem;
-    border-radius: 20px;
+    padding: 1.5rem;
+    border-radius: 16px;
     border: 1px solid var(--border-glass);
     transition: 0.4s ease;
 }
@@ -624,7 +624,7 @@ span {
 }
 
 .skill-category {
-    margin-bottom: 2rem;
+    margin-bottom: 1rem;
 }
 
 .skill-category h4 {
