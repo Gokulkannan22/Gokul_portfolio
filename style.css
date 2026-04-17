@@ -730,11 +730,117 @@ span {
 }
 
 /* ===== SKILLS SECTION ===== */
-.skills-container {
-    display: grid;
-    grid-template-columns: 1.4fr 1fr;
-    gap: 2rem;
+
+/* ---- Circular Gallery ---- */
+.cg-wrap {
+    position: relative;
+    width: 100%;
+    height: 400px;
+    perspective: 1200px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    cursor: grab;
+    margin-bottom: 1.5rem;
+    overflow: visible;
 }
+.cg-wrap:active { cursor: grabbing; }
+
+.cg-hint {
+    position: absolute;
+    bottom: 0;
+    left: 50%;
+    transform: translateX(-50%);
+    font-size: 0.78rem;
+    color: var(--text-muted);
+    letter-spacing: 1px;
+    pointer-events: none;
+    z-index: 10;
+    display: flex;
+    align-items: center;
+    gap: 6px;
+}
+
+.cg-stage {
+    position: relative;
+    width: 100%;
+    height: 100%;
+    transform-style: preserve-3d;
+}
+
+.cg-card {
+    position: absolute;
+    width: 230px;
+    height: 290px;
+    left: 50%;
+    top: 50%;
+    margin-left: -115px;
+    margin-top: -145px;
+    border-radius: 20px;
+    background: rgba(15, 15, 15, 0.92);
+    backdrop-filter: blur(20px);
+    border: 1px solid rgba(0, 224, 255, 0.15);
+    padding: 1.4rem 1.1rem;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    text-align: center;
+    gap: 0.7rem;
+    transition: opacity 0.3s ease, box-shadow 0.3s ease;
+    box-shadow: 0 20px 60px rgba(0, 0, 0, 0.6);
+    user-select: none;
+    pointer-events: none;
+}
+
+.cg-card-icon {
+    font-size: 2.4rem;
+    background: var(--gradient);
+    -webkit-background-clip: text;
+    background-clip: text;
+    color: transparent;
+    line-height: 1;
+}
+
+.cg-card-title {
+    font-size: 0.95rem;
+    font-weight: 700;
+    color: #fff;
+    line-height: 1.3;
+}
+
+.cg-card-tags {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 0.35rem;
+    justify-content: center;
+}
+
+.cg-tag {
+    background: rgba(0, 224, 255, 0.08);
+    border: 1px solid rgba(0, 224, 255, 0.2);
+    color: var(--main-color);
+    padding: 0.18rem 0.5rem;
+    border-radius: 20px;
+    font-size: 0.68rem;
+    font-weight: 500;
+}
+
+/* ---- Certifications Strip ---- */
+.certs-strip {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 0.8rem;
+    justify-content: center;
+    margin-top: 0.5rem;
+}
+
+.certs-strip .cert-card {
+    flex: 1;
+    min-width: 200px;
+    max-width: 320px;
+}
+
+
 
 .skills-box {
     flex: 1;

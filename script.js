@@ -57,10 +57,148 @@ window.onscroll = () => {
 };
 
 // ----------------------------------------------------
+// Circular Skills Gallery — port of 21st.dev CircularGallery
+// 3D carousel with drag + auto-rotate + momentum physics
+// ----------------------------------------------------
+(function initCircularSkillsGallery() {
+    const SKILLS = [
+        {
+            icon: 'bx-code-alt',
+            title: 'Programming & Databases',
+            tags: ['Python', 'SQL', 'MySQL', 'PostgreSQL']
+        },
+        {
+            icon: 'bxs-pie-chart-alt-2',
+            title: 'Data Analytics & BI',
+            tags: ['Power BI', 'DAX', 'Advanced Excel', 'Data Modeling', 'KPI Design']
+        },
+        {
+            icon: 'bx-brain',
+            title: 'Machine Learning & CV',
+            tags: ['Scikit-Learn', 'XGBoost', 'SVM', 'CNN', 'ResNet', 'Grad-CAM', 'OpenCV']
+        },
+        {
+            icon: 'bx-bar-chart-alt-2',
+            title: 'Data Visualization',
+            tags: ['Pandas', 'NumPy', 'Matplotlib', 'Seaborn']
+        },
+        {
+            icon: 'bx-terminal',
+            title: 'Tools & DevOps',
+            tags: ['Git & GitHub', 'Streamlit', 'Jupyter Notebook']
+        },
+        {
+            icon: 'bx-trophy',
+            title: 'Domain Expertise',
+            tags: ['Business Intelligence', 'Predictive Modeling', 'KPI Design', 'Data Storytelling']
+        }
+    ];
+
+    const stage = document.getElementById('skills-cg-stage');
+    const wrap  = document.getElementById('skills-cg');
+    if (!stage || !wrap) return;
+
+    const N          = SKILLS.length;
+    const ANGLE_STEP = 360 / N;
+    const AUTO_SPEED = 0.18;
+
+    function getRadius() {
+        return window.innerWidth <= 600 ? 200 : window.innerWidth <= 900 ? 260 : 340;
+    }
+
+    // Build cards
+    SKILLS.forEach((skill, i) => {
+        const card = document.createElement('div');
+        card.className = 'cg-card';
+        card.setAttribute('role', 'group');
+        card.setAttribute('aria-label', skill.title);
+        card.innerHTML = `
+            <i class="bx ${skill.icon} cg-card-icon"></i>
+            <div class="cg-card-title">${skill.title}</div>
+            <div class="cg-card-tags">
+                ${skill.tags.map(t => `<span class="cg-tag">${t}</span>`).join('')}
+            </div>
+        `;
+        card.style.transform = `rotateY(${i * ANGLE_STEP}deg) translateZ(${getRadius()}px)`;
+        stage.appendChild(card);
+    });
+
+    // State
+    let rotation   = 0;
+    let velocity   = 0;
+    let isDragging = false;
+    let startX     = 0;
+    let startRot   = 0;
+    let lastX      = 0;
+    let rafId      = null;
+
+    function updateCards(rot) {
+        rotation = rot;
+        stage.style.transform = `rotateY(${rotation}deg)`;
+        const cards = stage.querySelectorAll('.cg-card');
+        cards.forEach((card, i) => {
+            const itemAngle  = i * ANGLE_STEP;
+            const rel        = ((itemAngle + rotation) % 360 + 360) % 360;
+            const norm       = rel > 180 ? 360 - rel : rel;
+            const opacity    = Math.max(0.2, 1 - (norm / 180) * 0.78);
+            const scale      = 0.85 + 0.15 * (1 - norm / 180);
+            card.style.opacity   = opacity;
+            card.style.transform = `rotateY(${itemAngle}deg) translateZ(${getRadius()}px) scale(${scale})`;
+        });
+    }
+
+    function tick() {
+        if (!isDragging) {
+            velocity *= 0.92;
+            rotation += Math.abs(velocity) > 0.05 ? velocity : AUTO_SPEED;
+        }
+        updateCards(rotation);
+        rafId = requestAnimationFrame(tick);
+    }
+    rafId = requestAnimationFrame(tick);
+
+    // --- Mouse drag ---
+    wrap.addEventListener('mousedown', (e) => {
+        isDragging = true;
+        startX = e.clientX; startRot = rotation; lastX = e.clientX;
+        e.preventDefault();
+    });
+    window.addEventListener('mousemove', (e) => {
+        if (!isDragging) return;
+        velocity = (e.clientX - lastX) * 0.35;
+        lastX = e.clientX;
+        updateCards(startRot + (e.clientX - startX) * 0.35);
+    });
+    window.addEventListener('mouseup', () => { isDragging = false; });
+
+    // --- Touch drag ---
+    wrap.addEventListener('touchstart', (e) => {
+        isDragging = true;
+        startX = e.touches[0].clientX; startRot = rotation; lastX = startX;
+    }, { passive: true });
+    wrap.addEventListener('touchmove', (e) => {
+        if (!isDragging) return;
+        velocity = (e.touches[0].clientX - lastX) * 0.35;
+        lastX = e.touches[0].clientX;
+        updateCards(startRot + (e.touches[0].clientX - startX) * 0.35);
+    }, { passive: true });
+    wrap.addEventListener('touchend', () => { isDragging = false; });
+
+    // Resize: reposition cards
+    window.addEventListener('resize', () => {
+        const r = getRadius();
+        stage.querySelectorAll('.cg-card').forEach((card, i) => {
+            card.style.transform = `rotateY(${i * ANGLE_STEP}deg) translateZ(${r}px)`;
+        });
+    });
+})();
+
+// ----------------------------------------------------
 // Liquid Morphing Text — Hero Role Animation
 // Port of 21st.dev MorphingText React component
 // morphTime: 1.5s | cooldownTime: 0.5s
 // ----------------------------------------------------
+
 (function initMorphingText() {
     const TEXTS = [
         "Data Analyst",
