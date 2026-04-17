@@ -2236,14 +2236,41 @@ span {
     }
 
     /* --- SKILLS SECTION --- */
+    .skills-scroll-root {
+        padding: 2rem 0;
+    }
+
+    .cs-container {
+        padding: 0.5rem 4%;
+    }
+
+    .cs-card {
+        border-radius: 20px;
+        padding: 0.25rem;
+        /* Disable 3D tilt on mobile — too heavy and clips */
+        transform: none !important;
+    }
+
+    .cs-card-inner {
+        padding: 1rem;
+        border-radius: 14px;
+        overflow-y: auto;
+    }
+
+    .cs-header {
+        transform: none !important;
+        margin-bottom: 1.5rem;
+    }
+
     .skills-container {
-        flex-direction: column;
-        gap: 2rem;
+        grid-template-columns: 1fr;
+        gap: 1.5rem;
     }
 
     .skills-box {
         min-width: unset;
         width: 100%;
+        padding: 1.2rem;
     }
 
     /* --- PROJECTS SECTION --- */
@@ -2388,7 +2415,16 @@ span {
     }
 
     .skills-box {
-        padding: 1.5rem;
+        padding: 1rem;
+    }
+
+    .skills-container {
+        grid-template-columns: 1fr;
+        gap: 1rem;
+    }
+
+    .cs-card-inner {
+        padding: 0.8rem;
     }
 
     .footer {
