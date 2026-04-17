@@ -795,10 +795,264 @@ document.addEventListener("DOMContentLoaded", function() {
                 cursorSpan.classList.remove("typing");
                 textArrayIndex++;
                 if(textArrayIndex >= textArray.length) textArrayIndex = 0;
-                setTimeout(type, typingDelay + 400);
-            }
         }
 
         setTimeout(type, 250);
     }
 });
+
+// ----------------------------------------------------
+// Radial Orbital Timeline Implementation
+// ----------------------------------------------------
+document.addEventListener("DOMContentLoaded", function() {
+    const orbitalRoot = document.getElementById("orbital-root");
+    if (!orbitalRoot) return;
+
+    // Timeline Data
+    const timelineData = [
+        {
+            id: 1,
+            title: "BCom, Computer App",
+            date: "2021 - 2024",
+            content: "University Institute of Technology, Alappuzha. Built foundational knowledge in commerce, IT applications, and initial programming logic. Graduated with a 6.3 CGPA.",
+            icon: "bxs-graduation",
+            relatedIds: [2],
+            status: "completed",
+            energy: 100
+        },
+        {
+            id: 2,
+            title: "PG Diploma Data Science",
+            date: "Sep 2024 - Jun 2025",
+            content: "Intensive training at Netcom Academy, Kochi. Transitioning deeply into the data analytics ecosystem: Python, SQL, Machine Learning concepts, and data visualization strategies.",
+            icon: "bx-book-reader",
+            relatedIds: [1, 3],
+            status: "completed",
+            energy: 90
+        },
+        {
+            id: 3,
+            title: "Data Science Intern",
+            date: "Aug 2025 - Jan 2026",
+            content: "Working on-site at Netcom Academy. Cleaning raw real-world CRM data (Pandas), building end-to-end Power BI dashboards, and performing deep sales funnel analysis across 19,000+ leads.",
+            icon: "bx-briefcase",
+            relatedIds: [2, 4],
+            status: "completed",
+            energy: 95
+        },
+        {
+            id: 4,
+            title: "MBA in Data Science",
+            date: "Feb 2026 - Present",
+            content: "Postgraduate master's program at Manipal University Jaipur focusing on advanced statistical models, big data frameworks, and executive-level business intelligence strategy.",
+            icon: "bxs-school",
+            relatedIds: [3],
+            status: "in-progress",
+            energy: 85
+        },
+        {
+            id: 5,
+            title: "AI Revenue Platform",
+            date: "2026",
+            content: "Built an XGBoost churn prediction machine learning SaaS platform identifying revenue at risk with 83% recall. Bridging predictive modeling directly to business revenue impact.",
+            icon: "bx-brain",
+            relatedIds: [3, 4],
+            status: "completed",
+            energy: 100
+        }
+    ];
+
+    let rotationAngle = 0;
+    let autoRotate = true;
+    let expandedNodeId = null;
+    let animationFrameId;
+
+    // Render structure inside #orbital-root
+    orbitalRoot.innerHTML = `
+        <div class="orbit-system" id="orbit-system">
+            <div class="orbit-core" id="orbit-core">
+                <div class="orbit-core-ping1"></div>
+                <div class="orbit-core-ping2"></div>
+                <div class="orbit-core-inner"></div>
+            </div>
+            <div class="orbit-ring-base" id="orbit-ring-base"></div>
+        </div>
+    `;
+
+    const orbitSystem = document.getElementById("orbit-system");
+
+    // Pre-calculate to track DOM nodes
+    const nodeElements = {};
+
+    function initNodes() {
+        timelineData.forEach((item, index) => {
+            const container = document.createElement("div");
+            container.className = "orbit-node-container";
+            container.id = `orbit-node-${item.id}`;
+
+            container.innerHTML = `
+                <div class="orbit-energy-ring" id="energy-${item.id}"></div>
+                <div class="orbit-node">
+                    <i class='bx ${item.icon}'></i>
+                </div>
+                <div class="orbit-label">${item.title}</div>
+                
+                <div class="orbit-card">
+                    <div class="orbit-card-header">
+                        <span class="orbit-badge badge-${item.status}">${item.status.toUpperCase()}</span>
+                        <span class="orbit-date">${item.date}</span>
+                    </div>
+                    <h3 class="orbit-title">${item.title}</h3>
+                    <p class="orbit-desc">${item.content}</p>
+                    
+                    <div class="orbit-energy-sect">
+                        <div class="o-energy-head">
+                            <span><i class='bx bxs-zap' style="color:#eab308"></i> Energy Level</span>
+                            <span>${item.energy}%</span>
+                        </div>
+                        <div class="o-energy-bar-bg">
+                            <div class="o-energy-fill" style="width: ${item.energy}%;"></div>
+                        </div>
+                    </div>
+                    
+                    ${item.relatedIds.length > 0 ? `
+                        <div class="o-connect-sect">
+                            <div class="o-connect-title"><i class='bx bx-link'></i> Connected Nodes</div>
+                            <div class="o-connect-tags">
+                                ${item.relatedIds.map(rId => {
+                                    const rItem = timelineData.find(i => i.id === rId);
+                                    return rItem ? `<button class="o-connect-btn" onclick="triggerOrbitNode(event, ${rId})">${rItem.title} <i class='bx bx-right-arrow-alt'></i></button>` : '';
+                                }).join('')}
+                            </div>
+                        </div>
+                    ` : ""}
+                </div>
+            `;
+            
+            orbitSystem.appendChild(container);
+
+            container.addEventListener('click', (e) => {
+                e.stopPropagation();
+                triggerOrbitNode(e, item.id);
+            });
+
+            nodeElements[item.id] = container;
+        });
+
+        // Background click resets
+        orbitalRoot.addEventListener('click', (e) => {
+            if (e.target === orbitalRoot || e.target === orbitSystem) {
+                resetAllNodes();
+            }
+        });
+    }
+
+    // Export so the inner HTML buttons can call it
+    window.triggerOrbitNode = (e, id) => {
+        if(e) e.stopPropagation();
+        
+        if (expandedNodeId === id) {
+            resetAllNodes();
+            return;
+        }
+
+        resetAllNodes(false);
+
+        autoRotate = false;
+        expandedNodeId = id;
+
+        const currentEl = nodeElements[id];
+        currentEl.classList.add("expanded");
+        const nodeData = timelineData.find(i => i.id === id);
+
+        // Calculate pulsing ring size
+        const energyRing = document.getElementById(`energy-${id}`);
+        const ringSize = nodeData.energy * 0.5 + 40;
+        energyRing.style.width = ringSize + "px";
+        energyRing.style.height = ringSize + "px";
+        energyRing.style.top = `-${(ringSize - 40) / 2}px`;
+        energyRing.style.left = `-${(ringSize - 40) / 2}px`;
+        energyRing.classList.add("pulsing");
+
+        // Highlight related elements
+        nodeData.relatedIds.forEach(relId => {
+            if(nodeElements[relId]) {
+                nodeElements[relId].classList.add("related");
+            }
+        });
+
+        // Center the selected node at the bottom (270 degrees in CSS/Math term context)
+        const totalNodes = timelineData.length;
+        const nodeIndex = timelineData.findIndex(i => i.id === id);
+        const targetAngle = (nodeIndex / totalNodes) * 360;
+        // The offset needed to put targetAngle at 90 (bottom depending on sin/cos)
+        rotationAngle = 90 - targetAngle; 
+        updatePositions();
+    };
+
+    function resetAllNodes(restartAutoRotate = true) {
+        expandedNodeId = null;
+        Object.values(nodeElements).forEach(el => {
+            el.classList.remove("expanded", "related");
+            const energyRing = el.querySelector(".orbit-energy-ring");
+            if(energyRing) energyRing.classList.remove("pulsing");
+        });
+        if(restartAutoRotate) {
+             autoRotate = true;
+        }
+    }
+
+    function updatePositions() {
+        if (!orbitSystem) return;
+
+        // Dynamic radius based on container size
+        const minDim = Math.min(orbitalRoot.clientWidth, orbitalRoot.clientHeight);
+        const baseRadius = minDim * 0.35; // e.g. 35% of container
+        
+        const ringBase = document.getElementById("orbit-ring-base");
+        ringBase.style.width = (baseRadius * 2) + "px";
+        ringBase.style.height = (baseRadius * 2) + "px";
+
+        const totalNodes = timelineData.length;
+
+        timelineData.forEach((item, index) => {
+            // angle in degrees (spacing + global rotation)
+            const angleDeg = ((index / totalNodes) * 360 + rotationAngle) % 360;
+            const radian = (angleDeg * Math.PI) / 180;
+
+            const x = baseRadius * Math.cos(radian);
+            const y = baseRadius * Math.sin(radian);
+
+            // Z-index calculation (front is higher)
+            const zIndex = Math.round(100 + 50 * Math.sin(radian));
+            // Opacity (back objects fade)
+            const opacity = Math.max(0.4, Math.min(1, 0.4 + 0.6 * ((1 + Math.sin(radian)) / 2)));
+
+            const isExpanded = expandedNodeId === item.id;
+
+            const container = nodeElements[item.id];
+            if (container) {
+                container.style.transform = `translate(${x}px, ${y}px)`;
+                container.style.zIndex = isExpanded ? 500 : zIndex;
+                container.style.opacity = isExpanded ? 1 : opacity;
+            }
+        });
+    }
+
+    function animateLoop() {
+        if (autoRotate) {
+            rotationAngle = (rotationAngle + 0.15) % 360;
+            updatePositions();
+        }
+        animationFrameId = requestAnimationFrame(animateLoop);
+    }
+
+    // Init Logic
+    initNodes();
+    updatePositions();
+    animateLoop();
+
+    // Window resize handling
+    window.addEventListener('resize', updatePositions);
+});
+

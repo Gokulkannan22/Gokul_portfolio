@@ -1735,3 +1735,309 @@ span {
         bottom: 90px;
     }
 }
+
+/* ===== ORBITAL TIMELINE JOURNEY ====== */
+.journey {
+    position: relative;
+    overflow: hidden; /* Contains the wide orbits */
+    padding-bottom: 8rem;
+}
+
+.orbital-wrapper {
+    position: relative;
+    width: 100%;
+    height: 80vh;
+    min-height: 650px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    overflow: hidden;
+    margin-top: 2rem;
+}
+
+.orbit-system {
+    position: absolute;
+    width: 100%;
+    height: 100%;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    perspective: 1000px;
+}
+
+.orbit-core {
+    position: absolute;
+    width: 64px;
+    height: 64px;
+    border-radius: 50%;
+    background: linear-gradient(135deg, var(--accent-color), var(--main-color));
+    animation: orbital-pulse 2s cubic-bezier(0.4, 0, 0.6, 1) infinite;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    z-index: 10;
+}
+
+.orbit-core-ping1 {
+    position: absolute;
+    width: 80px;
+    height: 80px;
+    border-radius: 50%;
+    border: 1px solid rgba(255, 255, 255, 0.2);
+    animation: orbital-ping 1s cubic-bezier(0, 0, 0.2, 1) infinite;
+    opacity: 0.7;
+}
+
+.orbit-core-ping2 {
+    position: absolute;
+    width: 96px;
+    height: 96px;
+    border-radius: 50%;
+    border: 1px solid rgba(255, 255, 255, 0.1);
+    animation: orbital-ping 1s cubic-bezier(0, 0, 0.2, 1) infinite;
+    animation-delay: 0.5s;
+    opacity: 0.5;
+}
+
+.orbit-core-inner {
+    width: 32px;
+    height: 32px;
+    border-radius: 50%;
+    background: rgba(255, 255, 255, 0.8);
+    backdrop-filter: blur(8px);
+}
+
+.orbit-ring-base {
+    position: absolute;
+    width: 384px; /* Default radius 192 (will be set via JS anyway but good fallback) */
+    height: 384px;
+    border-radius: 50%;
+    border: 1px solid var(--border-glass);
+}
+
+.orbit-node-container {
+    position: absolute;
+    transition: transform 0.7s cubic-bezier(0.4, 0, 0.2, 1), opacity 0.7s, z-index 0.7s;
+    cursor: pointer;
+}
+
+.orbit-energy-ring {
+    position: absolute;
+    border-radius: 50%;
+    background: radial-gradient(circle, rgba(255,255,255,0.15) 0%, rgba(255,255,255,0) 70%);
+}
+
+.orbit-energy-ring.pulsing {
+    animation: orbital-pulse 1s cubic-bezier(0.4, 0, 0.6, 1) infinite;
+}
+
+.orbit-node {
+    width: 40px;
+    height: 40px;
+    border-radius: 50%;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    border: 2px solid rgba(255, 255, 255, 0.4);
+    background: #000;
+    color: #fff;
+    font-size: 1.2rem;
+    transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+}
+
+.orbit-node-container.expanded .orbit-node {
+    background: #fff;
+    color: #000;
+    border-color: #fff;
+    box-shadow: 0 0 15px rgba(255, 255, 255, 0.3);
+    transform: scale(1.5);
+}
+
+.orbit-node-container.related .orbit-node {
+    background: rgba(255, 255, 255, 0.5);
+    color: #000;
+    border-color: #fff;
+    animation: orbital-pulse 2s infinite;
+}
+
+.orbit-label {
+    position: absolute;
+    top: 48px;
+    left: 50%;
+    transform: translateX(-50%);
+    white-space: nowrap;
+    font-size: 0.75rem;
+    font-weight: 600;
+    letter-spacing: 1px;
+    color: rgba(255, 255, 255, 0.7);
+    transition: all 0.3s;
+}
+
+.orbit-node-container.expanded .orbit-label {
+    color: #fff;
+    transform: translateX(-50%) scale(1.25);
+    top: 55px; /* adjust for scaled node */
+}
+
+.orbit-card {
+    position: absolute;
+    top: 80px;
+    left: 50%;
+    transform: translateX(-50%);
+    width: 280px;
+    background: rgba(10, 10, 10, 0.95);
+    backdrop-filter: blur(16px);
+    border: 1px solid rgba(255, 255, 255, 0.2);
+    box-shadow: 0 10px 30px rgba(0, 0, 0, 0.7), 0 0 20px rgba(255, 255, 255, 0.05);
+    border-radius: 12px;
+    padding: 1.5rem;
+    color: #fff;
+    z-index: 300;
+    cursor: default; /* stop prop */
+    opacity: 0;
+    pointer-events: none;
+    transition: 0.3s ease;
+}
+
+.orbit-node-container.expanded .orbit-card {
+    opacity: 1;
+    pointer-events: auto;
+}
+
+/* The little line connecting card to node */
+.orbit-card::before {
+    content: '';
+    position: absolute;
+    top: -12px;
+    left: 50%;
+    transform: translateX(-50%);
+    width: 2px;
+    height: 12px;
+    background: rgba(255, 255, 255, 0.5);
+}
+
+.orbit-card-header {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    margin-bottom: 0.5rem;
+}
+
+.orbit-badge {
+    padding: 0.2rem 0.6rem;
+    border-radius: 20px;
+    font-size: 0.65rem;
+    font-weight: 700;
+    text-transform: uppercase;
+}
+
+.badge-completed { background: #000; color: #fff; border: 1px solid #fff; }
+.badge-progress { background: #fff; color: #000; border: 1px solid #000; }
+.badge-pending { background: rgba(0,0,0,0.4); color: #fff; border: 1px solid rgba(255,255,255,0.5); }
+
+.orbit-date {
+    font-family: monospace;
+    font-size: 0.7rem;
+    color: rgba(255,255,255,0.5);
+}
+
+.orbit-title {
+    font-size: 1.1rem;
+    font-weight: 600;
+    margin-bottom: 0.8rem;
+}
+
+.orbit-desc {
+    font-size: 0.8rem;
+    color: rgba(255,255,255,0.8);
+    line-height: 1.4;
+    margin-bottom: 1.2rem;
+}
+
+.orbit-energy-sect {
+    border-top: 1px solid rgba(255,255,255,0.1);
+    padding-top: 0.8rem;
+    margin-bottom: 1rem;
+}
+
+.o-energy-head {
+    display: flex;
+    justify-content: space-between;
+    font-size: 0.75rem;
+    margin-bottom: 0.3rem;
+    color: rgba(255,255,255,0.8);
+    align-items: center;
+}
+
+.o-energy-bar-bg {
+    width: 100%;
+    height: 4px;
+    background: rgba(255,255,255,0.1);
+    border-radius: 4px;
+    overflow: hidden;
+}
+
+.o-energy-fill {
+    height: 100%;
+    background: var(--gradient);
+}
+
+.o-connect-sect {
+    border-top: 1px solid rgba(255,255,255,0.1);
+    padding-top: 0.8rem;
+}
+
+.o-connect-title {
+    font-size: 0.7rem;
+    text-transform: uppercase;
+    letter-spacing: 1px;
+    color: rgba(255,255,255,0.7);
+    margin-bottom: 0.5rem;
+    display: flex;
+    align-items: center;
+    gap: 0.3rem;
+}
+
+.o-connect-tags {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 0.4rem;
+}
+
+.o-connect-btn {
+    background: transparent;
+    border: 1px solid rgba(255,255,255,0.2);
+    padding: 0.2rem 0.5rem;
+    font-size: 0.7rem;
+    color: rgba(255,255,255,0.8);
+    cursor: pointer;
+    display: flex;
+    align-items: center;
+    gap: 0.2rem;
+    transition: 0.3s;
+    border-radius: 4px;
+}
+
+.o-connect-btn:hover {
+    background: rgba(255,255,255,0.1);
+    color: #fff;
+}
+
+@keyframes orbital-pulse {
+    0%, 100% { opacity: 1; }
+    50% { opacity: 0.5; }
+}
+
+@keyframes orbital-ping {
+    75%, 100% {
+        transform: scale(2);
+        opacity: 0;
+    }
+}
+
+@media (max-width: 768px) {
+    .orbital-wrapper {
+        min-height: 500px;
+        transform: scale(0.85); /* Scales down everything together */
+    }
+}
