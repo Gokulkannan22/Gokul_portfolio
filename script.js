@@ -154,6 +154,14 @@ window.onscroll = () => {
         mouseY = -(event.clientY / window.innerHeight) * 2 + 1;
     });
 
+    // Mobile touch tracking
+    window.addEventListener('touchmove', (event) => {
+        if (event.touches.length > 0) {
+            mouseX = (event.touches[0].clientX / window.innerWidth) * 2 - 1;
+            mouseY = -(event.touches[0].clientY / window.innerHeight) * 2 + 1;
+        }
+    }, { passive: true });
+
     const clock = new THREE.Clock();
 
     // Animation Loop
