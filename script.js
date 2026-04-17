@@ -1008,10 +1008,10 @@ document.addEventListener("DOMContentLoaded", function() {
         if (!orbitSystem) return;
 
         // Dynamic radius based on container size, with a fallback if DOM hasn't fully painted
-        const minDim = Math.min(orbitalRoot.clientWidth || 800, orbitalRoot.clientHeight || 650);
+        const minDim = Math.min(orbitalRoot.clientWidth || 800, orbitalRoot.clientHeight || 700);
         // On mobile, use a wider radius multiplier so nodes don't cluster
         const isMobile = window.innerWidth <= 768;
-        const baseRadius = minDim * (isMobile ? 0.43 : 0.35);
+        const baseRadius = minDim * (isMobile ? 0.43 : 0.42); // Desktop bumped to 42% for bigger orbit
         
         const ringBase = document.getElementById("orbit-ring-base");
         ringBase.style.width = (baseRadius * 2) + "px";
