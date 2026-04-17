@@ -2157,13 +2157,14 @@ span {
     #dock-container {
         justify-content: center;
         flex-wrap: wrap;
-        gap: 0.6rem;
+        gap: 0.5rem;
     }
 
     .dock-item {
-        width: 44px;
-        height: 44px;
-        font-size: 1.4rem;
+        width: 36px;
+        height: 36px;
+        font-size: 1.2rem;
+        border-radius: 10px;
     }
 
     /* --- ORBITAL TIMELINE --- */
