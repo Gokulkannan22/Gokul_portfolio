@@ -237,12 +237,16 @@
 
     <!-- Career Journey Orbital Timeline Section -->
     <section id="journey" class="journey">
-        <h2 class="heading" style="margin-bottom: 0.5rem">My <span>Data Journey</span></h2>
-        <p style="text-align: center; color: var(--text-muted); font-size: 0.9rem; margin-bottom: 2rem;">
-            <i class='bx bx-pointer' style="color: var(--main-color);"></i> Click nodes to explore
-        </p>
-        <div class="orbital-wrapper" id="orbital-root">
-            <!-- Vanilla JS will inject the nodes and orbit rings here -->
+        <canvas id="journey-wave-canvas"></canvas>
+        
+        <div style="position: relative; z-index: 5;">
+            <h2 class="heading" style="margin-bottom: 0.5rem">My <span>Data Journey</span></h2>
+            <p style="text-align: center; color: var(--text-muted); font-size: 0.9rem; margin-bottom: 2rem;">
+                <i class='bx bx-pointer' style="color: var(--main-color);"></i> Click nodes to explore
+            </p>
+            <div class="orbital-wrapper" id="orbital-root">
+                <!-- Vanilla JS will inject the nodes and orbit rings here -->
+            </div>
         </div>
     </section>
 

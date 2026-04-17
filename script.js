@@ -1102,3 +1102,114 @@ document.addEventListener("DOMContentLoaded", () => {
     });
 });
 
+// ----------------------------------------------------
+// Dynamic Wave Canvas Background Implementation
+// ----------------------------------------------------
+document.addEventListener('DOMContentLoaded', () => {
+    const canvas = document.getElementById('journey-wave-canvas');
+    if (!canvas) return;
+    
+    // We only want to wave behind the journey container, not the whole window
+    const container = document.getElementById('journey');
+    const ctx = canvas.getContext('2d');
+
+    let width, height, imageData, data;
+    const SCALE = 2; // Performance vs Quality tradeoff
+
+    const resizeCanvas = () => {
+        // Match the surrounding section's size
+        canvas.width = container.clientWidth;
+        // Adding extra height so it covers padded space perfectly
+        canvas.height = container.clientHeight;
+        
+        width = Math.floor(canvas.width / SCALE);
+        height = Math.floor(canvas.height / SCALE);
+        
+        // Safety check if height/width is 0
+        if (width === 0 || height === 0) return;
+        
+        imageData = ctx.createImageData(width, height);
+        data = imageData.data;
+    };
+
+    window.addEventListener('resize', resizeCanvas);
+    resizeCanvas();
+
+    const startTime = Date.now();
+
+    // Precompute sine/cosine tables for extreme performance
+    const SIN_TABLE = new Float32Array(1024);
+    const COS_TABLE = new Float32Array(1024);
+    for (let i = 0; i < 1024; i++) {
+        const angle = (i / 1024) * Math.PI * 2;
+        SIN_TABLE[i] = Math.sin(angle);
+        COS_TABLE[i] = Math.cos(angle);
+    }
+
+    const fastSin = (x) => {
+        const index = Math.floor(((x % (Math.PI * 2)) / (Math.PI * 2)) * 1024) & 1023;
+        return SIN_TABLE[index];
+    };
+
+    const fastCos = (x) => {
+        const index = Math.floor(((x % (Math.PI * 2)) / (Math.PI * 2)) * 1024) & 1023;
+        return COS_TABLE[index];
+    };
+
+    const render = () => {
+        // If data doesn't exist, we skip rendering frame
+        if (!data) {
+            requestAnimationFrame(render);
+            return;
+        }
+
+        const time = (Date.now() - startTime) * 0.001;
+
+        for (let y = 0; y < height; y++) {
+            for (let x = 0; x < width; x++) {
+                const u_x = (2 * x - width) / height;
+                const u_y = (2 * y - height) / height;
+
+                let a = 0;
+                let d = 0;
+
+                for (let i = 0; i < 4; i++) {
+                    a += fastCos(i - d + time * 0.5 - a * u_x);
+                    d += fastSin(i * u_y + a);
+                }
+
+                const wave = (fastSin(a) + fastCos(d)) * 0.5;
+                const intensity = 0.3 + 0.4 * wave;
+                const baseVal = 0.1 + 0.15 * fastCos(u_x + u_y + time * 0.3);
+                
+                // Keep the color theme matching the cyber/purple brand
+                const blueAccent = 0.2 * fastSin(a * 1.5 + time * 0.2);
+                const purpleAccent = 0.15 * fastCos(d * 2 + time * 0.1);
+
+                const r = Math.max(0, Math.min(1, baseVal + purpleAccent * 0.8)) * intensity;
+                const g = Math.max(0, Math.min(1, baseVal + blueAccent * 0.6)) * intensity;
+                const b = Math.max(0, Math.min(1, baseVal + blueAccent * 1.2 + purpleAccent * 0.4)) * intensity;
+
+                const index = (y * width + x) * 4;
+                data[index] = r * 255;
+                data[index + 1] = g * 255;
+                data[index + 2] = b * 255;
+                data[index + 3] = 255; // Alpha
+            }
+        }
+
+        ctx.putImageData(imageData, 0, 0);
+        
+        // Scale it up
+        if (SCALE > 1) {
+            ctx.imageSmoothingEnabled = false;
+            ctx.drawImage(canvas, 0, 0, width, height, 0, 0, canvas.width, canvas.height);
+        }
+
+        requestAnimationFrame(render);
+    };
+
+    render();
+});
+
+

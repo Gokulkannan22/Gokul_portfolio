@@ -1733,6 +1733,17 @@ span {
     padding-bottom: 8rem;
 }
 
+#journey-wave-canvas {
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    z-index: 1; /* Keep behind content */
+    pointer-events: none;
+    opacity: 0.8; /* Slightly semi-transparent for text readability */
+}
+
 .orbital-wrapper {
     position: relative;
     width: 100%;
