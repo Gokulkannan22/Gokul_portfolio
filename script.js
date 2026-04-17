@@ -1109,8 +1109,8 @@ document.addEventListener('DOMContentLoaded', () => {
     const canvas = document.getElementById('journey-wave-canvas');
     if (!canvas) return;
     
-    // We only want to wave behind the journey container, not the whole window
-    const container = document.getElementById('journey');
+    // We wave behind the entire bottom half of the website seamlessly
+    const container = document.getElementById('unified-wave-wrapper');
     const ctx = canvas.getContext('2d');
 
     let width, height, imageData, data;

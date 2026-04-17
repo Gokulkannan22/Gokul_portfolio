@@ -175,9 +175,14 @@
         </div>
     </section>
 
-    <!-- About Section -->
-    <section id="about" class="about">
-        <h2 class="heading">About <span>Me</span></h2>
+    <!-- Unified Wave Background Wrapper -->
+    <div id="unified-wave-wrapper" style="position: relative; overflow-x: hidden;">
+        <!-- Canvas now powers the entire bottom half of the website -->
+        <canvas id="journey-wave-canvas"></canvas>
+
+        <!-- About Section -->
+        <section id="about" class="about">
+            <h2 class="heading">About <span>Me</span></h2>
 
         <div class="about-content">
             <div class="about-text">
@@ -237,8 +242,6 @@
 
     <!-- Career Journey Orbital Timeline Section -->
     <section id="journey" class="journey">
-        <canvas id="journey-wave-canvas"></canvas>
-        
         <div style="position: relative; z-index: 5;">
             <h2 class="heading" style="margin-bottom: 0.5rem">My <span>Data Journey</span></h2>
             <p style="text-align: center; color: var(--text-muted); font-size: 0.9rem; margin-bottom: 2rem;">
@@ -607,6 +610,7 @@
             <a href="#home"><i class='bx bx-up-arrow-alt'></i></a>
         </div>
     </footer>
+    </div> <!-- End Unified Wave Wrapper -->
 
     <!-- AI Chatbot Widget -->
     <div class="chatbot-container" id="chatbot-container">
