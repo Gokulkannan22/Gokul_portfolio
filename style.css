@@ -241,7 +241,7 @@ span {
 .hero-content .name-container {
     display: flex;
     align-items: center;
-    gap: 1.5rem;
+    gap: 2.5rem; /* Pushes the profile image a bit further to the right */
     margin-bottom: 1rem;
     flex-wrap: wrap; /* On very small screens, it might wrap */
 }
@@ -258,8 +258,8 @@ span {
 }
 
 .mini-profile {
-    width: 80px;
-    height: 80px;
+    width: 105px; /* Increased size */
+    height: 105px; /* Increased size */
     border-radius: 50%;
     overflow: hidden;
     border: 3px solid transparent;

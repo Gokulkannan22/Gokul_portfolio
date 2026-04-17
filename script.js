@@ -64,7 +64,7 @@ window.onscroll = () => {
     
     // Camera
     const camera = new THREE.PerspectiveCamera(50, parent.clientWidth / parent.clientHeight, 0.1, 1000);
-    camera.position.set(0, 0.5, 6); // Move camera back to see the model
+    camera.position.set(0, -0.4, 6); // Move camera down (-0.4) to shift the model UP on the screen
 
     // Renderer
     const renderer = new THREE.WebGLRenderer({ canvas: canvas, alpha: true, antialias: true });
