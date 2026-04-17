@@ -85,31 +85,52 @@ window.onscroll = () => {
     purpleLight.position.set(3, -3, 3);
     scene.add(purpleLight);
 
-    // GLTF Loader
+    // GLTF Loader with DRACO compression support
     const loader = new THREE.GLTFLoader();
+    const dracoLoader = new THREE.DRACOLoader();
+    dracoLoader.setDecoderPath('https://www.gstatic.com/draco/versioned/decoders/1.4.1/');
+    loader.setDRACOLoader(dracoLoader);
+
     let loadedModel = null;
     let mixer = null; // For animations if they exist
 
+    // Add orbit controls or fallback scaling to ensure we see it
     loader.load('robot_playground.glb', function(gltf) {
         loadedModel = gltf.scene;
+
+        // Spline exports often have very weird transformations, so wrap it in a group to center it properly
+        const wrapper = new THREE.Group();
+        wrapper.add(loadedModel);
         
-        // Center the model
+        // Center the wrapper bounding box
         const box = new THREE.Box3().setFromObject(loadedModel);
         const center = box.getCenter(new THREE.Vector3());
-        loadedModel.position.sub(center); // Centers the geometry
+        loadedModel.position.x += (loadedModel.position.x - center.x);
+        loadedModel.position.y += (loadedModel.position.y - center.y);
+        loadedModel.position.z += (loadedModel.position.z - center.z);
         
-        // Custom scale based on the model limits (tweak if necessary)
+        // Auto-scale to viewport
         const size = box.getSize(new THREE.Vector3());
         const maxDim = Math.max(size.x, size.y, size.z);
-        const scale = 5 / maxDim; // Normalize scale to fit in view
-        loadedModel.scale.set(scale, scale, scale);
-
-        // Move to the right side of the screen on desktop
-        if (window.innerWidth > 768) {
-            loadedModel.position.x = 2;
+        if (maxDim > 0) {
+            const scale = 5 / maxDim;
+            wrapper.scale.set(scale, scale, scale);
         }
 
-        scene.add(loadedModel);
+        // Shift slightly right on desktop
+        if (window.innerWidth > 768) {
+            wrapper.position.x = 2;
+        }
+        
+        // Spline exports often contain their own lights & cameras which can bug out the scene
+        // Best practice is to extract only the meshes or rely on environmental lights
+        const ambient = new THREE.AmbientLight(0xffffff, 1.5);
+        scene.add(ambient);
+
+        scene.add(wrapper);
+
+        // Replace loadedModel ref to the wrapper so animation logic rotates in place
+        loadedModel = wrapper;
 
         // Play Animation if present
         if (gltf.animations && gltf.animations.length > 0) {
