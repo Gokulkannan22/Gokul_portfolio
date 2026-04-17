@@ -33,7 +33,7 @@ body {
     position: relative;
 }
 
-/* Three.js 3D Canvas */
+/* Spline 3D Viewer */
 #bg-canvas {
     display: block;
     position: absolute;
@@ -43,6 +43,12 @@ body {
     height: 100%;
     z-index: 0;
     pointer-events: none;
+    transform: scale(1.08) translate(3%, 3%); /* Crops out the Spline watermark via overflow */
+}
+
+/* Watermark hidden via shadow-root (fallback) */
+spline-viewer::part(logo) {
+    display: none !important;
 }
 
 /* 3D WebGL Setup Preloader */
