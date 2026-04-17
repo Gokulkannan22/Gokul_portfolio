@@ -31,6 +31,51 @@ body {
     color: var(--text-color);
     overflow-x: hidden;
     position: relative;
+    /* Smooth rendering on all devices */
+    -webkit-font-smoothing: antialiased;
+    -moz-osx-font-smoothing: grayscale;
+    text-rendering: optimizeLegibility;
+}
+
+/* ===== PERFORMANCE: GPU-ACCELERATED HINTS ===== */
+/* Sections get layout containment to prevent reflow cascades */
+section {
+    contain: layout style;
+}
+
+/* Only elements that actually animate get will-change */
+.header,
+.chatbot-container,
+.scroll-down-arrow {
+    will-change: transform;
+}
+
+.cs-card {
+    will-change: transform;
+}
+
+.orbit-node-container {
+    will-change: transform, opacity;
+}
+
+/* Images: Sharp rendering + lazy decoding */
+img {
+    decoding: async;
+    content-visibility: auto;
+}
+
+/* Smooth scrollbar */
+::-webkit-scrollbar {
+    width: 6px;
+}
+
+::-webkit-scrollbar-track {
+    background: var(--bg-color);
+}
+
+::-webkit-scrollbar-thumb {
+    background: linear-gradient(var(--main-color), var(--accent-color));
+    border-radius: 10px;
 }
 
 /* 3D GLB Canvas / Right Column hero image */
