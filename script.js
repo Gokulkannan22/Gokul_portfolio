@@ -51,18 +51,132 @@ window.onscroll = () => {
 };
 
 // ----------------------------------------------------
-// Spline Watermark Removal (shadow-root polling)
+// Three.js 3D GLB Model Initialization
+// loads robot_playground.glb with ambient lighting & cursor tracking
 // ----------------------------------------------------
-setInterval(() => {
-    const viewer = document.getElementById('bg-canvas');
-    if (viewer && viewer.shadowRoot) {
-        const logo = viewer.shadowRoot.querySelector('#logo');
-        if (logo) logo.remove();
-        viewer.shadowRoot.querySelectorAll('a').forEach(a => {
-            if (a.href && a.href.includes('spline.design')) a.remove();
-        });
+(function initThreeJSModel() {
+    const canvas = document.getElementById('bg-canvas');
+    if (!canvas || typeof THREE === 'undefined') return;
+
+    const scene = new THREE.Scene();
+    
+    // Camera
+    const camera = new THREE.PerspectiveCamera(50, window.innerWidth / window.innerHeight, 0.1, 1000);
+    camera.position.set(0, 2, 8); // Move camera back to see the model
+
+    // Renderer
+    const renderer = new THREE.WebGLRenderer({ canvas: canvas, alpha: true, antialias: true });
+    renderer.setSize(window.innerWidth, window.innerHeight);
+    renderer.setPixelRatio(Math.min(window.devicePixelRatio, 2));
+
+    // Lights
+    const ambientLight = new THREE.AmbientLight(0xffffff, 0.8);
+    scene.add(ambientLight);
+    
+    const directionalLight = new THREE.DirectionalLight(0xffffff, 1);
+    directionalLight.position.set(5, 10, 5);
+    scene.add(directionalLight);
+
+    const blueLight = new THREE.PointLight(0x00e0ff, 2, 20);
+    blueLight.position.set(-3, 3, 3);
+    scene.add(blueLight);
+
+    const purpleLight = new THREE.PointLight(0x7d2ae8, 2, 20);
+    purpleLight.position.set(3, -3, 3);
+    scene.add(purpleLight);
+
+    // GLTF Loader
+    const loader = new THREE.GLTFLoader();
+    let loadedModel = null;
+    let mixer = null; // For animations if they exist
+
+    loader.load('robot_playground.glb', function(gltf) {
+        loadedModel = gltf.scene;
+        
+        // Center the model
+        const box = new THREE.Box3().setFromObject(loadedModel);
+        const center = box.getCenter(new THREE.Vector3());
+        loadedModel.position.sub(center); // Centers the geometry
+        
+        // Custom scale based on the model limits (tweak if necessary)
+        const size = box.getSize(new THREE.Vector3());
+        const maxDim = Math.max(size.x, size.y, size.z);
+        const scale = 5 / maxDim; // Normalize scale to fit in view
+        loadedModel.scale.set(scale, scale, scale);
+
+        // Move to the right side of the screen on desktop
+        if (window.innerWidth > 768) {
+            loadedModel.position.x = 2;
+        }
+
+        scene.add(loadedModel);
+
+        // Play Animation if present
+        if (gltf.animations && gltf.animations.length > 0) {
+            mixer = new THREE.AnimationMixer(loadedModel);
+            gltf.animations.forEach((clip) => {
+                mixer.clipAction(clip).play();
+            });
+        }
+    }, undefined, function(error) {
+        console.error('Error loading GLB model:', error);
+    });
+
+    // Mouse Tracking Parallax
+    let mouseX = 0;
+    let mouseY = 0;
+    let targetX = 0;
+    let targetY = 0;
+
+    window.addEventListener('mousemove', (event) => {
+        mouseX = (event.clientX / window.innerWidth) * 2 - 1;
+        mouseY = -(event.clientY / window.innerHeight) * 2 + 1;
+    });
+
+    const clock = new THREE.Clock();
+
+    // Animation Loop
+    function animate() {
+        requestAnimationFrame(animate);
+
+        const delta = clock.getDelta();
+
+        if (mixer) {
+            mixer.update(delta);
+        }
+
+        // Smoothly rotate model towards mouse
+        if (loadedModel) {
+            targetX = mouseX * 0.5;
+            targetY = mouseY * 0.5;
+            
+            // Add a slow continuous idle rotation plus cursor tracking
+            loadedModel.rotation.y += 0.005; 
+            
+            // Subtle tilt based on cursor
+            loadedModel.rotation.x += (targetY - loadedModel.rotation.x) * 0.05;
+            loadedModel.rotation.z += (-targetX - loadedModel.rotation.z) * 0.05;
+        }
+
+        renderer.render(scene, camera);
     }
-}, 500);
+    animate();
+
+    // Handle Resize
+    window.addEventListener('resize', () => {
+        camera.aspect = window.innerWidth / window.innerHeight;
+        camera.updateProjectionMatrix();
+        renderer.setSize(window.innerWidth, window.innerHeight);
+        
+        if (loadedModel) {
+            if (window.innerWidth > 768) {
+                loadedModel.position.x = 2; // Right side on desktop
+            } else {
+                loadedModel.position.x = 0; // Centered on mobile
+            }
+        }
+    });
+})();
 
 // ----------------------------------------------------
 // Scroll Reveal Animations

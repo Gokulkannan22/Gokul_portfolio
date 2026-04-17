@@ -104,8 +104,9 @@
 
 <body>
 
-    <!-- Spline 3D Viewer -->
-    <script type="module" src="https://unpkg.com/@splinetool/viewer@1.12.85/build/spline-viewer.js"></script>
+    <!-- Three.js Library -->
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/three.js/r128/three.min.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/three@0.128.0/examples/js/loaders/GLTFLoader.js"></script>
 
     <!-- Header / Navbar -->
     <header class="header">
@@ -126,8 +127,8 @@
 
     <!-- Hero Section -->
     <section id="home" class="hero">
-        <!-- Interactive 3D Spline Scene -->
-        <spline-viewer id="bg-canvas" url="https://prod.spline.design/LnaugVYA36eOZGXk/scene.splinecode" events-target="global"></spline-viewer>
+        <!-- Custom 3D Model Canvas -->
+        <canvas id="bg-canvas"></canvas>
 
         <div class="hero-content">
             <h3 class="greeting">Hi, I'm</h3>
@@ -626,7 +627,7 @@
 
     <!-- Custom JS & 3D Tilt Library -->
     <script src="https://cdnjs.cloudflare.com/ajax/libs/vanilla-tilt/1.8.1/vanilla-tilt.min.js"></script>
-    <script src="script.js?v=5"></script>
+    <script src="script.js?v=6"></script>
 </body>
 
 </html>
