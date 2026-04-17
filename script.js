@@ -1058,3 +1058,47 @@ document.addEventListener("DOMContentLoaded", function() {
     window.addEventListener('resize', updatePositions);
 });
 
+// ----------------------------------------------------
+// Animated MacOS Dock Implementation
+// ----------------------------------------------------
+document.addEventListener("DOMContentLoaded", () => {
+    const dockContainer = document.getElementById("dock-container");
+    const dockItems = document.querySelectorAll(".dock-item");
+    if (!dockContainer || dockItems.length === 0) return;
+
+    dockContainer.addEventListener("mousemove", (e) => {
+        const mouseX = e.clientX;
+        
+        dockItems.forEach(item => {
+            const rect = item.getBoundingClientRect();
+            // Calculate center of the item
+            const itemCenterX = rect.left + rect.width / 2;
+            
+            // Calculate distance between mouse and center of item
+            const distance = Math.abs(mouseX - itemCenterX);
+            
+            // Settings: max scale 1.6, reach distance 100px.
+            const maxScale = 1.6;
+            const triggerDistance = 120; // Starts scaling when mouse is within 120px
+            
+            let scale = 1;
+
+            if (distance < triggerDistance) {
+                // The closer to 0 distance, the closer scale gets to maxScale.
+                // Formula: 1 + (maxScale - 1) * (1 - distance / triggerDistance)
+                scale = 1 + (maxScale - 1) * (1 - (distance / triggerDistance));
+            }
+
+            // Apply natively via CSS variables
+            item.style.setProperty('--dock-scale', scale.toFixed(3));
+        });
+    });
+
+    // Reset all items when mouse leaves the container
+    dockContainer.addEventListener("mouseleave", () => {
+        dockItems.forEach(item => {
+            item.style.setProperty('--dock-scale', 1);
+        });
+    });
+});
+

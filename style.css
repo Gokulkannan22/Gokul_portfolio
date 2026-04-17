@@ -329,50 +329,40 @@ span {
     color: var(--text-muted);
 }
 
-/* Social Links */
+/* Animated MacOS Style Dock */
 .social-links {
+    display: inline-flex;
+    align-items: flex-end;
+    gap: 1rem;
+    height: 4.5rem;
+    padding: 0 1.5rem 0.8rem 1.5rem;
     margin-bottom: 2.5rem;
+    background: rgba(255, 255, 255, 0.03);
+    border: 1px solid rgba(255, 255, 255, 0.08);
+    border-radius: 2rem;
+    box-shadow: 0 5px 20px rgba(0, 0, 0, 0.5);
 }
 
-.social-links a {
-    display: inline-flex;
+.dock-item {
+    display: flex;
     justify-content: center;
     align-items: center;
-    width: 45px;
-    height: 45px;
-    background: transparent;
-    border: 2px solid var(--main-color);
-    border-radius: 50%;
-    font-size: 1.5rem;
-    color: var(--main-color);
-    margin-right: 1.2rem;
-    transition: 0.4s ease;
-    position: relative;
-    overflow: hidden;
-    z-index: 1;
-}
-
-.social-links a::before {
-    content: '';
-    position: absolute;
-    top: 0;
-    left: 0;
-    width: 0;
-    height: 100%;
-    background: var(--gradient);
-    z-index: -1;
-    transition: 0.4s ease;
-}
-
-.social-links a:hover {
     color: var(--bg-color);
-    border-color: transparent;
-    transform: translateY(-5px);
-    box-shadow: 0 0 20px rgba(0, 224, 255, 0.4);
+    background: var(--main-color);
+    border-radius: 50%;
+    /* Default size 45px, scaled dynamically via --dock-scale */
+    width: calc(45px * var(--dock-scale, 1));
+    height: calc(45px * var(--dock-scale, 1));
+    font-size: calc(1.5rem * var(--dock-scale, 1));
+    transition: width 0.15s cubic-bezier(0.25, 1, 0.5, 1), 
+                height 0.15s cubic-bezier(0.25, 1, 0.5, 1), 
+                font-size 0.15s cubic-bezier(0.25, 1, 0.5, 1);
+    box-shadow: 0 5px 15px rgba(0, 224, 255, 0.2);
 }
 
-.social-links a:hover::before {
-    width: 100%;
+/* Base Hover Fallback just in case JS fails */
+.dock-item:hover {
+    box-shadow: 0 0 20px rgba(0, 224, 255, 0.6);
 }
 
 /* Buttons */
