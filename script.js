@@ -1109,18 +1109,16 @@ document.addEventListener('DOMContentLoaded', () => {
     const canvas = document.getElementById('journey-wave-canvas');
     if (!canvas) return;
     
-    // We wave behind the entire bottom half of the website seamlessly
-    const container = document.getElementById('unified-wave-wrapper');
+    // We wave seamlessly across the background using a fixed viewport size
     const ctx = canvas.getContext('2d');
 
     let width, height, imageData, data;
     const SCALE = 10; // High performance (computes 100x fewer pixels per frame)
 
     const resizeCanvas = () => {
-        // Match the surrounding section's size
-        canvas.width = container.clientWidth;
-        // Adding extra height so it covers padded space perfectly
-        canvas.height = container.clientHeight;
+        // Track the window viewport for a fixed background
+        canvas.width = window.innerWidth;
+        canvas.height = window.innerHeight;
         
         width = Math.floor(canvas.width / SCALE);
         height = Math.floor(canvas.height / SCALE);
