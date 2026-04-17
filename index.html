@@ -104,6 +104,17 @@
 
 <body>
 
+    <!-- Scroll Progress Bar -->
+    <div id="scroll-progress"></div>
+
+    <!-- Motion.dev Animation Script -->
+    <script type="module">
+        import { animate, scroll } from "https://cdn.jsdelivr.net/npm/motion@11.11.13/+esm";
+        
+        // Triggers the Motion.dev scroll timeline animation on the progress bar
+        scroll(animate("#scroll-progress", { scaleX: [0, 1] }));
+    </script>
+
     <!-- Three.js Library -->
     <script src="https://cdnjs.cloudflare.com/ajax/libs/three.js/r128/three.min.js"></script>
     <script src="https://cdn.jsdelivr.net/npm/three@0.128.0/examples/js/loaders/GLTFLoader.js"></script>

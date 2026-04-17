@@ -148,6 +148,17 @@ span {
 }
 
 /* ===== HEADER & NAVBAR ===== */
+#scroll-progress {
+    position: fixed;
+    top: 0;
+    left: 0;
+    right: 0;
+    height: 4px;
+    background: var(--gradient);
+    transform-origin: 0% 50%;
+    z-index: 10000;
+}
+
 .header {
     position: fixed;
     top: 0;
