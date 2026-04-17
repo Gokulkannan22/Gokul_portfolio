@@ -983,12 +983,12 @@ document.addEventListener("DOMContentLoaded", function() {
             }
         });
 
-        // Center the selected node at the bottom (270 degrees in CSS/Math term context)
+        // Center the selected node at the top (-90/270 degrees in Math context)
         const totalNodes = timelineData.length;
         const nodeIndex = timelineData.findIndex(i => i.id === id);
         const targetAngle = (nodeIndex / totalNodes) * 360;
-        // The offset needed to put targetAngle at 90 (bottom depending on sin/cos)
-        rotationAngle = 90 - targetAngle; 
+        // The offset needed to put targetAngle at 270 (top)
+        rotationAngle = 270 - targetAngle; 
         updatePositions();
     };
 
@@ -1007,8 +1007,8 @@ document.addEventListener("DOMContentLoaded", function() {
     function updatePositions() {
         if (!orbitSystem) return;
 
-        // Dynamic radius based on container size
-        const minDim = Math.min(orbitalRoot.clientWidth, orbitalRoot.clientHeight);
+        // Dynamic radius based on container size, with a fallback if DOM hasn't fully painted
+        const minDim = Math.min(orbitalRoot.clientWidth || 800, orbitalRoot.clientHeight || 650);
         const baseRadius = minDim * 0.35; // e.g. 35% of container
         
         const ringBase = document.getElementById("orbit-ring-base");
