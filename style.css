@@ -2042,3 +2042,210 @@ span {
         transform: scale(0.85); /* Scales down everything together */
     }
 }
+
+/* =========================================
+   FULL MOBILE RESPONSIVE OVERHAUL
+   All sections: 768px and below
+   ========================================= */
+
+@media (max-width: 768px) {
+
+    /* --- HERO --- */
+    .hero {
+        padding-top: 8rem;
+        flex-direction: column;
+        text-align: center;
+        gap: 2rem;
+    }
+
+    .hero-content {
+        order: 2;
+    }
+
+    .hero-image {
+        order: 1;
+        width: 260px;
+        height: 260px;
+        margin: 0 auto;
+    }
+
+    .hero-content .name {
+        font-size: 3.2rem;
+    }
+
+    .hero-content .name-container {
+        justify-content: center;
+        flex-wrap: wrap;
+    }
+
+    .btn-group {
+        justify-content: center;
+        flex-wrap: wrap;
+    }
+
+    /* --- ABOUT SECTION --- */
+    .about-content {
+        flex-direction: column;
+        text-align: center;
+    }
+
+    .about-img {
+        margin: 0 auto 2rem;
+    }
+
+    .timeline-container {
+        flex-direction: column;
+        gap: 2rem;
+    }
+
+    /* --- SKILLS SECTION --- */
+    .skills-container {
+        flex-direction: column;
+        gap: 2rem;
+    }
+
+    .skills-box {
+        min-width: unset;
+        width: 100%;
+    }
+
+    /* --- PROJECTS SECTION --- */
+    .portfolio-container {
+        grid-template-columns: 1fr;
+    }
+
+    .portfolio-box {
+        width: 100%;
+    }
+
+    .portfolio-img-wrapper {
+        height: 180px;
+    }
+
+    /* --- SERVICES SECTION --- */
+    .services-container {
+        grid-template-columns: 1fr;
+    }
+
+    /* --- CONTACT SECTION --- */
+    .contact form .input-box {
+        flex-direction: column;
+    }
+
+    .contact form .input-box input {
+        width: 100%;
+    }
+
+    /* --- AI LAB SECTION --- */
+    .lab-container {
+        flex-direction: column;
+        padding: 2rem;
+    }
+
+    /* --- DOCK / SOCIAL LINKS --- */
+    #dock-container {
+        justify-content: center;
+        flex-wrap: wrap;
+        gap: 0.6rem;
+    }
+
+    .dock-item {
+        width: 44px;
+        height: 44px;
+        font-size: 1.4rem;
+    }
+
+    /* --- ORBITAL TIMELINE --- */
+    .orbital-wrapper {
+        height: 60vw;
+        min-height: 340px;
+        transform: scale(0.78);
+        transform-origin: top center;
+    }
+
+    /* --- FREELANCE BANNER --- */
+    .freelance-banner {
+        padding: 2rem 1.2rem !important;
+    }
+
+    .freelance-banner h3 {
+        font-size: 1.6rem !important;
+    }
+
+    /* --- FOOTER --- */
+    .footer {
+        flex-direction: column-reverse;
+        text-align: center;
+        gap: 1.5rem;
+    }
+
+    /* --- CHATBOT --- */
+    .chatbot-container {
+        width: calc(100vw - 30px);
+        right: 15px;
+        bottom: 90px;
+    }
+
+    /* --- NAVBAR STICKY LOGO --- */
+    .logo {
+        font-size: 2rem;
+    }
+}
+
+/* =========================================
+   SMALL PHONES: 480px and below
+   ========================================= */
+@media (max-width: 480px) {
+    html {
+        font-size: 65%;
+    }
+
+    .hero-content .name {
+        font-size: 2.8rem;
+    }
+
+    .hero-content .role {
+        font-size: 1.6rem;
+    }
+
+    .hero-content .summary {
+        font-size: 0.95rem;
+    }
+
+    .btn {
+        padding: 0.6rem 1.2rem;
+        font-size: 1rem;
+    }
+
+    .portfolio-img-wrapper {
+        height: 160px;
+    }
+
+    .portfolio-header h4 {
+        font-size: 1.1rem;
+    }
+
+    .skills-box {
+        padding: 1.5rem;
+    }
+
+    .footer {
+        flex-direction: column-reverse;
+        justify-content: center;
+        text-align: center;
+        gap: 1.5rem;
+    }
+
+    .orbital-wrapper {
+        height: 55vw;
+        min-height: 300px;
+        transform: scale(0.65);
+        transform-origin: top center;
+    }
+
+    /* Chatbot takes full width on tiny screens */
+    .chatbot-container {
+        width: calc(100vw - 20px);
+        right: 10px;
+    }
+}
