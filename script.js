@@ -50,27 +50,137 @@ window.onscroll = () => {
     navbar.classList.remove('active');
 };
 
-// ----------------------------------------------------
-// Spline 3D Viewer & Watermark Removal
-// ----------------------------------------------------
-// Spline dynamically loads its watermark into a shadow DOM.
-// We poll occasionally to ensure it gets deleted once rendered.
-setInterval(() => {
-    const splineViewer = document.getElementById("bg-canvas");
-    if (splineViewer && splineViewer.shadowRoot) {
-        // Find logo explicitly by id
-        const logo = splineViewer.shadowRoot.querySelector('#logo');
-        if (logo) logo.remove();
-        
-        // Target any lingering spline links inside the shadow DOM
-        const links = splineViewer.shadowRoot.querySelectorAll('a');
-        links.forEach(link => {
-            if (link.href && link.href.includes("spline.design")) {
-                link.remove();
-            }
-        });
+// ============================================================
+// Three.js 3D Floating Particle Network — Data Analyst Theme
+// Instant load, no watermark, cursor-reactive, cyan/purple palette
+// ============================================================
+(function initParticleNetwork() {
+    const canvas = document.getElementById('bg-canvas');
+    const hero = document.getElementById('home');
+    if (!canvas || !hero || typeof THREE === 'undefined') return;
+
+    const W = hero.clientWidth;
+    const H = hero.clientHeight;
+
+    const scene = new THREE.Scene();
+    const camera = new THREE.PerspectiveCamera(55, W / H, 0.1, 1000);
+    camera.position.z = 90;
+
+    const renderer = new THREE.WebGLRenderer({ canvas, antialias: true, alpha: true });
+    renderer.setSize(W, H);
+    renderer.setPixelRatio(Math.min(window.devicePixelRatio, 1.5));
+    renderer.setClearColor(0x000000, 0);
+
+    const NODE_COUNT = window.innerWidth < 768 ? 55 : 120;
+    const MAX_DIST = 28;
+    const nodePositions = [];
+    const nodeVelocities = [];
+
+    const nodeGeo = new THREE.SphereGeometry(0.45, 6, 6);
+    const nodeMat = new THREE.MeshBasicMaterial({ color: 0x00e0ff });
+    const instancedNodes = new THREE.InstancedMesh(nodeGeo, nodeMat, NODE_COUNT);
+    scene.add(instancedNodes);
+
+    const nodeColors = [
+        new THREE.Color(0x00e0ff),
+        new THREE.Color(0x7d2ae8),
+        new THREE.Color(0xa855f7)
+    ];
+    const dummy = new THREE.Object3D();
+
+    for (let i = 0; i < NODE_COUNT; i++) {
+        const pos = new THREE.Vector3(
+            (Math.random() - 0.5) * 140,
+            (Math.random() - 0.5) * 80,
+            (Math.random() - 0.5) * 60
+        );
+        nodePositions.push(pos);
+        nodeVelocities.push(new THREE.Vector3(
+            (Math.random() - 0.5) * 0.07,
+            (Math.random() - 0.5) * 0.07,
+            (Math.random() - 0.5) * 0.04
+        ));
+        dummy.position.copy(pos);
+        dummy.updateMatrix();
+        instancedNodes.setMatrixAt(i, dummy.matrix);
+        instancedNodes.setColorAt(i, nodeColors[i % nodeColors.length]);
     }
-}, 1000);
+    instancedNodes.instanceMatrix.needsUpdate = true;
+    instancedNodes.instanceColor.needsUpdate = true;
+
+    const MAX_LINES = NODE_COUNT * 8;
+    const linePosArray = new Float32Array(MAX_LINES * 2 * 3);
+    const lineGeo = new THREE.BufferGeometry();
+    const linePosAttr = new THREE.BufferAttribute(linePosArray, 3);
+    linePosAttr.setUsage(THREE.DynamicDrawUsage);
+    lineGeo.setAttribute('position', linePosAttr);
+
+    const lineMat = new THREE.LineBasicMaterial({
+        color: 0x00e0ff,
+        transparent: true,
+        opacity: 0.22
+    });
+    const lineSegments = new THREE.LineSegments(lineGeo, lineMat);
+    scene.add(lineSegments);
+
+    let mouseX = 0, mouseY = 0, camX = 0, camY = 0;
+    window.addEventListener('mousemove', e => {
+        mouseX = (e.clientX / window.innerWidth - 0.5) * 18;
+        mouseY = -(e.clientY / window.innerHeight - 0.5) * 10;
+    });
+
+    function animate() {
+        requestAnimationFrame(animate);
+        let lineCount = 0;
+
+        for (let i = 0; i < NODE_COUNT; i++) {
+            const pos = nodePositions[i];
+            const vel = nodeVelocities[i];
+            pos.x += vel.x; pos.y += vel.y; pos.z += vel.z;
+            if (Math.abs(pos.x) > 70) vel.x *= -1;
+            if (Math.abs(pos.y) > 40) vel.y *= -1;
+            if (Math.abs(pos.z) > 30) vel.z *= -1;
+            dummy.position.copy(pos);
+            dummy.updateMatrix();
+            instancedNodes.setMatrixAt(i, dummy.matrix);
+
+            for (let j = i + 1; j < NODE_COUNT; j++) {
+                if (lineCount >= MAX_LINES) break;
+                const dist = pos.distanceTo(nodePositions[j]);
+                if (dist < MAX_DIST) {
+                    const b = lineCount * 6;
+                    linePosArray[b]   = pos.x;
+                    linePosArray[b+1] = pos.y;
+                    linePosArray[b+2] = pos.z;
+                    linePosArray[b+3] = nodePositions[j].x;
+                    linePosArray[b+4] = nodePositions[j].y;
+                    linePosArray[b+5] = nodePositions[j].z;
+                    lineCount++;
+                }
+            }
+        }
+
+        instancedNodes.instanceMatrix.needsUpdate = true;
+        linePosAttr.needsUpdate = true;
+        lineGeo.setDrawRange(0, lineCount * 2);
+
+        camX += (mouseX - camX) * 0.04;
+        camY += (mouseY - camY) * 0.04;
+        camera.position.x = camX;
+        camera.position.y = camY;
+        camera.lookAt(scene.position);
+        renderer.render(scene, camera);
+    }
+    animate();
+
+    window.addEventListener('resize', () => {
+        const nW = hero.clientWidth;
+        const nH = hero.clientHeight;
+        renderer.setSize(nW, nH);
+        camera.aspect = nW / nH;
+        camera.updateProjectionMatrix();
+    });
+})();
 
 // ----------------------------------------------------
 // Scroll Reveal Animations

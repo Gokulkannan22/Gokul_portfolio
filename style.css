@@ -33,22 +33,16 @@ body {
     position: relative;
 }
 
-/* Background Canvas / Spline */
+/* Three.js 3D Canvas */
 #bg-canvas {
     display: block;
-    position: absolute; /* Keeps it naturally flowing inside the hero section */
+    position: absolute;
     top: 0;
     left: 0;
     width: 100%;
     height: 100%;
-    z-index: -1;
-    pointer-events: none; /* Allows clicking buttons through it */
-    transform: scale(1.08) translate(3%, 3%); /* Triggers overflow cropping */
-}
-
-/* Hide the 'Built with Spline' watermark natively if shadow-root hack fails */
-spline-viewer::part(logo) {
-    display: none !important;
+    z-index: 0;
+    pointer-events: none;
 }
 
 /* 3D WebGL Setup Preloader */
@@ -232,19 +226,8 @@ span {
     justify-content: space-between;
     align-items: center;
     gap: 4rem;
-    position: relative; /* Spline background stays trapped in this section */
-    overflow: hidden; /* Crops out the zoomed out Spline watermark */
-    /* Instant CSS fallback grid that plays immediately while Spline downloads */
-    background-image:
-        linear-gradient(rgba(0, 224, 255, 0.06) 1px, transparent 1px),
-        linear-gradient(90deg, rgba(0, 224, 255, 0.06) 1px, transparent 1px);
-    background-size: 60px 60px;
-    animation: heroGridPan 8s linear infinite;
-}
-
-@keyframes heroGridPan {
-    0% { background-position: 0 0; }
-    100% { background-position: 60px 60px; }
+    position: relative;
+    overflow: hidden;
 }
 
 .hero-content {

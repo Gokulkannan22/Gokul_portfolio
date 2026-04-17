@@ -11,8 +11,6 @@
     <meta name="keywords" content="Data Analyst, Business Analyst, Power BI Dashboards, Machine Learning, Predictive Modeling, Deep Learning, Python, SQL, Freelance, Data Science, Kerala">
     <meta name="author" content="Gokul B">
     <link rel="canonical" href="https://www.gokulanalytics.online/">
-    <!-- Preload Spline 3D scene to start download as early as possible -->
-    <link rel="preload" href="https://prod.spline.design/PRhpoFyZspQmuU2H/scene.splinecode" as="fetch" crossorigin="anonymous">
     
     <!-- Bing Webmaster Verification -->
     <meta name="msvalidate.01" content="7617B98EFC5167227F52734CCB9442ED" />
@@ -106,8 +104,8 @@
 
 <body>
 
-    <!-- Spline 3D Viewer Script -->
-    <script type="module" src="https://unpkg.com/@splinetool/viewer@1.12.84/build/spline-viewer.js"></script>
+    <!-- Three.js 3D Library (lightweight, instant, no watermark) -->
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/three.js/r134/three.min.js"></script>
 
     <!-- Header / Navbar -->
     <header class="header">
@@ -128,8 +126,8 @@
 
     <!-- Hero Section -->
     <section id="home" class="hero">
-        <!-- Interactive 3D Robot Background (Restricted to Hero) -->
-        <spline-viewer id="bg-canvas" url="https://prod.spline.design/PRhpoFyZspQmuU2H/scene.splinecode"></spline-viewer>
+        <!-- Three.js 3D Particle Network Canvas -->
+        <canvas id="bg-canvas"></canvas>
 
         <div class="hero-content">
             <h3 class="greeting">Hi, I'm</h3>
@@ -628,7 +626,7 @@
 
     <!-- Custom JS & 3D Tilt Library -->
     <script src="https://cdnjs.cloudflare.com/ajax/libs/vanilla-tilt/1.8.1/vanilla-tilt.min.js"></script>
-    <script src="script.js?v=3"></script>
+    <script src="script.js?v=4"></script>
 </body>
 
 </html>
