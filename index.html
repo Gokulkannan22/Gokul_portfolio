@@ -118,10 +118,14 @@
     <link rel="preload" as="style" href="https://fonts.googleapis.com/css2?family=Outfit:wght@400;600;700;800&display=swap">
 
     <!-- ====== FAVICON ====== -->
-    <link rel="shortcut icon" type="image/x-icon" href="https://www.gokulanalytics.online/favicon.ico">
-    <link rel="icon" type="image/x-icon" href="https://www.gokulanalytics.online/favicon.ico">
-    <link rel="icon" type="image/png" sizes="512x512" href="https://www.gokulanalytics.online/favicon.png">
-    <link rel="apple-touch-icon" href="https://www.gokulanalytics.online/favicon.png">
+    <!-- SVG (modern browsers + Google shows this in SERPs) -->
+    <link rel="icon" type="image/svg+xml" href="favicon.svg">
+    <!-- PNG fallback for older browsers & Bing -->
+    <link rel="icon" type="image/png" sizes="512x512" href="favicon.png">
+    <link rel="apple-touch-icon" sizes="512x512" href="favicon.png">
+    <link rel="shortcut icon" href="favicon.png">
+    <!-- Absolute URLs for bots that don't follow relative paths -->
+    <link rel="icon" type="image/png" href="https://www.gokulanalytics.online/favicon.png">
 
     <!-- Sitemap reference -->
     <link rel="sitemap" type="application/xml" href="https://www.gokulanalytics.online/sitemap.xml">
