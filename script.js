@@ -795,6 +795,8 @@ document.addEventListener("DOMContentLoaded", function() {
                 cursorSpan.classList.remove("typing");
                 textArrayIndex++;
                 if(textArrayIndex >= textArray.length) textArrayIndex = 0;
+                setTimeout(type, typingDelay + 400);
+            }
         }
 
         setTimeout(type, 250);
