@@ -57,6 +57,84 @@ window.onscroll = () => {
 };
 
 // ----------------------------------------------------
+// Liquid Morphing Text — Hero Role Animation
+// Port of 21st.dev MorphingText React component
+// morphTime: 1.5s | cooldownTime: 0.5s
+// ----------------------------------------------------
+(function initMorphingText() {
+    const TEXTS = [
+        "Data Analyst",
+        "Business Analyst",
+        "BI Developer",
+        "ML Engineer",
+        "Data Storyteller",
+    ];
+    const MORPH_TIME    = 1.5;
+    const COOLDOWN_TIME = 0.5;
+
+    const el1 = document.getElementById('morph-text1');
+    const el2 = document.getElementById('morph-text2');
+    if (!el1 || !el2) return;
+
+    let textIndex = 0;
+    let morph     = 0;
+    let cooldown  = COOLDOWN_TIME; // start with a cooldown so first word shows cleanly
+    let lastTime  = performance.now();
+
+    function setStyles(fraction) {
+        // text2 fades IN (current → next)
+        el2.style.filter  = `blur(${Math.min(8 / fraction - 8, 100)}px)`;
+        el2.style.opacity = `${Math.pow(fraction, 0.4) * 100}%`;
+
+        // text1 fades OUT
+        const inv = 1 - fraction;
+        el1.style.filter  = `blur(${Math.min(8 / inv - 8, 100)}px)`;
+        el1.style.opacity = `${Math.pow(inv, 0.4) * 100}%`;
+
+        el1.textContent = TEXTS[textIndex % TEXTS.length];
+        el2.textContent = TEXTS[(textIndex + 1) % TEXTS.length];
+    }
+
+    function doCooldown() {
+        morph = 0;
+        el2.style.filter  = "none";
+        el2.style.opacity = "100%";
+        el1.style.filter  = "none";
+        el1.style.opacity = "0%";
+    }
+
+    function animate(now) {
+        requestAnimationFrame(animate);
+        const dt = (now - lastTime) / 1000;
+        lastTime = now;
+        cooldown -= dt;
+
+        if (cooldown <= 0) {
+            morph -= cooldown; // pull any overshoot back into morph
+            cooldown = 0;
+
+            let fraction = morph / MORPH_TIME;
+            if (fraction > 1) {
+                cooldown = COOLDOWN_TIME;
+                fraction = 1;
+            }
+            setStyles(fraction);
+            if (fraction === 1) textIndex++;
+        } else {
+            doCooldown();
+        }
+    }
+
+    // Seed the first text immediately
+    el1.style.opacity = "0%";
+    el2.textContent   = TEXTS[0];
+    el2.style.opacity = "100%";
+    el2.style.filter  = "none";
+
+    requestAnimationFrame(animate);
+})();
+
+// ----------------------------------------------------
 // Three.js 3D GLB Model Initialization
 // loads robot_playground.glb with ambient lighting & cursor tracking
 // ----------------------------------------------------

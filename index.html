@@ -107,6 +107,19 @@
     <!-- Scroll Progress Bar -->
     <div id="scroll-progress"></div>
 
+    <!-- SVG Filter for Liquid Morphing Text -->
+    <svg id="morph-filters" style="position:absolute;width:0;height:0;overflow:hidden;" aria-hidden="true">
+        <defs>
+            <filter id="liquid-threshold">
+                <feColorMatrix in="SourceGraphic" type="matrix"
+                    values="1 0 0 0 0
+                            0 1 0 0 0
+                            0 0 1 0 0
+                            0 0 0 255 -140"/>
+            </filter>
+        </defs>
+    </svg>
+
     <!-- Motion.dev Animation Script -->
     <script type="module">
         import { animate, scroll } from "https://cdn.jsdelivr.net/npm/motion@11.11.13/+esm";
@@ -149,7 +162,11 @@
                     <img src="profile.jpg" alt="Profile of Gokul B" class="mini-profile-img">
                 </div>
             </div>
-            <h3 class="role"><span class="typed-text"></span><span class="cursor">&nbsp;</span></h3>
+            <!-- Liquid Morphing Role Text -->
+            <div class="morph-role-wrap">
+                <span class="morph-span" id="morph-text1"></span>
+                <span class="morph-span" id="morph-text2"></span>
+            </div>
             <p class="summary">
                 I specialize in data analytics, business intelligence, and applied machine learning.
                 Transforming complex data into predictive models and actionable executive dashboards.

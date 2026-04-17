@@ -291,36 +291,44 @@ span {
     transform: translate(6%, -10%) scale(1.4);
 }
 
-.hero-content .role {
-    font-size: 2rem;
-    font-weight: 600;
+/* ===== LIQUID MORPHING ROLE TEXT ===== */
+.morph-role-wrap {
+    position: relative;
+    height: 3.5rem;
+    width: 100%;
+    max-width: 500px;
     margin-bottom: 1.5rem;
-    color: var(--text-muted);
+    /* SVG threshold filter gives the liquid merge effect */
+    filter: url(#liquid-threshold) blur(0.5px);
 }
 
-.hero-content .role .typed-text {
-    color: var(--main-color);
-}
-
-.hero-content .role .cursor {
+.morph-span {
+    position: absolute;
+    inset: 0;
     display: inline-block;
-    width: 3px;
-    background-color: var(--main-color);
-    margin-left: 0.1rem;
-    animation: blink 1s infinite;
+    width: 100%;
+    text-align: left;
+    font-size: 2.2rem;
+    font-weight: 700;
+    color: var(--main-color);
+    line-height: 1.4;
+    white-space: nowrap;
+    pointer-events: none;
+    user-select: none;
 }
 
-.hero-content .role .cursor.typing {
-    animation: none;
+@media (max-width: 768px) {
+    .morph-role-wrap {
+        text-align: center;
+        margin: 0 auto 1.5rem;
+    }
+
+    .morph-span {
+        text-align: center;
+        font-size: 1.8rem;
+    }
 }
 
-@keyframes blink {
-    0%  { background-color: var(--main-color); }
-    49% { background-color: var(--main-color); }
-    50% { background-color: transparent; }
-    99% { background-color: transparent; }
-    100%  { background-color: var(--main-color); }
-}
 
 .hero-content .summary {
     font-size: 1.1rem;
