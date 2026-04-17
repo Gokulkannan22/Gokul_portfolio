@@ -1249,6 +1249,66 @@ span {
     transform: translateY(0);
 }
 
+/* ===== SCROLL DOWN ARROW ===== */
+.scroll-down-arrow {
+    position: absolute;
+    bottom: 2.5rem;
+    left: 50%;
+    transform: translateX(-50%);
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    gap: 2px;
+    text-decoration: none;
+    z-index: 10;
+    cursor: pointer;
+    opacity: 0.7;
+    transition: opacity 0.3s ease;
+}
+
+.scroll-down-arrow:hover {
+    opacity: 1;
+}
+
+.scroll-down-arrow span {
+    display: block;
+    width: 22px;
+    height: 22px;
+    border-right: 3px solid var(--main-color);
+    border-bottom: 3px solid var(--main-color);
+    transform: rotate(45deg);
+    animation: scrollChevron 1.4s ease-in-out infinite;
+    border-radius: 2px;
+}
+
+.scroll-down-arrow span:nth-child(1) {
+    animation-delay: 0s;
+    opacity: 0.3;
+}
+
+.scroll-down-arrow span:nth-child(2) {
+    animation-delay: 0.2s;
+    opacity: 0.6;
+}
+
+.scroll-down-arrow span:nth-child(3) {
+    animation-delay: 0.4s;
+    opacity: 1;
+}
+
+@keyframes scrollChevron {
+    0%   { transform: rotate(45deg) translate(-4px, -4px); opacity: 0; }
+    50%  { opacity: 1; }
+    100% { transform: rotate(45deg) translate(4px, 4px);  opacity: 0; }
+}
+
+/* Hide when user has scrolled past hero */
+.scroll-down-arrow.hidden {
+    opacity: 0;
+    pointer-events: none;
+    transition: opacity 0.5s ease;
+}
+
 /* ===== RESPONSIVE ===== */
 @media (max-width: 991px) {
     html {

@@ -48,6 +48,12 @@ window.onscroll = () => {
     // Remove toggle icon and navbar when clicking navbar link (scroll)
     menuIcon.classList.remove('bx-x');
     navbar.classList.remove('active');
+
+    // Hide scroll-down arrow after user has scrolled past hero
+    const scrollArrow = document.querySelector('.scroll-down-arrow');
+    if (scrollArrow) {
+        scrollArrow.classList.toggle('hidden', window.scrollY > 80);
+    }
 };
 
 // ----------------------------------------------------
