@@ -234,6 +234,17 @@ span {
     gap: 4rem;
     position: relative; /* Spline background stays trapped in this section */
     overflow: hidden; /* Crops out the zoomed out Spline watermark */
+    /* Instant CSS fallback grid that plays immediately while Spline downloads */
+    background-image:
+        linear-gradient(rgba(0, 224, 255, 0.06) 1px, transparent 1px),
+        linear-gradient(90deg, rgba(0, 224, 255, 0.06) 1px, transparent 1px);
+    background-size: 60px 60px;
+    animation: heroGridPan 8s linear infinite;
+}
+
+@keyframes heroGridPan {
+    0% { background-position: 0 0; }
+    100% { background-position: 60px 60px; }
 }
 
 .hero-content {
