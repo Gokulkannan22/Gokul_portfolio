@@ -33,16 +33,14 @@ body {
     position: relative;
 }
 
-/* 3D GLB Canvas */
+/* 3D GLB Canvas / Right Column hero image */
 #bg-canvas {
     display: block;
-    position: absolute;
-    top: 0;
-    left: 0;
     width: 100%;
     height: 100%;
-    z-index: 0; /* Keep it behind text */
-    pointer-events: none; /* Allows interacting with front elements */
+    object-fit: contain;
+    z-index: 10; 
+    pointer-events: auto; /* Allows cursor interaction for tilt */
 }
 
 /* 3D WebGL Setup Preloader */
@@ -240,16 +238,46 @@ span {
     margin-bottom: 0.5rem;
 }
 
+.hero-content .name-container {
+    display: flex;
+    align-items: center;
+    gap: 1.5rem;
+    margin-bottom: 1rem;
+    flex-wrap: wrap; /* On very small screens, it might wrap */
+}
+
 .hero-content .name {
     font-size: 4.5rem;
     font-weight: 800;
     line-height: 1.1;
-    margin-bottom: 1rem;
     background: var(--gradient);
     -webkit-background-clip: text;
     background-clip: text;
     color: transparent;
     display: inline-block;
+}
+
+.mini-profile {
+    width: 80px;
+    height: 80px;
+    border-radius: 50%;
+    overflow: hidden;
+    border: 3px solid transparent;
+    background: linear-gradient(var(--bg-color), var(--bg-color)) padding-box,
+        var(--gradient) border-box;
+    box-shadow: 0 0 15px rgba(125, 42, 232, 0.4), 0 0 30px rgba(0, 224, 255, 0.4);
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    flex-shrink: 0; /* Prevents squishing */
+}
+
+.mini-profile-img {
+    width: 110%;
+    height: 110%;
+    object-fit: cover;
+    object-position: 50% 90%;
+    transform: translate(6%, -10%) scale(1.4);
 }
 
 .hero-content .role {
@@ -378,77 +406,15 @@ span {
     box-shadow: 0 0 20px rgba(0, 224, 255, 0.3);
 }
 
-/* Hero Profile Photo */
+/* Hero 3D Model Right Column */
 .hero-image {
     flex: 1;
     display: flex;
     justify-content: center;
     align-items: center;
     position: relative;
-}
-
-.profile-container {
-    position: relative;
-    width: 320px;
-    height: 320px;
-    display: flex;
-    justify-content: center;
-    align-items: center;
-    border-radius: 50%;
-    z-index: 1;
-    transform-style: preserve-3d;
-}
-
-/* Force Vanilla Tilt glare to dynamically match the circular profile container */
-.profile-container .js-tilt-glare {
-    border-radius: 50%;
-    overflow: hidden;
-}
-
-.profile-container > * {
-    transform: translateZ(50px);
-}
-
-.profile-wrapper {
-    width: 270px;
-    height: 270px;
-    border-radius: 50%;
-    overflow: hidden;
-    border: 3px solid transparent;
-    background: linear-gradient(var(--bg-color), var(--bg-color)) padding-box,
-        var(--gradient) border-box;
-    box-shadow: 0 0 30px rgba(125, 42, 232, 0.4), 0 0 60px rgba(0, 224, 255, 0.4);
-    z-index: 2;
-    display: flex;
-    justify-content: center;
-    align-items: center;
-    transition: 0.5s ease;
-}
-
-.profile-container:hover .profile-wrapper {
-    box-shadow: 0 0 50px rgba(125, 42, 232, 0.6), 0 0 100px rgba(0, 224, 255, 0.6);
-    transform: scale(1.02);
-}
-
-.profile-img {
+    height: 500px; /* Fixed height for the canvas container to render safely */
     width: 100%;
-    height: 100%;
-    object-fit: cover;
-    object-position: 50% 90%;
-    transform: translate(8%, -12%) scale(1.7);
-    transform-origin: center center;
-}
-
-.glow-ring {
-    position: absolute;
-    width: 310px;
-    height: 310px;
-    border: 2px dashed rgba(0, 224, 255, 0.5);
-    border-radius: 50%;
-    animation: rotate 15s linear infinite;
-    z-index: 1;
-    border-top: 2px solid var(--accent-color);
-    border-bottom: 2px solid var(--main-color);
 }
 
 /* Animations */

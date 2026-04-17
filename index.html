@@ -128,12 +128,16 @@
 
     <!-- Hero Section -->
     <section id="home" class="hero">
-        <!-- Custom 3D Model Canvas -->
-        <canvas id="bg-canvas"></canvas>
+        <!-- Interactive 3D particle background could go here if needed -->
 
         <div class="hero-content">
             <h3 class="greeting">Hi, I'm</h3>
-            <h1 class="name">Gokul B</h1>
+            <div class="name-container">
+                <h1 class="name">Gokul B</h1>
+                <div class="mini-profile">
+                    <img src="profile.jpg" alt="Profile of Gokul B" class="mini-profile-img">
+                </div>
+            </div>
             <h3 class="role"><span class="typed-text"></span><span class="cursor">&nbsp;</span></h3>
             <p class="summary">
                 I specialize in data analytics, business intelligence, and applied machine learning.
@@ -155,12 +159,8 @@
             </div>
         </div>
         <div class="hero-image">
-            <div class="profile-container" data-tilt data-tilt-scale="1.05" data-tilt-glare="true" data-tilt-max-glare="0.3">
-                <div class="profile-wrapper">
-                    <img src="profile.jpg" alt="Profile of Gokul B" class="profile-img">
-                </div>
-                <div class="glow-ring"></div>
-            </div>
+            <!-- Custom 3D Model Canvas -->
+            <canvas id="bg-canvas"></canvas>
         </div>
     </section>
 

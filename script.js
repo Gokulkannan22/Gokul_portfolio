@@ -60,13 +60,15 @@ window.onscroll = () => {
 
     const scene = new THREE.Scene();
     
+    const parent = canvas.parentElement;
+    
     // Camera
-    const camera = new THREE.PerspectiveCamera(50, window.innerWidth / window.innerHeight, 0.1, 1000);
-    camera.position.set(0, 2, 8); // Move camera back to see the model
+    const camera = new THREE.PerspectiveCamera(50, parent.clientWidth / parent.clientHeight, 0.1, 1000);
+    camera.position.set(0, 0.5, 6); // Move camera back to see the model
 
     // Renderer
     const renderer = new THREE.WebGLRenderer({ canvas: canvas, alpha: true, antialias: true });
-    renderer.setSize(window.innerWidth, window.innerHeight);
+    renderer.setSize(parent.clientWidth, parent.clientHeight);
     renderer.setPixelRatio(Math.min(window.devicePixelRatio, 2));
 
     // Lights
@@ -117,10 +119,8 @@ window.onscroll = () => {
             wrapper.scale.set(scale, scale, scale);
         }
 
-        // Shift slightly right on desktop
-        if (window.innerWidth > 768) {
-            wrapper.position.x = 2;
-        }
+        // No need to arbitrarily shift right if it sits inside the right column container now
+        wrapper.position.x = 0;
         
         // Spline exports often contain their own lights & cameras which can bug out the scene
         // Best practice is to extract only the meshes or rely on environmental lights
@@ -185,17 +185,10 @@ window.onscroll = () => {
 
     // Handle Resize
     window.addEventListener('resize', () => {
-        camera.aspect = window.innerWidth / window.innerHeight;
+        const parent = canvas.parentElement;
+        camera.aspect = parent.clientWidth / parent.clientHeight;
         camera.updateProjectionMatrix();
-        renderer.setSize(window.innerWidth, window.innerHeight);
-        
-        if (loadedModel) {
-            if (window.innerWidth > 768) {
-                loadedModel.position.x = 2; // Right side on desktop
-            } else {
-                loadedModel.position.x = 0; // Centered on mobile
-            }
-        }
+        renderer.setSize(parent.clientWidth, parent.clientHeight);
     });
 })();
 
