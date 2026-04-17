@@ -379,40 +379,124 @@ span {
     gap: 1.5rem;
 }
 
+/* ===== FLOW BUTTON (21st.dev port) ===== */
 .btn {
-    display: inline-block;
-    padding: 0.8rem 2.2rem;
-    border-radius: 3rem;
-    font-size: 1.1rem;
+    position: relative;
+    display: inline-flex;
+    align-items: center;
+    gap: 4px;
+    overflow: hidden;
+    border-radius: 100px;
+    padding: 0.75rem 2.2rem;
+    font-size: 1rem;
     font-weight: 600;
-    letter-spacing: 1px;
-    transition: 0.4s;
+    letter-spacing: 0.5px;
     cursor: pointer;
+    transition: border-radius 600ms cubic-bezier(0.23,1,0.32,1),
+                border-color 600ms cubic-bezier(0.23,1,0.32,1),
+                box-shadow 400ms ease;
     text-align: center;
+    white-space: nowrap;
 }
 
 .btn-primary {
     background: var(--gradient);
-    color: var(--bg-color);
-    box-shadow: 0 0 20px rgba(125, 42, 232, 0.3);
+    color: #080808;
+    border: 1.5px solid transparent;
+    box-shadow: 0 0 20px rgba(125,42,232,0.3);
 }
 
 .btn-primary:hover {
-    transform: translateY(-3px);
-    box-shadow: 0 0 30px rgba(0, 224, 255, 0.5);
+    border-radius: 12px;
+    box-shadow: 0 0 30px rgba(0,224,255,0.5);
+    border-color: transparent;
 }
 
 .btn-secondary {
     background: transparent;
     color: var(--main-color);
-    border: 2px solid var(--main-color);
+    border: 1.5px solid var(--main-color);
 }
 
 .btn-secondary:hover {
+    border-radius: 12px;
+    border-color: transparent;
+    color: #fff;
+}
+
+/* --- FlowButton sub-elements --- */
+.flow-btn .flow-arr {
+    position: absolute;
+    width: 16px;
+    height: 16px;
+    z-index: 9;
+    transition: all 800ms cubic-bezier(0.34,1.56,0.64,1);
+    flex-shrink: 0;
+}
+
+.flow-btn .flow-arr-left {
+    left: -25%;
+    stroke: currentColor;
+}
+
+.flow-btn:hover .flow-arr-left {
+    left: 14px;
+    stroke: #fff;
+}
+
+.flow-btn .flow-arr-right {
+    right: 14px;
+    stroke: currentColor;
+}
+
+.flow-btn:hover .flow-arr-right {
+    right: -25%;
+    stroke: #fff;
+}
+
+.flow-btn .flow-text {
+    position: relative;
+    z-index: 1;
+    transform: translateX(-6px);
+    transition: transform 800ms ease-out;
+    display: inline-block;
+}
+
+.flow-btn:hover .flow-text {
+    transform: translateX(6px);
+    color: #fff;
+}
+
+/* Expanding circle (dark fill for secondary; gradient for primary) */
+.flow-btn .flow-circle {
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+    width: 14px;
+    height: 14px;
+    border-radius: 50%;
+    opacity: 0;
+    transition: all 800ms cubic-bezier(0.19,1,0.22,1);
+    z-index: 0;
+}
+
+.btn-primary .flow-circle {
+    background: rgba(0,0,0,0.35);
+}
+
+.btn-secondary .flow-circle {
     background: var(--main-color);
-    color: var(--bg-color);
-    transform: translateY(-3px);
-    box-shadow: 0 0 20px rgba(0, 224, 255, 0.3);
+}
+
+.flow-btn:hover .flow-circle {
+    width: 280px;
+    height: 280px;
+    opacity: 1;
+}
+
+.flow-btn:active {
+    transform: scale(0.95);
 }
 
 /* Hero 3D Model Right Column */
