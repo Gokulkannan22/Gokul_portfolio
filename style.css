@@ -401,7 +401,7 @@ span {
 
 .btn-primary {
     background: var(--gradient);
-    color: #080808;
+    color: #fff;
     border: 1.5px solid transparent;
     box-shadow: 0 0 20px rgba(125,42,232,0.3);
 }
@@ -457,13 +457,14 @@ span {
 .flow-btn .flow-text {
     position: relative;
     z-index: 1;
-    transform: translateX(-6px);
+    transform: translateX(0px);
     transition: transform 800ms ease-out;
     display: inline-block;
+    padding: 0 2px;
 }
 
 .flow-btn:hover .flow-text {
-    transform: translateX(6px);
+    transform: translateX(8px);
     color: #fff;
 }
 
