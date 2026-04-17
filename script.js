@@ -85,14 +85,25 @@ window.onscroll = () => {
         {
             icon: 'bx-terminal',
             title: 'Tools & DevOps',
-            tags: ['Git & GitHub', 'Streamlit', 'Jupyter Notebook']
+            tags: ['Git & GitHub', 'Streamlit', 'Jupyter Notebook', 'Vercel', 'VS Code']
         },
         {
             icon: 'bx-trophy',
             title: 'Domain Expertise',
             tags: ['Business Intelligence', 'Predictive Modeling', 'KPI Design', 'Data Storytelling']
+        },
+        {
+            icon: 'bxl-html5',
+            title: 'Web Development',
+            tags: ['HTML5', 'CSS3', 'JavaScript', 'React', 'Three.js', 'REST APIs', 'FastAPI']
+        },
+        {
+            icon: 'bx-palette',
+            title: 'Web Design & UI/UX',
+            tags: ['Responsive Design', 'Glassmorphism', 'CSS Animations', 'SVG', 'Figma', 'SEO']
         }
     ];
+
 
     const stage = document.getElementById('skills-cg-stage');
     const wrap  = document.getElementById('skills-cg');
