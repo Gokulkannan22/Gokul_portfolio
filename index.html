@@ -328,63 +328,45 @@
         </div>
     </section>
 
-    <!-- Skills Section with ContainerScroll Animation -->
-    <section id="skills" class="skills skills-scroll-root">
+    <!-- Skills Section -->
+    <section id="skills" class="skills">
+        <h2 class="heading">My <span>Skills</span></h2>
+        <p class="section-subtitle">Technologies I work with every day</p>
 
-        <!-- Sticky scroll trigger zone -->
-        <div class="cs-container" id="skills-scroll-container">
-
-            <!-- Title that translates upward as you scroll -->
-            <div class="cs-header" id="cs-header">
-                <h2 class="heading">My <span>Skills</span></h2>
-                <p class="cs-subtitle">Technologies I work with every day</p>
+        <!-- ===== CIRCULAR SKILLS GALLERY ===== -->
+        <div class="cg-wrap" id="skills-cg" role="region" aria-label="Skills Circular Gallery">
+            <div class="cg-hint"><i class='bx bx-left-arrow-alt'></i> Drag to spin <i class='bx bx-right-arrow-alt'></i></div>
+            <div class="cg-stage" id="skills-cg-stage">
+                <!-- JS injects skill cards here -->
             </div>
+        </div>
 
-            <!-- 3D Perspective Card -->
-            <div class="cs-card-wrap" id="cs-card-wrap">
-                <div class="cs-card" id="cs-card">
-                    <div class="cs-card-inner">
-
-                        <div class="skills-container">
-                        <!-- ===== CIRCULAR SKILLS GALLERY ===== -->
-                        <div class="cg-wrap" id="skills-cg" role="region" aria-label="Skills Circular Gallery">
-                            <div class="cg-hint"><i class='bx bx-left-arrow-alt'></i> Drag to spin <i class='bx bx-right-arrow-alt'></i></div>
-                            <div class="cg-stage" id="skills-cg-stage">
-                                <!-- JS injects skill cards here -->
-                            </div>
-                        </div>
-
-                        <!-- ===== CERTIFICATIONS STRIP ===== -->
-                        <div class="certs-strip">
-                            <a href="https://coursera.org/share/cbe0f4eaf11ce9e481ea68f0290acce7" target="_blank" class="cert-card cert-card-link">
-                                <i class='bx bxl-google'></i>
-                                <div class="cert-info">
-                                    <h4>Foundations: Data, Data, Everywhere</h4>
-                                    <p>Google – Mar 2026 &nbsp;|&nbsp; ID: 5UAFQEW6V42H</p>
-                                </div>
-                            </a>
-                            <div class="cert-card">
-                                <i class='bx bx-certification'></i>
-                                <div class="cert-info">
-                                    <h4>Data Analysis with Power BI</h4>
-                                    <p>Microsoft – Jun 2025 &nbsp;|&nbsp; ID: 79YKFHGVMVGF</p>
-                                </div>
-                            </div>
-                            <div class="cert-card">
-                                <i class='bx bx-certification'></i>
-                                <div class="cert-info">
-                                    <h4>OpenCV Bootcamp</h4>
-                                    <p>OpenCV University – May 2025</p>
-                                </div>
-                            </div>
-                        </div>
-
-
-                    </div>
+        <!-- ===== CERTIFICATIONS STRIP ===== -->
+        <div class="certs-strip">
+            <a href="https://coursera.org/share/cbe0f4eaf11ce9e481ea68f0290acce7" target="_blank" class="cert-card cert-card-link">
+                <i class='bx bxl-google'></i>
+                <div class="cert-info">
+                    <h4>Foundations: Data, Data, Everywhere</h4>
+                    <p>Google – Mar 2026 &nbsp;|&nbsp; ID: 5UAFQEW6V42H</p>
                 </div>
-            </div><!-- end cs-card-wrap -->
-        </div><!-- end cs-container -->
+            </a>
+            <div class="cert-card">
+                <i class='bx bx-certification'></i>
+                <div class="cert-info">
+                    <h4>Data Analysis with Power BI</h4>
+                    <p>Microsoft – Jun 2025 &nbsp;|&nbsp; ID: 79YKFHGVMVGF</p>
+                </div>
+            </div>
+            <div class="cert-card">
+                <i class='bx bx-certification'></i>
+                <div class="cert-info">
+                    <h4>OpenCV Bootcamp</h4>
+                    <p>OpenCV University – May 2025</p>
+                </div>
+            </div>
+        </div>
     </section>
+
 
     <!-- Projects Section -->
     <section id="projects" class="projects">
