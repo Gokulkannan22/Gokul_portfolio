@@ -2169,10 +2169,34 @@ span {
 
     /* --- ORBITAL TIMELINE --- */
     .orbital-wrapper {
-        height: 60vw;
-        min-height: 340px;
-        transform: scale(0.78);
-        transform-origin: top center;
+        height: 500px;
+        min-height: 500px;
+        transform: none;  /* Remove squish — let JS handle the radius */
+        overflow: visible;
+    }
+
+    /* Bigger nodes on mobile */
+    .orbit-node {
+        width: 52px;
+        height: 52px;
+        font-size: 1.5rem;
+        border-width: 3px;
+    }
+
+    .orbit-label {
+        font-size: 0.85rem;
+        font-weight: 700;
+        top: 58px;
+    }
+
+    .orbit-core {
+        width: 72px;
+        height: 72px;
+    }
+
+    .orbit-core-inner {
+        width: 36px;
+        height: 36px;
     }
 
     /* --- FREELANCE BANNER --- */
@@ -2249,10 +2273,21 @@ span {
     }
 
     .orbital-wrapper {
-        height: 55vw;
-        min-height: 300px;
-        transform: scale(0.65);
-        transform-origin: top center;
+        height: 480px;
+        min-height: 480px;
+        transform: none;
+        overflow: visible;
+    }
+
+    .orbit-node {
+        width: 48px;
+        height: 48px;
+        font-size: 1.4rem;
+    }
+
+    .orbit-label {
+        font-size: 0.8rem;
+        top: 55px;
     }
 
     /* Chatbot takes full width on tiny screens */
