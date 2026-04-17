@@ -400,16 +400,16 @@ span {
 }
 
 .btn-primary {
-    background: var(--gradient);
-    color: #fff;
-    border: 1.5px solid transparent;
-    box-shadow: 0 0 20px rgba(125,42,232,0.3);
+    background: transparent;
+    color: var(--main-color);
+    border: 1.5px solid var(--main-color);
+    box-shadow: none;
 }
 
 .btn-primary:hover {
     border-radius: 12px;
-    box-shadow: 0 0 30px rgba(0,224,255,0.5);
     border-color: transparent;
+    color: #fff;
 }
 
 .btn-secondary {
@@ -482,10 +482,7 @@ span {
     z-index: 0;
 }
 
-.btn-primary .flow-circle {
-    background: rgba(0,0,0,0.35);
-}
-
+.btn-primary .flow-circle,
 .btn-secondary .flow-circle {
     background: var(--main-color);
 }
