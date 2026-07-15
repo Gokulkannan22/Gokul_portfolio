@@ -25,6 +25,9 @@
     <!-- Google Search Console Verification -->
     <meta name="google-site-verification" content="DQa9SRzjRtSWqhEDSUVqtibqv70E5EPKrZElWBI7ksY">
 
+    <!-- Google reCAPTCHA v2 -->
+    <script src="https://www.google.com/recaptcha/api.js" async defer></script>
+
     <!-- ====== OPEN GRAPH ====== -->
     <meta property="og:type" content="website">
     <meta property="og:locale" content="en_IN">
@@ -658,12 +661,22 @@
 
         <form id="contact-form"
             action="https://docs.google.com/forms/u/0/d/e/1FAIpQLSezyBqzCwKM6n-q9kg971Rf-KOkwRyCI9VGVngDaB1N-heeGA/formResponse"
-            method="POST" target="hidden_iframe" onsubmit="submitted=true;">
+            method="POST" target="hidden_iframe">
+            
+            <!-- Honeypot field (hidden from humans, bots will fill it and get blocked) -->
+            <div style="display: none;">
+                <input type="text" name="honeypot" id="honeypot" tabindex="-1" autocomplete="off">
+            </div>
+
             <div class="input-box">
                 <input type="text" name="entry.809597132" placeholder="Full Name" required>
                 <input type="email" name="entry.712495324" placeholder="Email Address" required>
             </div>
             <textarea name="entry.1634503589" cols="30" rows="10" placeholder="Your Message" required></textarea>
+
+            <!-- Google reCAPTCHA Widget (Replace sitekey with your production key) -->
+            <div class="g-recaptcha" data-sitekey="YOUR_RECAPTCHA_SITE_KEY" data-theme="dark" style="margin-bottom: 2rem; display: flex; justify-content: center;"></div>
+
             <input type="submit" value="Send Message" class="btn btn-primary">
         </form>
     </section>

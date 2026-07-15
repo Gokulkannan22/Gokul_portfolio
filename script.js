@@ -5,12 +5,46 @@ let submitted = false;
 function showPopup() {
     document.getElementById('success-popup').classList.add('active');
     document.getElementById('contact-form').reset();
+    if (typeof grecaptcha !== 'undefined') {
+        grecaptcha.reset(); // Reset reCAPTCHA widget on form reset
+    }
     submitted = false; // reset state
 }
 
 function closePopup() {
     document.getElementById('success-popup').classList.remove('active');
 }
+
+// Contact Form reCAPTCHA and Honeypot validation
+document.addEventListener('DOMContentLoaded', () => {
+    const contactForm = document.getElementById('contact-form');
+    if (contactForm) {
+        contactForm.addEventListener('submit', function(e) {
+            // Check Honeypot first (simple bot spam check)
+            const honeypot = document.getElementById('honeypot');
+            if (honeypot && honeypot.value !== '') {
+                e.preventDefault();
+                console.warn('Spam detected via Honeypot.');
+                // Simulate success so the bot thinks it succeeded but we block the submission
+                showPopup();
+                return false;
+            }
+
+            // Check reCAPTCHA
+            if (typeof grecaptcha !== 'undefined') {
+                const response = grecaptcha.getResponse();
+                if (response.length === 0) {
+                    e.preventDefault();
+                    alert('Please verify that you are not a robot (reCAPTCHA).');
+                    return false;
+                }
+            }
+            
+            // Set submitted to true to trigger showPopup on iframe load
+            submitted = true;
+        });
+    }
+});
 
 // Toggle menu icon and navbar
 let menuIcon = document.querySelector('#menu-icon');
